@@ -12,6 +12,8 @@ export interface PostPreviewProps {
         author: string;
         slug: string;
         excerpt: string;
+        published: string;
+        lastUpdated: string;
     };
 }
 
@@ -37,6 +39,8 @@ const PostPreview = ({ post }: any) => {
         <ArticleWrapper id={post.slug}>
             <ArticleHeaderWrapper>
                 <Link to={post.slug}>{post.title}</Link>
+                <p>{post.published}</p>
+                <p>{post.lastUpdated}</p>
             </ArticleHeaderWrapper>
             <ArticleBodyWrapper>
                 <div>

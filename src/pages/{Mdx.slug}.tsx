@@ -16,8 +16,12 @@ const BlogPost = ({ data }: any) => {
         <Layout>
             <MDX>
                 <Seo title="Using TypeScript" description="" />
-                <GatsbyImage image={Gimage} alt={post.frontmatter.imageAlt} />
                 <h1>{post?.frontmatter?.title}</h1>
+                <p>{post?.frontmatter?.published}</p>
+                <p>{post?.frontmatter?.lastUpdated}</p>
+
+                <GatsbyImage image={Gimage} alt={post.frontmatter.imageAlt} />
+
                 <p>{post?.frontmatter?.excerpt}</p>
                 <MDXRenderer>{post?.body}</MDXRenderer>
                 {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
@@ -33,6 +37,8 @@ export const query = graphql`
         mdx(id: { eq: $id }) {
             frontmatter {
                 title
+                lastUpdated(formatString: "MMMM D, YYYY")
+                published(formatString: "MMMM D, YYYY")
                 image {
                     childImageSharp {
                         gatsbyImageData(layout: CONSTRAINED)
