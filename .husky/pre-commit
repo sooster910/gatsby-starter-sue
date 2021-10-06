@@ -3,5 +3,6 @@
 
 echo '‍🔬👩‍💻 Hi you just started husky..'
 
+#Check eslint
 
-
+npm lint-staged || (echo ' 😱😥  ESLint Check Failed 😑 🤯 ')
