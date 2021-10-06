@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'gatsby';
-import usePosts from '../hooks/usePosts';
+import { usePosts } from '../hooks/usePosts';
 import Layout from '../components/Layout';
 import Seo from '../components/Seo';
 import PostPreview from '../components/PostPreview';

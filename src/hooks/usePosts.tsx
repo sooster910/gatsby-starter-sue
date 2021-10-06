@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby';
 
-const usePosts = () => {
+export const usePosts = () => {
     const data: any = useStaticQuery(graphql`
         query {
             allMdx(
@@ -33,6 +33,7 @@ const usePosts = () => {
                         imageAlt
                     }
                     excerpt(truncate: true)
+                    timeToRead
                 }
             }
         }
@@ -47,8 +48,7 @@ const usePosts = () => {
         slug: post.frontmatter.slug,
         image: post.frontmatter?.image?.childImageSharp,
         imageAlt: post.frontmatter?.imageAlt,
+        timeToRead: post.timeToRead,
         excerpt: post.excerpt,
     }));
 };
-
-export default usePosts;
