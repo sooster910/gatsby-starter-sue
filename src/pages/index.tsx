@@ -9,13 +9,13 @@ const IndexPage = () => {
     const posts = usePosts();
     return (
         <Layout>
-            <Seo title="Home" description="" />
-            <Bio isProfile={true} />
+            <Seo title="Home" description="" />;
+            <Bio isProfile={true} />;
 cccccaaa
             dddddddd
             {posts.map((post: any, index: string) => {
                 return <PostPreview post={post} key={post.slug} />;
-            })}
+            })};;
 
             <p>
                 <Link to="/page-2/">Go to page 2</Link> <br />
