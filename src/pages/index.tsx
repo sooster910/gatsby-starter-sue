@@ -11,8 +11,8 @@ const IndexPage = () => {
         <Layout>
             <Seo title="Home" description="" />
             <Bio isProfile={true} />
-aaaaaaad
-aaaaaaad
+ccccc
+            ddddd
             {posts.map((post: any, index: string) => {
                 return <PostPreview post={post} key={post.slug} />;
             })}
