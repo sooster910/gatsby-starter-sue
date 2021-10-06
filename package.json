@@ -31,7 +31,7 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": "eslint --cache --fix",
-    "*.{ts,tsx}": "eslint --cache --fix"
+    "*.{ts,tsx,js,jsx}": "pretteir --write"
   },
   "dependencies": {
     "@deckdeckgo/highlight-code": "^3.3.0",
