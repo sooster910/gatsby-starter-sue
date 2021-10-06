@@ -5,7 +5,8 @@ import styled from '@emotion/styled';
 // import ReadLink from './read-link';
 import * as themeType from '../../emotion';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'; // post page
-
+import Emoji from './Emoji';
+import { formatReadingTimeToEmoji } from '../utils/helper';
 export interface PostPreviewProps {
     post: {
         title: string;
@@ -14,6 +15,7 @@ export interface PostPreviewProps {
         excerpt: string;
         published: string;
         lastUpdated: string;
+        timeToRead: number;
     };
 }
 
@@ -35,12 +37,19 @@ const ArticleBodyWrapper = styled.div`
 
 const PostPreview = ({ post }: any) => {
     const thumbnail = getImage(post.image);
+    const emojis = formatReadingTimeToEmoji(post.timeToRead);
     return (
         <ArticleWrapper id={post.slug}>
             <ArticleHeaderWrapper>
                 <Link to={post.slug}>{post.title}</Link>
                 <p>{post.published}</p>
                 <p>{post.lastUpdated}</p>
+                <span role="img">
+                    {emojis.list.map((emoji, i) => (
+                        <Emoji symbol={emoji} label={emojis.name} key={`${emojis.name}_${i}`} />
+                    ))}
+                </span>
+                <span>&bull; {`${post.timeToRead}min`}</span>
             </ArticleHeaderWrapper>
             <ArticleBodyWrapper>
                 <div>
