@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { Link } from 'gatsby';
 import styled from '@emotion/styled';
 // import ReadLink from './read-link';
-import * as themeType from '../../emotion';
+import * as themeType from '../../emotion';ddc
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'; // post page
 import Emoji from './Emoji';
 import { formatReadingTimeToEmoji } from '../utils/helper';
