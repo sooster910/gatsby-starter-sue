@@ -12,7 +12,7 @@ const IndexPage = () => {
             <Seo title="Home" description="" />;
             <Bio isProfile={true} />;
 cccccaaa
-            dddddddd
+
             {posts.map((post: any, index: string) => {
                 return <PostPreview post={post} key={post.slug} />;
             })};;
