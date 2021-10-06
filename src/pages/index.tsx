@@ -10,14 +10,12 @@ const IndexPage = () => {
     return (
         <Layout>
             <Seo title="Home" description="" />;
-            <Bio isProfile={true} />;
-cccccaaa
-
+            <Bio isProfile={true} />; cccccaaa
             {posts.map((post: any, index: string) => {
                 return <PostPreview post={post} key={post.slug} />;
             })};;
-
-            <p>;;
+            <p>
+                ;;
                 <Link to="/page-2/">Go to page 2</Link> <br />
                 <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
                 <Link to="/hello-world/">hello world</Link>
