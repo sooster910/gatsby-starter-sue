@@ -6,7 +6,7 @@ import Seo from '../components/Seo';
 import PostPreview from '../components/PostPreview';
 import Bio from '../components/Bio';
 const IndexPage = () => {
-    const posts = usePosts();
+    const posts = usePosts();aag
     return (
         <Layout>
             <Seo title="Home" description="" />;
