@@ -1,66 +1,71 @@
-import React from 'react';
-import { css } from '@emotion/react';
-import { Link } from 'gatsby';
-import styled from '@emotion/styled';
+import React from "react";
+import { css } from "@emotion/react";
+import { Link } from "gatsby";
+import styled from "@emotion/styled";
 // import ReadLink from './read-link';
-import * as themeType from '../../emotion';ddc
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'; // post page
-import Emoji from './Emoji';
-import { formatReadingTimeToEmoji } from '../utils/helper';
+import * as themeType from "../../emotion";
+ddc;
+import { GatsbyImage, getImage } from "gatsby-plugin-image"; // post page
+import Emoji from "./Emoji";
+import { formatReadingTimeToEmoji } from "../utils/helper";
 export interface PostPreviewProps {
-    post: {
-        title: string;
-        author: string;
-        slug: string;
-        excerpt: string;
-        published: string;
-        lastUpdated: string;
-        timeToRead: number;
-    };
+  post: {
+    title: string;
+    author: string;
+    slug: string;
+    excerpt: string;
+    published: string;
+    lastUpdated: string;
+    timeToRead: number;
+  };
 }
 
 const ArticleWrapper = styled.article`
-    position: relative;
-    background: ${({ theme }) => theme.colors.darkSecondary};
-    padding: 1rem;
-    border-radius: 12px;
+  position: relative;
+  background: ${({ theme }) => theme.colors.darkSecondary};
+  padding: 1rem;
+  border-radius: 12px;
 `;
 const ArticleHeaderWrapper = styled.h3``;
 const ArticleBodyWrapper = styled.div`
-    ${({ theme }) => `
+  ${({ theme }) => `
     color:${theme.colors.onLightPrimary}
     `};
-    position: relative;
-    width: 100%;
-    z-index: 3;
+  position: relative;
+  width: 100%;
+  z-index: 3;
 `;
 
 const PostPreview = ({ post }: any) => {
-    const thumbnail = getImage(post.image);
-    const emojis = formatReadingTimeToEmoji(post.timeToRead);
-    return (
-        <ArticleWrapper id={post.slug}>
-            <ArticleHeaderWrapper>
-                <Link to={post.slug}>{post.title}</Link>
-                <p>{post.published}</p>
-                <p>{post.lastUpdated}</p>
-                <span role="img">
-                    {emojis.list.map((emoji, i) => (
-                        <Emoji symbol={emoji} label={emojis.name} key={`${emojis.name}_${i}`} />
-                    ))}
-                </span>
-                <span>&bull; {`${post.timeToRead}min`}</span>
-            </ArticleHeaderWrapper>
-            <ArticleBodyWrapper>
-                <div>
-                    <p>{post.excerpt}</p>
-                    <GatsbyImage image={thumbnail} alt={post.imageAlt} />
-                </div>
+  const thumbnail = getImage(post.image);
+  const emojis = formatReadingTimeToEmoji(post.timeToRead);
+  return (
+    <ArticleWrapper id={post.slug}>
+      <ArticleHeaderWrapper>
+        <Link to={post.slug}>{post.title}</Link>
+        <p>{post.published}</p>
+        <p>{post.lastUpdated}</p>
+        <span role="img">
+          {emojis.list.map((emoji, i) => (
+            <Emoji
+              symbol={emoji}
+              label={emojis.name}
+              key={`${emojis.name}_${i}`}
+            />
+          ))}
+        </span>
+        <span>&bull; {`${post.timeToRead}min`}</span>
+      </ArticleHeaderWrapper>
+      <ArticleBodyWrapper>
+        <div>
+          <p>{post.excerpt}</p>
+          <GatsbyImage image={thumbnail} alt={post.imageAlt} />
+        </div>
 
-                <Link to={post.slug}>read this post &rarr;</Link>
-            </ArticleBodyWrapper>
-        </ArticleWrapper>
-    );
+        <Link to={post.slug}>read this post &rarr;</Link>
+      </ArticleBodyWrapper>
+    </ArticleWrapper>
+  );
 };
 
 export default PostPreview;
