@@ -13,7 +13,7 @@ const IndexPage = () => {
             <Bio isProfile={true} />;;;
             {posts.map((post: any) => {
                 return <PostPreview post={post} key={post.slug} />;
-            })}
+            })};;
 
             <p>
 
