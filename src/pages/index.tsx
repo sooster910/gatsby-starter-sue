@@ -9,7 +9,7 @@ const IndexPage = () => {
   const posts = usePosts();
   return (
     <Layout>
-      <Seo title="Home" description="" />;
+      <Seo title="Home" description="" />
       <Bio isProfile={true} />
       {posts.map((post: any) => {
         return <PostPreview post={post} key={post.slug} />;
