@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
-        "jsx": "preserve",
+        "target": "esnext",
+        "jsx": "react",
         "lib": ["dom", "es2015", "es2017"],
         "strict": true,
         "noEmit": true,
@@ -12,8 +12,15 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "removeComments": false,
-        "typeRoots": ["node_modules/@types"],
-        "types": ["@emotion/react/types/css-prop"]
+        "pretty": true, // error in cli with colorful
+        "noEmitOnError": true,
+        "allowJs": true,
+        "checkJs": true,
+
     },
-    "include": ["./src/**/*"]
+
+    "exclude": ["node_modules","public",".cache"],
+    "include": [
+        "src/**/*"
+    ]
 }

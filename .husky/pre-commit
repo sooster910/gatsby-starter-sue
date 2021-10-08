@@ -1,8 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo '‍🔬👩‍💻 Hi you just started husky..'
-
-#Check eslint
-
-npx lint-staged || (echo ' 😱😥  ESLint Check Failed 😑 🤯 ')
+npx lint-staged
