@@ -1,13 +1,13 @@
 import styled from '@emotion/styled'
 
-const MDX = styled.main`
+const MDX = styled('main')`
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    color: ${(props) => props.theme.colors.onLightSecondary};
+    color: ${(props) => props.theme.colors.onLightSecondary}};
   }
 
   h1 {
