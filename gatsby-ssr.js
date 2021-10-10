@@ -6,7 +6,9 @@
 
 // You can delete this file if you're not using it
 /** @jsx jsx */
-import { jsx, Provider, useTheme } from '@emotion/react';
-import Theme from './src/theme/theme';
-
-export const wrapRootElement = ({ element }) => <ThemeProvider theme={Theme}>{element}</ThemeProvider>;
+// import { jsx, ThemeProvider } from '@emotion/react'
+// import Theme from './src/styles/styles'
+//
+// export const wrapRootElement = ({ element }) => (
+//   <ThemeProvider styles={Theme}>{element}</ThemeProvider>
+// )

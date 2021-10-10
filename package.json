@@ -25,7 +25,7 @@
     "check-types": "rm -rf ./js/ && tsc --pretty --noEmit",
     "check-format": "prettier --check .",
     "type-lint": "npm run lint && npm run type-check",
-    "lint": "eslint src/pages/index.tsx",
+    "lint": "eslint",
     "pre-commit": "lint-staged",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "prepare": "husky install"

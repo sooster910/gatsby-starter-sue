@@ -6,14 +6,16 @@ import Seo from '../components/Seo'
 import PostPreview from '../components/PostPreview'
 import Bio from '../components/Bio'
 import { ReactElement } from 'react'
+import { useAvatar } from '../hooks/useAvatar'
 
 const IndexPage = (): ReactElement => {
   const posts = usePosts()
-
+  const avatar = useAvatar()
+  console.log('avatar', avatar)
   return (
     <Layout>
       <Seo title="Home" description="" />
-      <Bio isProfile={true} />
+      <Bio />
       {posts.map((post: any) => {
         return <PostPreview post={post} key={post.slug} />
       })}

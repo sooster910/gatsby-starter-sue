@@ -1,23 +1,20 @@
-import React from "react";
-import { css } from "@emotion/react";
-import { Link } from "gatsby";
-import styled from "@emotion/styled";
-// import ReadLink from './read-link';
-import * as themeType from "../../emotion";
-ddc;
-import { GatsbyImage, getImage } from "gatsby-plugin-image"; // post page
-import Emoji from "./Emoji";
-import { formatReadingTimeToEmoji } from "../utils/helper";
+import React from 'react'
+import { Link } from 'gatsby'
+import styled from '@emotion/styled'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image' // post page
+import Emoji from './Emoji'
+import { formatReadingTimeToEmoji } from '../utils/helper'
+
 export interface PostPreviewProps {
   post: {
-    title: string;
-    author: string;
-    slug: string;
-    excerpt: string;
-    published: string;
-    lastUpdated: string;
-    timeToRead: number;
-  };
+    title: string
+    author: string
+    slug: string
+    excerpt: string
+    published: string
+    lastUpdated: string
+    timeToRead: number
+  }
 }
 
 const ArticleWrapper = styled.article`
@@ -25,8 +22,8 @@ const ArticleWrapper = styled.article`
   background: ${({ theme }) => theme.colors.darkSecondary};
   padding: 1rem;
   border-radius: 12px;
-`;
-const ArticleHeaderWrapper = styled.h3``;
+`
+const ArticleHeaderWrapper = styled.h3``
 const ArticleBodyWrapper = styled.div`
   ${({ theme }) => `
     color:${theme.colors.onLightPrimary}
@@ -34,11 +31,11 @@ const ArticleBodyWrapper = styled.div`
   position: relative;
   width: 100%;
   z-index: 3;
-`;
+`
 
 const PostPreview = ({ post }: any) => {
-  const thumbnail = getImage(post.image);
-  const emojis = formatReadingTimeToEmoji(post.timeToRead);
+  const thumbnail = getImage(post.image)
+  const emojis = formatReadingTimeToEmoji(post.timeToRead)
   return (
     <ArticleWrapper id={post.slug}>
       <ArticleHeaderWrapper>
@@ -65,7 +62,7 @@ const PostPreview = ({ post }: any) => {
         <Link to={post.slug}>read this post &rarr;</Link>
       </ArticleBodyWrapper>
     </ArticleWrapper>
-  );
-};
+  )
+}
 
-export default PostPreview;
+export default PostPreview
