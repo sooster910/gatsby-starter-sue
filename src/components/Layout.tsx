@@ -22,7 +22,7 @@ interface LayoutProps {
 const Main = styled.main`
   margin: 2rem auto 4rem;
   max-width: 90vw;
-  width: 550px;
+  width: 670px;
 `
 
 const Layout = ({ children }: LayoutProps) => {
