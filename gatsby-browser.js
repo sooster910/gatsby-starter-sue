@@ -11,17 +11,15 @@ const GlobalStyles = () => {
           box-sizing: border-box;
           margin: 0;
         }
-        * + * {
-          margin-top: 1rem;
-        }
+
         html,
         body {
           margin: 0;
           font-family: ${theme.font.main};
           background: ${theme.colors.darkPrimary};
           color: ${theme.colors.onLightSecondary};
-          font-size: 16px;
-          line-height: 1.4;
+          font-size: ${theme.font.size.f_18};
+          line-height: 1.7;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: auto;
         }

@@ -17,14 +17,15 @@ export interface PostPreviewProps {
   }
 }
 
-const ArticleWrapper = styled.article`
+const StyledArticlee = styled.article`
   position: relative;
   background: ${({ theme }) => theme.colors.darkSecondary};
   padding: 1rem;
   border-radius: 12px;
+  margin-top: 1rem;
 `
-const ArticleHeaderWrapper = styled.h3``
-const ArticleBodyWrapper = styled.div`
+const StyledArticleHeader = styled.h3``
+const StyledArticleBody = styled.div`
   ${({ theme }) => `
     color:${theme.colors.onLightPrimary}
     `};
@@ -37,8 +38,8 @@ const PostPreview = ({ post }: any) => {
   const thumbnail = getImage(post.image)
   const emojis = formatReadingTimeToEmoji(post.timeToRead)
   return (
-    <ArticleWrapper id={post.slug}>
-      <ArticleHeaderWrapper>
+    <StyledArticlee id={post.slug}>
+      <StyledArticleHeader>
         <Link to={post.slug}>{post.title}</Link>
         <p>{post.published}</p>
         <p>{post.lastUpdated}</p>
@@ -52,16 +53,16 @@ const PostPreview = ({ post }: any) => {
           ))}
         </span>
         <span>&bull; {`${post.timeToRead}min`}</span>
-      </ArticleHeaderWrapper>
-      <ArticleBodyWrapper>
+      </StyledArticleHeader>
+      <StyledArticleBody>
         <div>
           <p>{post.excerpt}</p>
           <GatsbyImage image={thumbnail} alt={post.imageAlt} />
         </div>
 
         <Link to={post.slug}>read this post &rarr;</Link>
-      </ArticleBodyWrapper>
-    </ArticleWrapper>
+      </StyledArticleBody>
+    </StyledArticlee>
   )
 }
 

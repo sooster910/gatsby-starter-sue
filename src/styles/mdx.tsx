@@ -1,6 +1,9 @@
 import styled from '@emotion/styled'
 
-const MDX = styled('main')`
+const MDX = styled('article')`
+  * + * {
+    margin-top: 1rem;
+  }
   h1,
   h2,
   h3,
