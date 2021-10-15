@@ -21,7 +21,13 @@ module.exports = {
   },
   rules: {
     'import/prefer-default-export': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
+    "react/react-in-jsx-scope": "off", //es-next won't need react on top of that
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ],
     'react/no-unescaped-entities': [
       'error',
       {
