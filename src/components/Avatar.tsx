@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react'
+import * as React from 'react'
 import styled from '@emotion/styled'
 import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image'
 interface ParamProps {
   image: IGatsbyImageData
 }
-const AvatarWrapper = styled(GatsbyImage)`
+const StyledAvatar = styled(GatsbyImage)`
   width: 120px;
   height: 120px;
   margin-bottom: 30px;
@@ -15,9 +15,9 @@ const AvatarWrapper = styled(GatsbyImage)`
     height: 80px;
   }
 `
-export const Avatar = ({ image }: ParamProps): ReactElement => {
+export const Avatar = ({ image }: ParamProps): React.ReactElement => {
   const avatarImage = getImage(image)
   console.log('avatarImage', avatarImage)
 
-  return <AvatarWrapper image={avatarImage!} alt="Profile Image" />
+  return <StyledAvatar image={avatarImage} alt="Profile Image" />
 }

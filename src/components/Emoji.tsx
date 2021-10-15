@@ -1,11 +1,11 @@
 import * as React from 'react'
 
-type emojiProps = {
+interface emojiProps extends React.HTMLAttributes<HTMLSpanElement> {
   label?: string
   symbol?: string
 }
 
-const Emoji = (props: emojiProps): React.ReactElement => (
+export const Emoji = (props: emojiProps): React.ReactElement => (
   <span
     className="emoji"
     role="img"
@@ -15,4 +15,3 @@ const Emoji = (props: emojiProps): React.ReactElement => (
     {props.symbol}
   </span>
 )
-export default Emoji
