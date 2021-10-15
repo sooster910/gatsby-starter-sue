@@ -3,7 +3,6 @@ import { useStaticQuery, graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import { Avatar } from './Avatar'
 import { useAvatar } from '../hooks/useAvatar'
-import { ReactElement } from 'react'
 
 const BioWrapper = styled.div`
   display: flex;
@@ -12,7 +11,7 @@ const Summary = styled.p`
   padding-left: ${(props) => props.theme.spacings.medium};
 `
 
-const Bio = (): ReactElement => {
+const Bio = (): React.ReactElement => {
   const avatar = useAvatar()
   const data = useStaticQuery(graphql`
     query BioQuery {
@@ -29,8 +28,6 @@ const Bio = (): ReactElement => {
       }
     }
   `)
-
-  // Set these values by editing "siteMetadata" in gatsby-config.js
   const author = data.site.siteMetadata?.author
   const social = data.site.siteMetadata?.social
 
