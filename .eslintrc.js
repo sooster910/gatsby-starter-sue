@@ -1,5 +1,4 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -12,8 +11,9 @@ module.exports = {
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true
-    }
+    },
   },
+  parser: '@typescript-eslint/parser',
   settings: {
     react: {
       version: 'detect'
