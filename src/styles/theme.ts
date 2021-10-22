@@ -1,24 +1,40 @@
-const theme = {
-  font: {
-    main: 'Muli, sans-serif',
-    code: 'Roboto Mono, monospace',
-    size: {
-      f_16: '1rem',
-      f_18: '18px',
-    },
-  },
+import { primaryFont, code, typeScale, headerFont } from '../utils'
+import { gray, pink, neutral } from '../utils'
+
+export const theme = {
+  primaryFont,
+  headerFont,
+  code,
+  h1: typeScale.header1,
+  h2: typeScale.header2,
+  h3: typeScale.header3,
+  h4: typeScale.header4,
+  h5: typeScale.header5,
+  p: typeScale.paragraph,
+  helperText: typeScale.helperText,
+  copyrightText: typeScale.copyrightText,
+
   colors: {
-    darkPrimary: 'rgba(17, 24, 39, 1.8)',
-    darkSecondary: '#202E4B',
-    onLightPrimary: '#CCCBC8',
-    onLightSecondary: '#F2F1ED',
-    onDarkPrimary: '',
-    pink: '#FF3D68',
-    white: '#e7e8e9',
-    background_pink: '#F8E2CF',
-    background_dark: '#1C2333',
-    background_light: '#EEE2DC',
-    yellow: '#fdc57b',
+    primaryColor: neutral[100],
+    primaryHoverColor: pink[20],
+    primaryActiveColor: pink[100],
+    secondaryColor: pink[100],
+    textColorOnSecondary: gray[100],
+    textColorInverted: gray[10],
+    textColorOnPrimary: gray[80],
+
+    //
+    //   darkPrimary: 'rgba(17, 24, 39, 1.8)',
+    //   darkSecondary: '#202E4B',
+    //   onLightPrimary: '#CCCBC8',
+    //   onLightSecondary: '#F2F1ED',
+    //   onDarkPrimary: '',
+    //   pink: '#FF3D68',
+    //   white: '#e7e8e9',
+    //   background_pink: '#F8E2CF',
+    //   background_dark: '#1C2333',
+    //   background_light: '#EEE2DC',
+    //   yellow: '#fdc57b',
   },
   breakpoints: {
     mobile: 'only screen and (max-width:50rem)',
@@ -38,7 +54,9 @@ const theme = {
     link: 'color 0.2s ease',
   },
   shadows: {
-    shadow1: '0px 5px 20px rgba(30,30,31,0.05)',
+    shadow1: 'rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px',
+    shadow2: '0px 5px 20px rgba(30,30,31,0.05)',
   },
 }
+
 export default theme

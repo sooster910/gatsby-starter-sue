@@ -42,10 +42,12 @@
     "@emotion/styled": "^11.3.0",
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
+    "@types/mdx-js__react": "^1.5.4",
     "@types/react-helmet": "^6.1.2",
     "gatsby": "^3.13.0",
     "gatsby-core-utils": "^2.13.0",
     "gatsby-plugin-emotion": "^6.13.0",
+    "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-image": "^1.13.0",
     "gatsby-plugin-manifest": "^3.13.0",
     "gatsby-plugin-mdx": "^2.13.0",
@@ -61,12 +63,14 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "twemoji": "^13.1.0"
   },
   "devDependencies": {
     "@types/node": "^16.10.3",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
+    "@types/twemoji": "^12.1.2",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
     "eslint": "^7.32.0",

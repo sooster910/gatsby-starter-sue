@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-const MDX = styled('article')`
+export const MDX = styled('article')`
   * + * {
     margin-top: 1rem;
   }
@@ -10,19 +10,15 @@ const MDX = styled('article')`
   h4,
   h5,
   h6 {
-    color: ${(props) => props.theme.colors.onLightSecondary}};
+    color: ${(props) => props.theme.colors.textColorOnSecondary};
+    font-weight: 600;
   }
-
-  h1 {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-    font-weight: 400;
-  }
-  ,
   h2 {
-    font-size: 1.5rem;
+    font-size: 2rem;
     line-height: 1.875rem;
-    font-weight: 400;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+    margin-top: 3.75rem;
   }
   ,
   h3 {
@@ -46,8 +42,8 @@ const MDX = styled('article')`
   p {
     font-size: 1.125rem;
     line-height: 1.875rem;
-    font-weight: 400;
-    color: ${(props) => props.theme.colors.onLightSecondary};
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.textColorOnPrimary};
   }
   blockquote {
     font-size: 1.5rem;
@@ -55,8 +51,10 @@ const MDX = styled('article')`
     text-align: center;
     max-width: 36rem;
     margin: 3rem auto;
-    border-left: 5px solid ${(props) => props.theme.colors.background_light};
-    padding-left: 1rem;
+    border-left: 3px solid ${({ theme }) => theme.colors.primaryActiveColor};
+    padding: 1rem;
+    border-radius: 4px;
+    background: ${({ theme }) => theme.colors.primaryHoverColor};
   }
 
   em {
@@ -65,7 +63,7 @@ const MDX = styled('article')`
 
   a {
     text-decoration: underline;
-    color: ${(props) => props.theme.colors.onLightPrimary};
+    color: ${({ theme }) => theme.colors.primaryActiveColor};
   }
 
   strong {
@@ -73,23 +71,50 @@ const MDX = styled('article')`
   }
 
   code {
-    color: ${(props) => props.theme.colors.pink};
+    color: ${(props) => props.theme.colors.textColorOnPrimary};
     padding: 3px 6px;
     font-size: 0.9rem;
-    border: 1px solid ${(props) => props.theme.colors.background_pink};
+    border: 1px solid ${(props) => props.theme.colors.primaryHoverColor};
     border-radius: 4px;
   }
 
   deckgo-highlight-code {
-    --deckgo-highlight-code-font-size: ${(props) => props.theme.font.size.f_18};
-    --deckgo-highlight-code-line-height: ${(props) =>
-      props.theme.spacings.medium};
+    --deckgo-highlight-code-font-size: ${({ theme }) => theme.primaryFont};
+    --deckgo-highlight-code-line-height: ${({ theme }) =>
+      theme.spacings.medium};
+    margin: 2rem 0;
   }
 
   hr {
     border: none;
     border-bottom: 1px solid rgba(214, 210, 196, 0.3);
   }
-`
 
-export default MDX
+  img {
+    margin: 2rem 0;
+  }
+  ul > li {
+    padding-left: 1.75em;
+    position: relative;
+
+    ::before {
+      background-color: ${({ theme }) => theme.colors.primaryHoverColor};
+      border-radius: 50%;
+      content: '';
+      height: 0.375em;
+      left: 0.25em;
+      position: absolute;
+      top: 0.6875em;
+      width: 0.375em;
+    }
+  }
+  code {
+    padding: 2px 5px;
+    background: ${({ theme }) => theme.colors.primaryHoverColor};
+    color: ${({ theme }) => theme.colors.primaryActiveColor};
+    border-radius: 3px;
+    font-family: ${({ theme }) => theme.code};
+    font-weight: 600;
+    border-radius: 7px;
+  }
+`

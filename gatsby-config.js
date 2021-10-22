@@ -1,17 +1,7 @@
+const siteConfig = require('./siteConfig')
+
 module.exports = {
-  siteMetadata: {
-    title: `Gatsby blog with TypeScript`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: {
-      name: `@Hyunsu Joo`,
-      summary: `who lives and works in San Francisco building useful things.`,
-    },
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
-    social: {
-      twitter: `kylemathews`,
-    },
-    titleTemplate: '%s · The Real Hero',
-  },
+  siteMetadata: siteConfig,
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
@@ -31,7 +21,21 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         excerpt_separator: `<!--end-->`,
-        truncate: true,
+        plugins: [],
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `posts`,
+        path: `${__dirname}/posts/`,
       },
     },
     {
@@ -50,28 +54,6 @@ module.exports = {
         ],
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `pages`,
-        path: `${__dirname}/src/pages/`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `posts`,
-        path: `${__dirname}/posts`,
-      },
-    },
-
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -86,6 +68,21 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+
+    // {
+    //   resolve: `gatsby-plugin-google-fonts`,
+    //   options: {
+    //     fonts: [
+    //       `Inter : 400,500,600,700,`,
+    //       `source sans pro:300,400,400i,700`,
+    //       `Noto Sans KR:400,500,700,400i`,
+    //       // `Patua One:400`,
+    //       `JetBrains Mono:400,500`,
+    //       `Lato : 700`, // you can also specify font weights and styles
+    //     ],
+    //     display: 'swap',
+    //   },
+    // },
 
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline

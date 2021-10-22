@@ -11,6 +11,9 @@ import Bio from '../components/Bio'
 import { Twemoji } from '../components/Twemoji'
 import { PrevNextNav } from '../components/prevNextNav/PrevNextNav'
 import { Dates } from '../components/Dates'
+import { Comments } from '../components/Comment'
+import config from '../../siteConfig'
+import styled from '@emotion/styled'
 
 export type singlePostData = {
   id: string
@@ -28,8 +31,16 @@ export type singlePostData = {
   }
   body: string
 }
+interface Nodes {
+  id: string
+  slug: string
+  frontmatter: {
+    title: string
+    lastUpdated: string
+  }
+}
 
-export type allPostData = {
+export type AllPostData = {
   allMdx: {
     nodes: {
       id: string
@@ -41,11 +52,41 @@ export type allPostData = {
     }[]
   }
 }
+type nodes = {
+  id: string
+  slug: string
+  frontmatter: {
+    title: string
+    lastUpdated: string
+  }
+}[]
+export type allPostData = {
+  allMdx: {
+    nodes: nodes
+  }
+}
 type DataProps = {
   singlePost: singlePostData
-  allPost: allPostData
+  allPost: AllPostData
 }
-const BlogPost: React.FC<PageProps<DataProps>> = ({ data }) => {
+
+const StyledPostHeader = styled.div`
+  position: relative;
+  padding-bottom: 2.4em;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.textColorInverted};
+  margin-bottom: 3em;
+`
+const StyledPostTitle = styled.h1`
+  font-size: 3rem;
+  line-height: 3.5rem;
+  font-family: ${(props) => props.theme.primaryFont};
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-align: center;
+  padding-top: 1rem;
+`
+const StyledPostDate = styled.div``
+const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
   const shortcodes = { Twemoji }
   const { singlePost, allPost: { nodes } = [] } = data
   const frontmatter = singlePost?.frontmatter
@@ -56,7 +97,7 @@ const BlogPost: React.FC<PageProps<DataProps>> = ({ data }) => {
     curIdx !== -1 && nodes[curIdx - 1] !== undefined ? nodes[curIdx - 1] : -1
   const next =
     curIdx !== -1 && nodes[curIdx + 1] !== undefined ? nodes[curIdx + 1] : -1
-
+  const { utterances } = config?.comments
   return (
     <Layout>
       <MDXProvider components={shortcodes}>
@@ -73,22 +114,29 @@ const BlogPost: React.FC<PageProps<DataProps>> = ({ data }) => {
           }}
         />
 
-        <MDX>
-          <h1>{frontmatter?.title}</h1>
-          <Dates
-            published={frontmatter?.published}
-            updated={frontmatter?.lastUpdated}
-            timeToRead={singlePost.timeToRead}
-            isPreview={false}
-          />
-          {/*<p>{frontmatter?.excerpt}</p>*/}
+        <StyledPostHeader>
+          <StyledPostTitle>{frontmatter?.title}</StyledPostTitle>
+          <StyledPostDate>
+            <Dates
+              published={frontmatter?.published}
+              updated={frontmatter?.lastUpdated}
+              timeToRead={singlePost.timeToRead}
+              isPreview={false}
+            />
+          </StyledPostDate>
+        </StyledPostHeader>
 
+        {/*<p>{frontmatter?.excerpt}</p>*/}
+        <MDX>
           <MDXRenderer>{singlePost?.body}</MDXRenderer>
-          {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-          <Bio isProfile={false} />
         </MDX>
+        {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+        <Bio isProfile={false} />
+
         <PrevNextNav prev={prev} next={next} />
       </MDXProvider>
+
+      {utterances?.enabled && <Comments repo={utterances.repo} />}
     </Layout>
   )
 }
