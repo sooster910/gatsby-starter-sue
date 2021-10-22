@@ -5,19 +5,19 @@ import styled from '@emotion/styled'
 import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image' // post page
 import { StyledPostPreview } from './links/Link.style'
 import { Dates } from './Dates'
-// export interface PostPreviewProps {
-//   post: {
-//     title: string
-//     author: string
-//     slug: string
-//     excerpt: string
-//     published: string
-//     lastUpdated: string
-//     timeToRead: number
-//     imageAlt: string
-//     image: IGatsbyImageData
-//   }
-// }
+export interface PostPreviewProps {
+  post: {
+    title: string
+    author: string
+    slug: string
+    excerpt: string
+    published: string
+    lastUpdated: string
+    timeToRead: number
+    imageAlt: string
+    image: IGatsbyImageData
+  }
+}
 
 const StyledArticle = styled.article`
   position: relative;
