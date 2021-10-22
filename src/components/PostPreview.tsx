@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import * as React from 'react'
-import { css } from '@emotion/react'
+import { css, jsx } from '@emotion/react'
 import styled from '@emotion/styled'
 import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image' // post page
 import { StyledPostPreview } from './links/Link.style'

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import * as React from 'react'
-import { css } from '@emotion/react'
+import { css, jsx } from '@emotion/react'
 import { NavLink } from './links/Link.style'
 interface HeaderProps {
   siteTitle: string
