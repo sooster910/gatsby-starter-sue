@@ -13,20 +13,17 @@ export const usePosts = () => {
             title
             slug
             author
-            published(formatString: "dddd DD MMMM YYYY")
-            lastUpdated(formatString: "dddd DD MMMM YYYY")
+            published(formatString: "ll")
+            lastUpdated(formatString: "ll")
             image {
               childImageSharp {
                 gatsbyImageData(
                   width: 150
                   layout: FIXED
                   blurredOptions: { width: 100 }
-
                   placeholder: BLURRED
-
                   transformOptions: { cropFocus: CENTER }
-
-                  aspectRatio: 1.49
+                  aspectRatio: 1.6
                 )
               }
             }

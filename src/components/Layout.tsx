@@ -12,8 +12,8 @@ import Header from './Header'
 import Footer from './Footer'
 import useSiteMetadata from '../hooks/sitemetadata'
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader'
-
-deckDeckGoHighlightElement() //load syntax highlighter
+/*load syntax highlighter*/
+deckDeckGoHighlightElement()
 
 interface LayoutProps {
   children: React.ReactNode
@@ -25,13 +25,12 @@ const Main = styled.main`
   width: 670px;
 `
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children }: LayoutProps): React.ReactElement => {
   const { title }: { title: string } = useSiteMetadata()
 
   return (
     <>
       <Header siteTitle={title} />
-
       <Main>{children}</Main>
       <Footer />
     </>

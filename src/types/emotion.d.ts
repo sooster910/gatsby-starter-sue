@@ -1,27 +1,25 @@
 import '@emotion/react'
 declare module '@emotion/react' {
   export interface Theme {
-    font: {
-      main: string
-      code: string
-      size: {
-        f_16: string
-        f_18: string
-      }
-    }
-    colors: {
-      darkPrimary: string
-      darkSecondary: string
-      onLightPrimary: string
-      onLightSecondary: string
-      onDarkPrimary: string
-      pink: string
+    primaryFont: string
+    code: string
+    h1: string
+    h2: string
+    h3: string
+    h4: string
+    h5: string
+    p: string
+    helperText: string
+    copyrightText: string
 
-      white: string
-      background_pink: string
-      background_dark: string
-      background_light: string
-      yellow: string
+    colors: {
+      primaryColor: string
+      secondaryColor: string
+      primaryHoverColor: string
+      primaryActiveColor: string
+      textColorOnPrimary: string
+      textColorInverted: string
+      textColorOnSecondary: string
     }
     breakpoints: {
       mobile: string

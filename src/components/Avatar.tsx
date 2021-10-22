@@ -7,7 +7,6 @@ interface ParamProps {
 const StyledAvatar = styled(GatsbyImage)`
   width: 120px;
   height: 120px;
-  margin-bottom: 30px;
   border-radius: 50%;
 
   @media (max-width: 768px) {

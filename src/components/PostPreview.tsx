@@ -1,10 +1,10 @@
-import React from 'react'
-import { Link } from 'gatsby'
+/** @jsx jsx */
+import * as React from 'react'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image' // post page
-import Emoji from './Emoji'
-import { formatReadingTimeToEmoji } from '../utils/helper'
-
+import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image' // post page
+import { StyledPostPreview } from './links/Link.style'
+import { Dates } from './Dates'
 export interface PostPreviewProps {
   post: {
     title: string
@@ -14,55 +14,72 @@ export interface PostPreviewProps {
     published: string
     lastUpdated: string
     timeToRead: number
+    imageAlt: string
+    image: IGatsbyImageData
   }
 }
 
-const StyledArticlee = styled.article`
+const StyledArticle = styled.article`
   position: relative;
-  background: ${({ theme }) => theme.colors.darkSecondary};
-  padding: 1rem;
+  background-color: transparent;
+  box-shadow: ${({ theme }) => theme.shadows.shadow1};
+  padding: 1.5rem 2rem;
   border-radius: 12px;
   margin-top: 1rem;
+  cursor: pointer;
+  transition: background-color 0.1s ease-out;
+
+  &:hover {
+    background-color: rgb(247, 247, 247);
+  }
 `
-const StyledArticleHeader = styled.h3``
+
+const StyledArticleHeader = styled.div``
 const StyledArticleBody = styled.div`
+  display: flex;
+  justify-content: space-between;
   ${({ theme }) => `
-    color:${theme.colors.onLightPrimary}
+    color:${theme.colors.textColorOnPrimary}
     `};
   position: relative;
   width: 100%;
-  z-index: 3;
+  margin-top: 1rem;
 `
 
-const PostPreview = ({ post }: any) => {
+const PostPreview = ({ post }: PostPreviewProps): React.ReactElement => {
   const thumbnail = getImage(post.image)
-  const emojis = formatReadingTimeToEmoji(post.timeToRead)
-  return (
-    <StyledArticlee id={post.slug}>
-      <StyledArticleHeader>
-        <Link to={post.slug}>{post.title}</Link>
-        <p>{post.published}</p>
-        <p>{post.lastUpdated}</p>
-        <span role="img">
-          {emojis.list.map((emoji, i) => (
-            <Emoji
-              symbol={emoji}
-              label={emojis.name}
-              key={`${emojis.name}_${i}`}
-            />
-          ))}
-        </span>
-        <span>&bull; {`${post.timeToRead}min`}</span>
-      </StyledArticleHeader>
-      <StyledArticleBody>
-        <div>
-          <p>{post.excerpt}</p>
-          <GatsbyImage image={thumbnail} alt={post.imageAlt} />
-        </div>
 
-        <Link to={post.slug}>read this post &rarr;</Link>
-      </StyledArticleBody>
-    </StyledArticlee>
+  return (
+    <StyledArticle id={post.slug}>
+      <StyledPostPreview to={`/${post.slug}/`}>
+        <StyledArticleHeader>
+          <h3>{post.title}</h3>
+          <Dates
+            isPreview={true}
+            published={post.published}
+            updated={post.lastUpdated}
+            timeToRead={post.timeToRead}
+          />
+        </StyledArticleHeader>
+        <StyledArticleBody>
+          <GatsbyImage
+            image={thumbnail}
+            alt={post.imageAlt}
+            css={css`
+              border-radius: 12px;
+              width: 150px;
+            `}
+          />
+          <p
+            css={css`
+              width: 70%;
+            `}
+          >
+            {post.excerpt}
+          </p>
+        </StyledArticleBody>
+      </StyledPostPreview>
+    </StyledArticle>
   )
 }
 
