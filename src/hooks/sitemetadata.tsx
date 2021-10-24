@@ -7,6 +7,13 @@ const useSiteMetadata = () => {
         siteMetadata {
           title
           description
+          shareButtons {
+            facebook
+            linkedIn
+            reddit
+            twitter
+            line
+          }
         }
       }
     }

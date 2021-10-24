@@ -14,7 +14,7 @@ import { Dates } from '../components/Dates'
 import { Comments } from '../components/Comment'
 import config from '../../siteConfig'
 import styled from '@emotion/styled'
-
+import { Share } from '../components/Share'
 export type singlePostData = {
   id: string
   timeToRead: number
@@ -22,6 +22,7 @@ export type singlePostData = {
     title: string
     lastUpdated: string
     published: string
+    excerpt: string
     image: {
       childImageSharp: {
         gatsbyImageData: IGatsbyImageData
@@ -98,6 +99,8 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
   const next =
     curIdx !== -1 && nodes[curIdx + 1] !== undefined ? nodes[curIdx + 1] : -1
   const { utterances } = config?.comments
+  const url = typeof window !== 'undefined' ? window.location.href : ''
+  const description = frontmatter.excerpt || ''
   return (
     <Layout>
       <MDXProvider components={shortcodes}>
@@ -131,6 +134,8 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
           <MDXRenderer>{singlePost?.body}</MDXRenderer>
         </MDX>
         {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+        <Share title={frontmatter?.title} url={url} description={description} />
+
         <Bio isProfile={false} />
 
         <PrevNextNav prev={prev} next={next} />
