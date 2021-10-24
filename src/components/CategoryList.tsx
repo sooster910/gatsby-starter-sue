@@ -32,20 +32,18 @@ export const CategoryList = () => {
   const categories = useCategories()
 
   return (
-    <>
-      <StyleTagListWrapper>
-        <h4>Notes By Topics</h4>
-        <StyledTagList>
-          {categories.map((category): any => (
-            <StyledTagItem key={category.fieldValue}>
-              <TagLink to={`/categories/${_.kebabCase(category.fieldValue)}/`}>
-                <Twemoji emoji="🗂" />
-                {category.fieldValue} ({category.totalCount})
-              </TagLink>
-            </StyledTagItem>
-          ))}
-        </StyledTagList>
-      </StyleTagListWrapper>
-    </>
+    <StyleTagListWrapper>
+      <h4>Notes By Topics</h4>
+      <StyledTagList>
+        {categories.map((category): any => (
+          <StyledTagItem key={category.fieldValue}>
+            <TagLink to={`/categories/${_.kebabCase(category.fieldValue)}/`}>
+              <Twemoji emoji="🗂" />
+              {category.fieldValue} ({category.totalCount})
+            </TagLink>
+          </StyledTagItem>
+        ))}
+      </StyledTagList>
+    </StyleTagListWrapper>
   )
 }

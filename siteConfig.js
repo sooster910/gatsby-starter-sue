@@ -18,11 +18,11 @@ module.exports = {
   },
   titleTemplate: '%s · The Real Hero',
   shareButtons: {
-    email: false,
     facebook: true,
     twitter: true,
-    reddit: false,
-    linkedIn: false,
+    reddit: true,
+    linkedIn: true,
+    line: true,
   },
   /*
    * src/components/comments
