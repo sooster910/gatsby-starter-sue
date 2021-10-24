@@ -20,6 +20,7 @@ module.exports = {
     }
   },
   rules: {
+    'react/prop-types': 'off',
     'import/prefer-default-export': 'off',
     "react/react-in-jsx-scope": "off", //es-next won't need react on top of that
     "@typescript-eslint/explicit-function-return-type": "off",

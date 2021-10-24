@@ -12,6 +12,7 @@ import Header from './Header'
 import Footer from './Footer'
 import useSiteMetadata from '../hooks/sitemetadata'
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader'
+import { CategoryList } from './CategoryList'
 /*load syntax highlighter*/
 deckDeckGoHighlightElement()
 
@@ -19,19 +20,35 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
-const Main = styled.main`
+const Wrapper = styled.div`
+  display: flex;
+  height: auto;
   margin: 2rem auto 4rem;
-  max-width: 90vw;
-  width: 670px;
+  max-width: 1022px;
+  justify-content: center;
+`
+const Main = styled.main`
+  width: 640px;
 `
 
+const Aside = styled.aside`
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+`
 const Layout = ({ children }: LayoutProps): React.ReactElement => {
   const { title }: { title: string } = useSiteMetadata()
 
   return (
     <>
       <Header siteTitle={title} />
-      <Main>{children}</Main>
+      <Wrapper>
+        <Main>{children}</Main>
+        <Aside>
+          <CategoryList />
+        </Aside>
+      </Wrapper>
       <Footer />
     </>
   )

@@ -3,7 +3,8 @@ export const gray = {
   80: '#424242',
   60: '#282c35',
   40: '#495061',
-  20: '#ccc',
+  30: '#757575',
+  20: '#CCD6DD',
   10: '#ADB2C0',
 }
 export const bluedark = {
@@ -15,6 +16,7 @@ export const neutral = {
 
 export const pink = {
   100: '#f2849e',
+  // 100: '#FFB8B6',
   80: '#FF796C',
   60: '#F9AEBC',
   40: '#FFAAA5',

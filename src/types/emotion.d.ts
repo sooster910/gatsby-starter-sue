@@ -20,6 +20,7 @@ declare module '@emotion/react' {
       textColorOnPrimary: string
       textColorInverted: string
       textColorOnSecondary: string
+      sharpOutlineColor: string
     }
     breakpoints: {
       mobile: string

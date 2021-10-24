@@ -11,13 +11,11 @@ type BioProps = {
 }
 
 const BioWrapper = styled.div<BioProps>`
-  ${({ isProfile }) => `
-   background:${isProfile ? 'none' : 'rgba(249, 250, 251, 1)'}
-    `};
+  background: rgba(249, 250, 251, 1);
   padding: 1rem;
   border-radius: 12px;
   margin-bottom: 2rem;
-  margin-top: 4em;
+  margin-top: ${({ isProfile }) => (isProfile ? `0` : `4em`)};
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
@@ -73,7 +71,6 @@ const Bio = ({ isProfile }: BioProps): React.ReactElement => {
   `)
   const author = data.site.siteMetadata?.author
   const social = data.site.siteMetadata?.social
-  console.log('social', social)
   return (
     <BioWrapper className="bio" isProfile={isProfile}>
       <Avatar image={avatar} />
