@@ -9,6 +9,7 @@ type NavLinkProps = {
 type StyledPageLinkProps = {
   direction: 'prev' | 'next'
 }
+
 const psuedo = ({ direction }: StyledPageLinkProps) =>
   direction === 'prev'
     ? css`
@@ -100,4 +101,14 @@ export const NavLink = styled(DefaultLink)<NavLinkProps>`
     color: ${({ theme }) => theme.colors.primaryActiveColor};
     transition: color 0.2s ease-out;
   }
+`
+
+export const TagLink = styled(DefaultLink)`
+  background: rgba(0, 78, 190, 0.9);
+  padding: 7px 13px;
+  border-radius: 7px;
+  color: ${({ theme }) => theme.colors.sharpOutlineColor};
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
 `

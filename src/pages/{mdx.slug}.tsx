@@ -73,7 +73,7 @@ type DataProps = {
 const StyledPostHeader = styled.div`
   position: relative;
   padding-bottom: 2.4em;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.textColorInverted};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.sharpOutlineColor};
   margin-bottom: 3em;
 `
 const StyledPostTitle = styled.h1`
@@ -83,7 +83,7 @@ const StyledPostTitle = styled.h1`
   font-weight: 600;
   letter-spacing: 2px;
   text-align: center;
-  padding-top: 1rem;
+  padding-top: 2rem;
 `
 const StyledPostDate = styled.div``
 const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {

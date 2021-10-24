@@ -20,9 +20,9 @@ export const theme = {
     primaryActiveColor: pink[100],
     secondaryColor: pink[100],
     textColorOnSecondary: gray[100],
-    textColorInverted: gray[10],
+    textColorInverted: gray[30],
     textColorOnPrimary: gray[80],
-
+    sharpOutlineColor: gray[20],
     //
     //   darkPrimary: 'rgba(17, 24, 39, 1.8)',
     //   darkSecondary: '#202E4B',

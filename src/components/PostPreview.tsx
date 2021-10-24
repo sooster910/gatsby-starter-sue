@@ -57,7 +57,7 @@ const PostPreview = ({ post }: PostPreviewProps): React.ReactElement => {
           <Dates
             isPreview={true}
             published={post.published}
-            updated={post.lastUpdated}
+            updated={post.lastUpdated || ''}
             timeToRead={post.timeToRead}
           />
         </StyledArticleHeader>

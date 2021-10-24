@@ -5,8 +5,8 @@ import styled from '@emotion/styled'
 const StyledTwemoji = styled('span')`
   img {
     display: inline-block;
-    width: auto;
-    height: 1em;
+    width: 18px;
+    height: auto;
     vertical-align: -0.125em;
     margin: 0 3px 0 0;
   }
