@@ -17,7 +17,7 @@ export const theme = {
   colors: {
     primaryColor: neutral[100],
     primaryHoverColor: pink[20],
-    primaryActiveColor: pink[100],
+    primaryActiveColor: pink[90],
     secondaryColor: pink[100],
     textColorOnSecondary: gray[100],
     textColorInverted: gray[30],

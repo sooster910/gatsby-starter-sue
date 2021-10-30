@@ -15,10 +15,10 @@ export const neutral = {
 }
 
 export const pink = {
-  100: '#f2849e',
-  // 100: '#FFB8B6',
+  100: '#ea4c89',
+  90: '#f2849e',
   80: '#FF796C',
-  60: '#F9AEBC',
+  60: '#FFB8B6',
   40: '#FFAAA5',
   20: '#FFF1F0',
 }

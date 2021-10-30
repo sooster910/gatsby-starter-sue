@@ -9,7 +9,5 @@ type DefaultLinkProps = {
 }
 
 export const DefaultLink = ({ children, ...props }: DefaultLinkProps) => {
-  console.log('children', children)
-  console.log('prop', { ...props })
   return <Link {...props}>{children}</Link>
 }

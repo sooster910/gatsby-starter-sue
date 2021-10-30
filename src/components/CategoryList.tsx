@@ -6,16 +6,15 @@ import _ from 'lodash'
 
 const StyleTagListWrapper = styled.div`
   padding: 1rem;
-  position: sticky;
-  top: 2em;
   align-self: flex-start;
   right: 0;
   background: #fff;
   /* border-radius: 12px; */
-  border-left: 1px solid ${({ theme }) => theme.colors.sharpOutlineColor};
 
   h4 {
+    padding-bottom: 8px;
     border-bottom: 1px solid ${({ theme }) => theme.colors.sharpOutlineColor};
+    text-transform: uppercase;
   }
 `
 const StyledTagList = styled.ul`

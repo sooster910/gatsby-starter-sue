@@ -24,6 +24,7 @@ export const StyledDates = styled('div')<StyledDatesProps>`
     font-size: ${({ theme }) => theme.helperText}!important;
     color: ${({ theme }) => theme.colors.textColorInverted}!important;
     margin-top: 0;
+    padding: 0 3px;
   }
 `
 

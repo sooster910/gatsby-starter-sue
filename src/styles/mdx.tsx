@@ -20,19 +20,19 @@ export const MDX = styled('article')`
     margin-bottom: 1.25rem;
     margin-top: 3.75rem;
   }
-  ,
+
   h3 {
     font-size: 1.375rem;
     line-height: 1.625rem;
     font-weight: 700;
   }
-  ,
+
   h4 {
     font-size: 1.25rem;
     line-height: 1.5rem;
     font-weight: 400;
   }
-  ,
+
   h5 {
     font-size: 1.125rem;
     line-height: 1.5rem;
@@ -70,13 +70,13 @@ export const MDX = styled('article')`
     font-weight: 700;
   }
 
-  code {
+  /* code {
     color: ${(props) => props.theme.colors.textColorOnPrimary};
     padding: 3px 6px;
     font-size: 0.9rem;
     border: 1px solid ${(props) => props.theme.colors.primaryHoverColor};
     border-radius: 4px;
-  }
+  } */
 
   deckgo-highlight-code {
     --deckgo-highlight-code-font-size: ${({ theme }) => theme.primaryFont};
@@ -110,8 +110,9 @@ export const MDX = styled('article')`
   }
   code {
     padding: 2px 5px;
-    background: ${({ theme }) => theme.colors.primaryHoverColor};
-    color: ${({ theme }) => theme.colors.primaryActiveColor};
+    background: #f5f5f5;
+    color: ${({ theme }) => theme.colors.secondaryColor};
+    border: 1px solid ${({ theme }) => theme.colors.secondaryColor};
     border-radius: 3px;
     font-family: ${({ theme }) => theme.code};
     font-weight: 600;

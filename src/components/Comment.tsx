@@ -19,7 +19,7 @@ export const Comments = ({ repo }: CommentsProps) => {
     script.setAttribute('issue-term', 'url')
     script.setAttribute('theme', theme) // you could choose other themes too
     anchor?.current?.appendChild(script)
-  })
+  }, [repo])
   return (
     <>
       <div style={{ width: '100%' }}>

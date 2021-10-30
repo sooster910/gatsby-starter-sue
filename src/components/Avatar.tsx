@@ -16,7 +16,6 @@ const StyledAvatar = styled(GatsbyImage)`
 `
 export const Avatar = ({ image }: ParamProps): React.ReactElement => {
   const avatarImage = getImage(image)
-  console.log('avatarImage', avatarImage)
 
   return <StyledAvatar image={avatarImage} alt="Profile Image" />
 }

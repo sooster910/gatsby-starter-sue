@@ -15,6 +15,8 @@ import { Comments } from '../components/Comment'
 import config from '../../siteConfig'
 import styled from '@emotion/styled'
 import { Share } from '../components/Share'
+import { TableOfContents } from '../components/TableOfContents'
+import { Aside } from '../components/Aside'
 export type singlePostData = {
   id: string
   timeToRead: number
@@ -31,6 +33,10 @@ export type singlePostData = {
     imageAlt: string
   }
   body: string
+  tableOfContents: {
+    items: []
+  }
+  headings: []
 }
 interface Nodes {
   id: string
@@ -85,8 +91,16 @@ const StyledPostTitle = styled.h1`
   letter-spacing: 2px;
   text-align: center;
   padding-top: 2rem;
+  &::after {
+    content: '';
+    position: absolute;
+    max-width: 30%;
+    top: 10px;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.sharpOutlineColor};
+  }
 `
 const StyledPostDate = styled.div``
+
 const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
   const shortcodes = { Twemoji }
   const { singlePost, allPost: { nodes } = [] } = data
@@ -102,47 +116,50 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
   const url = typeof window !== 'undefined' ? window.location.href : ''
   const description = frontmatter.excerpt || ''
   return (
-    <Layout>
-      <MDXProvider components={shortcodes}>
-        <Seo title="Using TypeScript" description="" />
-        <GatsbyImage
-          image={Gimage}
-          alt={frontmatter.imageAlt}
-          css={css`
-            border-radius: 12px;
-          `}
-          style={{
-            display: 'table',
-            margin: '0 auto',
-          }}
-        />
+    <>
+      <Layout headings={singlePost?.headings}>
+        <MDXProvider components={shortcodes}>
+          <Seo title="Using TypeScript" description="" />
 
-        <StyledPostHeader>
-          <StyledPostTitle>{frontmatter?.title}</StyledPostTitle>
-          <StyledPostDate>
-            <Dates
-              published={frontmatter?.published}
-              updated={frontmatter?.lastUpdated}
-              timeToRead={singlePost.timeToRead}
-              isPreview={false}
-            />
-          </StyledPostDate>
-        </StyledPostHeader>
+          <GatsbyImage
+            image={Gimage}
+            alt={frontmatter.imageAlt}
+            css={css`
+              border-radius: 12px;
+            `}
+            style={{
+              display: 'table',
+              margin: '0 auto',
+            }}
+          />
+          <StyledPostHeader>
+            <StyledPostDate>
+              <Dates
+                published={frontmatter?.published}
+                updated={frontmatter?.lastUpdated}
+                timeToRead={singlePost.timeToRead}
+                isPreview={false}
+              />
+            </StyledPostDate>
+            <StyledPostTitle>{frontmatter?.title}</StyledPostTitle>
+          </StyledPostHeader>
+          {/*<p>{frontmatter?.excerpt}</p>*/}
+          <MDX>
+            <MDXRenderer>{singlePost?.body}</MDXRenderer>
+          </MDX>
+          {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+          <Share
+            title={frontmatter?.title}
+            url={url}
+            description={description}
+          />
+          <Bio isProfile={false} />
+          <PrevNextNav prev={prev} next={next} />
 
-        {/*<p>{frontmatter?.excerpt}</p>*/}
-        <MDX>
-          <MDXRenderer>{singlePost?.body}</MDXRenderer>
-        </MDX>
-        {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-        <Share title={frontmatter?.title} url={url} description={description} />
-
-        <Bio isProfile={false} />
-
-        <PrevNextNav prev={prev} next={next} />
-      </MDXProvider>
-
-      {utterances?.enabled && <Comments repo={utterances.repo} />}
-    </Layout>
+          {utterances?.enabled && <Comments repo={utterances.repo} />}
+        </MDXProvider>
+      </Layout>
+    </>
   )
 }
 
@@ -163,6 +180,11 @@ export const query = graphql`
         imageAlt
       }
       body
+      tableOfContents
+      headings {
+        value
+        depth
+      }
     }
     allPost: allMdx(
       filter: { frontmatter: { draft: { eq: false } } }
