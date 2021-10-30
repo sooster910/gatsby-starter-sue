@@ -46,10 +46,10 @@ module.exports = {
            {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
-              className: `anchor-header`, // 이 class명으로 하이라이트 코드를 구현할 예정이므로 반드시 넣자.
-              maintainCase: false, // 이 부분은 반드시 false로 하자. url이 대소문자를 구분하기 때문에 링크가 작동하지 않을 수 있다.
+              className: `anchor-header`, //classname you want. 
+              maintainCase: false, // prefer "false"
               removeAccents: true,
-              elements: [`h2`, 'h3', `h4`], // 링크를 추가할 Header 종류 선택
+              elements: [`h2`, 'h3', `h4`], // headers attached with link 
             },
           },
           {
@@ -68,33 +68,14 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
+        name: `gatsby-starter-sue`,
         short_name: `starter`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/favicon.png`, // This path is relative to the root of the site.
       },
     },
-
-    // {
-    //   resolve: `gatsby-plugin-google-fonts`,
-    //   options: {
-    //     fonts: [
-    //       `Inter : 400,500,600,700,`,
-    //       `source sans pro:300,400,400i,700`,
-    //       `Noto Sans KR:400,500,700,400i`,
-    //       // `Patua One:400`,
-    //       `JetBrains Mono:400,500`,
-    //       `Lato : 700`, // you can also specify font weights and styles
-    //     ],
-    //     display: 'swap',
-    //   },
-    // },
-
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
   ],
 }
