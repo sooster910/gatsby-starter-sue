@@ -1,10 +1,11 @@
-/** @jsx jsx */
 import * as React from 'react'
-import { css, jsx } from '@emotion/react'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image' // post page
-import { StyledPostPreview } from './links/Link.style'
+import { StyledPostPreview, TagLink } from './links/Link.style'
 import { Dates } from './Dates'
+import _ from 'lodash'
+
 export interface PostPreviewProps {
   post: {
     title: string
@@ -16,12 +17,13 @@ export interface PostPreviewProps {
     timeToRead: number
     imageAlt: string
     image: IGatsbyImageData
+    tags: string[]
   }
 }
 
 const StyledArticle = styled.article`
   position: relative;
-  background-color: transparent;
+  background-color: var(--secondaryColor);
   box-shadow: ${({ theme }) => theme.shadows.shadow1};
   padding: 1.5rem 2rem;
   border-radius: 12px;
@@ -30,7 +32,7 @@ const StyledArticle = styled.article`
   transition: background-color 0.1s ease-out;
 
   &:hover {
-    background-color: rgb(247, 247, 247);
+    background-color: var(--secondaryHoverColor);
   }
 `
 
@@ -38,9 +40,7 @@ const StyledArticleHeader = styled.div``
 const StyledArticleBody = styled.div`
   display: flex;
   justify-content: space-between;
-  ${({ theme }) => `
-    color:${theme.colors.textColorOnPrimary}
-    `};
+  color: var(--textColorOnPrimary);
   position: relative;
   width: 100%;
   margin-top: 1rem;
@@ -54,6 +54,29 @@ const PostPreview = ({ post }: PostPreviewProps): React.ReactElement => {
       <StyledPostPreview to={`/${post.slug}/`}>
         <StyledArticleHeader>
           <h3>{post.title}</h3>
+          <object>
+            <ul>
+              {post?.tags.map((tag) => (
+                <li
+                  key={tag}
+                  css={css`
+                    text-decoration: none;
+                    display: inline;
+                  `}
+                >
+                  <TagLink
+                    to={`/categories/${_.kebabCase(tag)}/`}
+                    css={css`
+                      padding: 4px 7px;
+                      border-radius: 4px;
+                    `}
+                  >
+                    {tag}
+                  </TagLink>
+                </li>
+              ))}
+            </ul>
+          </object>
           <Dates
             isPreview={true}
             published={post.published}

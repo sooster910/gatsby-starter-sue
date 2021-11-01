@@ -7,7 +7,13 @@ export const useAvatar = (): IGatsbyImageData => {
       allFile(filter: { name: { eq: "profilePic" } }) {
         nodes {
           childImageSharp {
-            gatsbyImageData(width: 120, height: 120)
+            gatsbyImageData(
+              width: 320
+              height: 320
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+              transformOptions: { fit: COVER }
+            )
           }
           relativePath
         }

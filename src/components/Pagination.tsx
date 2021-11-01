@@ -1,5 +1,5 @@
-import * as React from 'react'
 import styled from '@emotion/styled'
+import { ReactNode } from 'react'
 
 const StyledPagination = styled('ul')`
   display: flex;
@@ -9,7 +9,10 @@ const StyledPagination = styled('ul')`
   margin: 3rem 0;
   padding: 0;
 `
+type PagenationProps = {
+  children: ReactNode
+}
 
-export const Pagination = ({ children, ...props }) => {
-  return <StyledPagination>{children}</StyledPagination>
+export const Pagination = ({ children, ...props }: PagenationProps) => {
+  return <StyledPagination {...props}>{children}</StyledPagination>
 }

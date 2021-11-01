@@ -1,11 +1,14 @@
 /* All customizable site config goes here*/
 
 module.exports = {
-  title: `Gatsby blog with TypeScript`,
+  title: `Gatsby starter Sue`,
   description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
   author: {
-    name: `@Hyunsu Joo`,
-    summary: `Hi, I'm Sue I'm a curious person Kick off your next, great Gatsby project with this default starter.This barebones starter ships wit`,
+    name: `Sue.J`,
+    greeting: `Hi, I'm Hyunsu`,
+    summary: `Front End Developer focucsed on deliver a better user experienced. like to discover, learn, and share everything related to Web Developement. 
+    everyday coffee/   
+    `,
   },
   siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
   social: {

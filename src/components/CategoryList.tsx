@@ -8,12 +8,12 @@ const StyleTagListWrapper = styled.div`
   padding: 1rem;
   align-self: flex-start;
   right: 0;
-  background: #fff;
+
   /* border-radius: 12px; */
 
   h4 {
     padding-bottom: 8px;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.sharpOutlineColor};
+    border-bottom: 1px solid var(--sharpOutlineColor);
     text-transform: uppercase;
   }
 `
@@ -27,14 +27,17 @@ const StyledTagItem = styled.li`
   margin-bottom: 0.4rem;
 `
 
+interface CategoryProps {
+  categories: { fieldValue: string; totalCount: number }[]
+}
 export const CategoryList = () => {
-  const categories = useCategories()
+  const categories: CategoryProps = useCategories()
 
   return (
     <StyleTagListWrapper>
       <h4>Notes By Topics</h4>
       <StyledTagList>
-        {categories.map((category): any => (
+        {categories.map((category) => (
           <StyledTagItem key={category.fieldValue}>
             <TagLink to={`/categories/${_.kebabCase(category.fieldValue)}/`}>
               <Twemoji emoji="🗂" />

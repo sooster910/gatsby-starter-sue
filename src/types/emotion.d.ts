@@ -15,12 +15,15 @@ declare module '@emotion/react' {
     colors: {
       primaryColor: string
       secondaryColor: string
+      secondaryHoverColor: string
       primaryHoverColor: string
       primaryActiveColor: string
       textColorOnPrimary: string
       textColorInverted: string
       textColorOnSecondary: string
       sharpOutlineColor: string
+      cardBackground: string
+      tagColor: string
     }
     breakpoints: {
       mobile: string

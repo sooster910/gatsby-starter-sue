@@ -11,6 +11,7 @@ type SocialMediaIconProps = {
   preHref?: string
   accountName?: string
 }
+
 export const SocialMediaIcon = ({
   children,
   preHref,

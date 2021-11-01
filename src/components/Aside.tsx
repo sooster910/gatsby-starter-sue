@@ -1,6 +1,11 @@
+import { ReactNode } from 'react'
 import styled from '@emotion/styled'
 
-export const Aside = ({ children }): React.ReactElement => {
+type AsideProps = {
+  children: ReactNode
+}
+
+export const Aside = ({ children }: AsideProps): React.ReactElement => {
   const StyledAsideWrapper = styled.div`
     margin-left: 3rem;
   `

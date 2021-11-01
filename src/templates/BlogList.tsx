@@ -1,16 +1,36 @@
 import * as React from 'react'
 import PostPreview from '../components/PostPreview'
-import { graphql, Link } from 'gatsby'
+import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import Bio from '../components/Bio'
 import Seo from '../components/Seo'
 import { Pagination } from '../components/Pagination'
 import { PageLink } from '../components/links/Link.style'
+import { IGatsbyImageData } from 'gatsby-plugin-image'
 
 type BlogListData = {
   pageContext: {
-    skip: number
-    curretPage: number
+    pages: number
+    currentPage: number
+  }
+  data: {
+    allMdx: {
+      nodes: {
+        frontmatter: {
+          title: string
+          author: string
+          published: string
+          lastUpdated: string
+          tags: []
+          draft: boolean
+          slug: string
+          image: IGatsbyImageData
+          imageAlt: string
+        }
+        timeToRead: number
+        excerpt: string
+      }[]
+    }
   }
 }
 
@@ -18,7 +38,7 @@ const BlogList: React.FunctionComponent<BlogListData> = ({
   pageContext,
   data,
 }) => {
-  const posts = data?.allMdx?.nodes?.map((post: any) => ({
+  const posts = data?.allMdx?.nodes?.map((post) => ({
     title: post.frontmatter.title,
     author: post.frontmatter.author,
     published: post.frontmatter.published,
@@ -42,7 +62,7 @@ const BlogList: React.FunctionComponent<BlogListData> = ({
     <Layout>
       <Seo title="Home" description="" />
       <Bio isProfile={true} />
-      {posts.map((post: any) => {
+      {posts.map((post) => {
         return <PostPreview post={post} key={post.slug} />
       })}
       <Pagination>

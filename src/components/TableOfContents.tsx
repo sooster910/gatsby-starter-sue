@@ -1,12 +1,14 @@
-import { Link } from 'gatsby'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Slugger from 'github-slugger'
 import styled from '@emotion/styled'
-import { Twemoji } from './Twemoji'
 import { NavLink } from './links/Link.style'
 import { css } from '@emotion/react'
 
-const StyledContent = styled.li`
+type DepthProp = {
+  depth: number
+}
+
+const StyledContent = styled('li')<DepthProp>`
   padding-left: ${({ depth }) => (depth - 2) * 1}rem;
 `
 const StyledTableOfContents = styled.ul`
@@ -32,8 +34,16 @@ const InnerScroll = styled.div`
     text-transform: uppercase;
   }
 `
-export const TableOfContents = ({ headings }) => {
-  console.log('headings', headings)
+
+export type TableOfContentsProps = {
+  headings: {
+    depth: number
+    value: string
+  }[]
+}
+export const TableOfContents: React.FunctionComponent<TableOfContentsProps> = ({
+  headings,
+}): React.ReactElement => {
   return (
     <StyledTableOfContents>
       <InnerScroll>
@@ -47,6 +57,8 @@ export const TableOfContents = ({ headings }) => {
                 to={`#${Slugger.slug(heading.value)}`}
                 css={css`
                   padding: 0;
+                  font-size: 13px;
+                  font-weight: 500;
                 `}
               >
                 {heading.value}

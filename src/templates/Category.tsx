@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import Seo from '../components/Seo'
 import PostPreview from '../components/PostPreview'
@@ -22,6 +22,7 @@ export type CategoryData = {
               author: string
               published: string
               lastUpdated: string
+              tags: string[]
               image: {
                 childImageSharp: {
                   gatsbyImageData: IGatsbyImageData
@@ -54,6 +55,7 @@ export const query = graphql`
             title
             slug
             author
+            tags
             published(formatString: "ll")
             lastUpdated(formatString: "ll")
             image {
@@ -84,11 +86,12 @@ const Category: React.FunctionComponent<CategoryData> = ({
 }) => {
   const { category } = pageContext
   const { edges } = data.allMdx
-  const postData = edges.map((edge: any) => ({
+  const postData = edges.map((edge) => ({
     title: edge?.node?.frontmatter?.title,
     author: edge?.node?.frontmatter.author,
     published: edge?.node?.frontmatter.published,
     lastUpdated: edge?.node?.frontmatter.lastUpdated,
+    tags: edge?.node?.frontmatter?.tags,
     slug: edge?.node?.frontmatter.slug,
     image: edge?.node?.frontmatter?.image?.childImageSharp,
     imageAlt: edge?.node?.frontmatter?.imageAlt,

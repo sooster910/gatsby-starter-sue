@@ -19,11 +19,13 @@ module.exports = {
       version: 'detect'
     }
   },
+  ignorePatterns: ["gatsby-ssr.js", "gatsby-config.js","gatsby-node.js"],
   rules: {
+    // disable the rule for all files
     'react/prop-types': 'off',
     'import/prefer-default-export': 'off',
     "react/react-in-jsx-scope": "off", //es-next won't need react on top of that
-    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     'react/no-unescaped-entities': [
       'error',
       {
@@ -32,8 +34,18 @@ module.exports = {
           { char: '}', alternatives: ['&#125;'] }
         ]
       }
-    ]
+    ],
+    
   },
+  "overrides": [
+    {
+      // enable the rule specifically for TypeScript files
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+      }
+    }
+  ],
   env: {
     browser: true,
     node: true,

@@ -9,14 +9,13 @@ import Layout from '../components/Layout'
 import Seo from '../components/Seo'
 import Bio from '../components/Bio'
 import { Twemoji } from '../components/Twemoji'
-import { PrevNextNav } from '../components/prevNextNav/PrevNextNav'
 import { Dates } from '../components/Dates'
 import { Comments } from '../components/Comment'
 import config from '../../siteConfig'
 import styled from '@emotion/styled'
 import { Share } from '../components/Share'
-import { TableOfContents } from '../components/TableOfContents'
-import { Aside } from '../components/Aside'
+import { Pagination } from '../components/Pagination'
+import { PageLink } from '../components/links/Link.style'
 export type singlePostData = {
   id: string
   timeToRead: number
@@ -38,17 +37,9 @@ export type singlePostData = {
   }
   headings: []
 }
-interface Nodes {
-  id: string
-  slug: string
-  frontmatter: {
-    title: string
-    lastUpdated: string
-  }
-}
 
 export type AllPostData = {
-  allMdx: {
+  allPost: {
     nodes: {
       id: string
       slug: string
@@ -59,34 +50,31 @@ export type AllPostData = {
     }[]
   }
 }
-type nodes = {
-  id: string
-  slug: string
-  frontmatter: {
-    title: string
-    lastUpdated: string
-  }
-}[]
-export type allPostData = {
-  allMdx: {
-    nodes: nodes
-  }
-}
+
 type DataProps = {
   singlePost: singlePostData
-  allPost: AllPostData
+  allPost: {
+    nodes: {
+      id: string
+      slug: string
+      frontmatter: {
+        title: string
+        lastUpdated: string
+      }
+    }[]
+  }
 }
 
 const StyledPostHeader = styled.div`
   position: relative;
   padding-bottom: 2.4em;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.sharpOutlineColor};
+  border-bottom: 1px solid var(--sharpOutlineColor);
   margin-bottom: 3em;
 `
 const StyledPostTitle = styled.h1`
   font-size: 3rem;
   line-height: 3.5rem;
-  font-family: ${(props) => props.theme.primaryFont};
+  font-family: var(--primaryFont);
   font-weight: 600;
   letter-spacing: 2px;
   text-align: center;
@@ -96,18 +84,21 @@ const StyledPostTitle = styled.h1`
     position: absolute;
     max-width: 30%;
     top: 10px;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.sharpOutlineColor};
+    border-bottom: 1px solid var(--sharpOutlineColor);
   }
 `
 const StyledPostDate = styled.div``
 
 const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
   const shortcodes = { Twemoji }
-  const { singlePost, allPost: { nodes } = [] } = data
+  const { singlePost, allPost } = data
+  const nodes = JSON.parse(JSON.stringify([allPost, ...allPost.nodes]))
   const frontmatter = singlePost?.frontmatter
   const Gimage = getImage(frontmatter.image)
   const curPostId = singlePost.id
-  const curIdx = nodes?.findIndex((post) => post.id === curPostId)
+  const curIdx = nodes?.findIndex(
+    (post: { id: string }) => post.id === curPostId,
+  )
   const prev =
     curIdx !== -1 && nodes[curIdx - 1] !== undefined ? nodes[curIdx - 1] : -1
   const next =
@@ -119,13 +110,16 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
     <>
       <Layout headings={singlePost?.headings}>
         <MDXProvider components={shortcodes}>
-          <Seo title="Using TypeScript" description="" />
+          <Seo title="Using TypeScript" description={description} />
 
           <GatsbyImage
             image={Gimage}
             alt={frontmatter.imageAlt}
             css={css`
               border-radius: 12px;
+              /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+              box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+                rgba(0, 0, 0, 0.22) 0px 15px 12px;
             `}
             style={{
               display: 'table',
@@ -143,20 +137,28 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
             </StyledPostDate>
             <StyledPostTitle>{frontmatter?.title}</StyledPostTitle>
           </StyledPostHeader>
-          {/*<p>{frontmatter?.excerpt}</p>*/}
           <MDX>
             <MDXRenderer>{singlePost?.body}</MDXRenderer>
           </MDX>
-          {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-          <Share
-            title={frontmatter?.title}
-            url={url}
-            description={description}
-          />
+          <Share title={frontmatter?.title} url={url} />
           <Bio isProfile={false} />
-          <PrevNextNav prev={prev} next={next} />
-
           {utterances?.enabled && <Comments repo={utterances.repo} />}
+          <Pagination>
+            <li>
+              {prev !== -1 && (
+                <PageLink to={`/${prev.slug}`} direction={'prev'}>
+                  {prev?.frontmatter?.title}
+                </PageLink>
+              )}
+            </li>
+            <li>
+              {next !== -1 && (
+                <PageLink to={`/${next.slug}`} direction={'next'}>
+                  {next?.frontmatter.title}
+                </PageLink>
+              )}
+            </li>
+          </Pagination>
         </MDXProvider>
       </Layout>
     </>
@@ -170,6 +172,7 @@ export const query = graphql`
       timeToRead
       frontmatter {
         title
+        tags
         lastUpdated(formatString: "ll")
         published(formatString: "ll")
         image {
@@ -180,7 +183,6 @@ export const query = graphql`
         imageAlt
       }
       body
-      tableOfContents
       headings {
         value
         depth

@@ -18,13 +18,14 @@ export const StyledDates = styled('div')<StyledDatesProps>`
   display: flex;
   align-items: center;
   justify-content: ${({ isPreview }) => (isPreview ? `flex-start` : `center`)};
+  padding-top: 1rem;
 
   p,
   span {
     font-size: ${({ theme }) => theme.helperText}!important;
-    color: ${({ theme }) => theme.colors.textColorInverted}!important;
+    color: var(--textColorInverted) !important;
     margin-top: 0;
-    padding: 0 3px;
+    padding-right: 3px;
   }
 `
 

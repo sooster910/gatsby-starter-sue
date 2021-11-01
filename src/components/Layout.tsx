@@ -21,12 +21,16 @@ deckDeckGoHighlightElement()
 
 interface LayoutProps {
   children: React.ReactNode
+  headings?: {
+    depth: number
+    value: string
+  }[]
 }
 
 const Wrapper = styled.div`
   display: flex;
   height: auto;
-  margin: 2rem auto 4rem;
+  margin: 4rem auto 4rem;
   max-width: 1022px;
   justify-content: center;
 `
@@ -34,9 +38,9 @@ const Main = styled.main`
   width: 640px;
 `
 
-const Layout = ({ children, ...props }: LayoutProps): React.ReactElement => {
+const Layout = ({ children, headings }: LayoutProps): React.ReactElement => {
   const { title }: { title: string } = useSiteMetadata()
-  const { headings } = { ...props }
+
   return (
     <>
       <Header siteTitle={title} />

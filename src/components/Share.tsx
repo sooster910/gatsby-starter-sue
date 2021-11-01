@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -32,7 +31,12 @@ const StyledSpan = styled.span`
   opacity: 0.7;
   padding: 0 2rem;
 `
-export const Share = ({ title, url, description }) => {
+
+type ShareProps = {
+  title: string
+  url: string
+}
+export const Share = ({ title, url }: ShareProps) => {
   const { shareButtons } = useSiteMetadata()
   return (
     <StyledShare>
