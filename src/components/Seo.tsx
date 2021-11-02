@@ -8,12 +8,12 @@
 import * as React from 'react'
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
-import {
-  NotoKR500WOFF2,
-  Inter500WOFF2,
-  Inter600WOFF2,
-  SpoqaSans500WOFF2,
-} from '../../assets/fonts/index'
+// import {
+//   NotoKR500WOFF2,
+//   Inter500WOFF2,
+//   Inter600WOFF2,
+//   SpoqaSans500WOFF2,
+// } from '../../assets/fonts/index'
 export interface SeoProps {
   title?: string
   description: string
@@ -32,7 +32,7 @@ function Seo({
   lang = 'en',
   meta = [],
 }: SeoProps) {
-  const { site }: any = useStaticQuery(
+  const { site } = useStaticQuery(
     graphql`
       query {
         site {
@@ -94,7 +94,7 @@ function Seo({
         },
       ].concat(meta)}
     >
-      <link
+      {/* <link
         rel="preload"
         as="font"
         href={NotoKR500WOFF2}
@@ -121,7 +121,7 @@ function Seo({
         href={SpoqaSans500WOFF2}
         type="font/woff2"
         crossOrigin="anonymous"
-      />
+      /> */}
     </Helmet>
   )
 }

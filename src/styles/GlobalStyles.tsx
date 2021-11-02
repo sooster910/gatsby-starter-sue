@@ -66,6 +66,7 @@ const GlobalStyles = () => {
         h5,
         h6 {
           color: var(--textColorOnSecondary);
+          font-family: 'Poppins', sans-serif;
           + * {
             margin-top: 0.5rem; //anything comes afte heading
           }
@@ -88,15 +89,16 @@ const GlobalStyles = () => {
           --deckgo-highlight-code-font-size: 1.2rem;
         }
         p {
-          font-family: 'Spoqa Han Sans', sans-serif !important;
+          font-family: 'Nanum Gothic', sans-serif !important;
         }
         a {
           color: var(--secondaryColor);
+          font-family: 'Jost', sans-serif;
         }
         button {
           cursor: pointer;
         }
-        @font-face {
+        /* @font-face {
           font-family: 'Inter';
           font-style: normal;
           font-weight: 500;
@@ -123,7 +125,7 @@ const GlobalStyles = () => {
           src: local('Spoqa Han Sans'), local('Spoqa Han Sans'),
             url(${Fonts.SpoqaSans500WOFF2}) format('woff2'),
             url(${Fonts.SpoqaSans500WOFF}) format('woff');
-        }
+        } */
         /* inter-regular - latin */
         //@font-face {
         //  font-family: 'Inter';

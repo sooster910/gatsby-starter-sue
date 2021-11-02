@@ -78,5 +78,20 @@ module.exports = {
         icon: `src/images/favicon.png`, // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `limelight`,
+          `source sans pro\:300,400,400i,700`, // you can also specify font weights and styles
+          `'Zen Antique', serif\:400`,
+          `'Nanum Gothic', sans-serif\:400,700,800`,
+          `'Jost', sans-serif\:400,700,800,700i,800i;`,
+          `Poppins, serif\:300,400`
+
+        ],
+        display: 'swap'
+      }
+    }
   ],
 }
