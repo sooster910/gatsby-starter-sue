@@ -140,6 +140,8 @@ function Seo({
         type="font/woff2"
         crossOrigin="anonymous"
       />
+
+      <link rel="canonical" href="https://www.hyunsujoo.com" />
     </Helmet>
   )
 }

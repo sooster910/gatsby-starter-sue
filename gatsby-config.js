@@ -6,6 +6,9 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-sitemap`,
+    `gatsby-plugin-robots-txt`,
+
     // `gatsby-plugin-preload-fonts`,
     {
       resolve: `gatsby-plugin-emotion`,
@@ -79,60 +82,22 @@ module.exports = {
         icon: `src/images/favicon.png`, // This path is relative to the root of the site.
       },
     },
-
-    // {
-    //   resolve: `gatsby-plugin-webfonts`,
-    //   options: {
-    //     fonts: {
-    //       google: [
-    //         // {
-    //         //   family: 'limelight',
-    //         //   variants: ['400'],
-    //         // },
-    //         {
-    //           family: 'Nanum Gothic',
-    //           variants: ['500', '700', '800'],
-    //         },
-    //         {
-    //           family: 'Poppins',
-    //           variants: ['300', '400'],
-    //         },
-    //         {
-    //           family: 'Jost',
-    //           variants: ['400', '700', '800', '700', '800'],
-    //         },
-    //       ],
-    //     },
-    //   },
-    // },
-    // {
-    //   resolve: `gatsby-plugin-webfonts`,
-    //   options: {
-    //     fonts: {
-    //       google: [
-    //         {
-    //           family: 'limelight',
-    //           variants: ['300', '400', '700'],
-    //         },
-    //         {
-    //           family: 'Zen Antique',
-    //           variants: ['400'],
-    //         },
-    //         {
-    //           family: 'Nanum Gothic',
-    //           variants: ['400', '700', '800'],
-    //         },
-    //         {
-    //           family: 'Jost',
-    //           variants: ['400', '700', '800', '700i', '800i'],
-    //         },
-    //         {
-    //           family: 'Poppins',
-    //           variants: ['300', '400'],
-    //         },
-    //       ],
-    //     },
-    //   },
-    // },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://www.hyunsujoo.com',
+        sitemap: 'https://www.hyunsujoo.com/sitemap.xml',
+        resolveEnv: () => process.env.GATSBY_ENV,
+        env: {
+          development: {
+            policy: [{ userAgent: '*', disallow: ['/'] }],
+          },
+          production: {
+            policy: [{ userAgent: '*', allow: '/' }],
+          },
+        },
+      },
+    },
+    `gatsby-plugin-offline`,
   ],
 }

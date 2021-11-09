@@ -12,7 +12,7 @@ module.exports = {
     everyday coffee/   
     `,
   },
-  siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+  siteUrl: `https://www.hyunsujoo.com`,
   social: {
     email: { emailAddress: 'hs9880@gmail.com', showIcon: true },
     github: { accountName: 'sooster910', showIcon: true },
