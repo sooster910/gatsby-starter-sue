@@ -108,11 +108,12 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
   const { utterances } = config?.comments
   const url = typeof window !== 'undefined' ? window.location.href : ''
   const description = frontmatter.excerpt || ''
+  const title = frontmatter.title || ''
   return (
     <>
       <Layout headings={singlePost?.headings}>
         <MDXProvider components={shortcodes}>
-          <Seo title="Using TypeScript" description={description} />
+          <Seo title={title} description={description} />
 
           <GatsbyImage
             image={Gimage}

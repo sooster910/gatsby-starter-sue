@@ -42,6 +42,7 @@ function Seo({
             description
             keywords
             image
+            naver
             author {
               name
               summary
@@ -56,7 +57,7 @@ function Seo({
   const defaultTitle: string = site.siteMetadata?.title
   const keywords = site.siteMetadata.keywords
   const image = site.siteMetadata.image
-
+  const naver = site.siteMetadata.naver
   return (
     <Helmet
       htmlAttributes={{
@@ -65,6 +66,10 @@ function Seo({
       title={title}
       titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : undefined}
       meta={[
+        {
+          name: `naver-site-verification`,
+          content: naver,
+        },
         {
           name: `description`,
           content: metaDescription,

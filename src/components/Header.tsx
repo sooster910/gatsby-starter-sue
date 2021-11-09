@@ -60,7 +60,7 @@ const Header = ({ siteTitle }: HeaderProps): React.ReactElement => {
         <NavLink to="/" activeClassName="current-page">
           Blog
         </NavLink>
-        <NavLink to="/about" activeClassName="current-page">
+        <NavLink to="/about/" activeClassName="current-page">
           About
         </NavLink>
 

@@ -28,6 +28,7 @@ module.exports = {
     linkedIn: true,
     line: true,
   },
+  naver: `094444c07ec9f596d893f8a95ae6aed3c5608638`,
   /*
    * src/components/comments
    * repo should be "<YOUR GITHUB USERNAME>/<YOUR BLOG REPOSITORY NAME>"
