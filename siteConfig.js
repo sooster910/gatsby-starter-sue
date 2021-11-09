@@ -1,16 +1,15 @@
 /* All customizable site config goes here*/
 
 module.exports = {
-  title: `FrontEnd Developer`,
-  description: `Hi I'm sue, passionate to front-end develpment, sharing knowledge about web `,
-  keywords: `FrontEnd Developer, React.js, JavaScript, technical-writing, web  `,
+  title: `Hyunsu Blog`,
+  description: `Hyunsu blog where stories are written on Software Engineering, FrontEnd Development, JavaScript, TypeScript, React, ux/ui and more. `,
+  keywords: `FrontEnd Development, FrontEnd architecture, Design System, React.js, JavaScript, TypeScript`,
   image: `src/images/profilePic.png`,
   author: {
-    name: `Sue.J`,
+    name: `Hyunsu.J`,
     greeting: `Hi, I'm Hyunsu`,
     summary: `Front End Developer focucsed on deliver a better user experienced. like to discover, learn, and share everything related to Web Developement. 
-    everyday coffee/   
-    `,
+     ☕️ 👩‍💻 ⛷ `,
   },
   siteUrl: `https://www.hyunsujoo.com`,
   social: {
