@@ -154,7 +154,7 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
               )}
             </li>
             <li>
-              {next && (
+              {next !== -1 && (
                 <PageLink to={`/${next.slug}`} direction={'next'}>
                   {next?.frontmatter.title}
                 </PageLink>
