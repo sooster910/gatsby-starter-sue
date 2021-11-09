@@ -1,10 +1,17 @@
 import { Theme } from '@emotion/react'
-import { primaryFont, code, typeScale, headerFont } from '../utils/typography'
+import {
+  primaryFont,
+  secondaryFont,
+  code,
+  typeScale,
+  titleFont,
+} from '../utils/typography'
 import { gray, pink, neutral, blue, darkblue } from '../utils/colors'
 
 export const light = {
   primaryFont,
-  headerFont,
+  secondaryFont,
+  titleFont,
   code,
   h1: typeScale.header1,
   h2: typeScale.header2,
@@ -23,7 +30,7 @@ export const light = {
     secondaryHoverColor: neutral[80],
     textColorOnSecondary: gray[100],
     textColorInverted: gray[10],
-    textColorOnPrimary: gray[80],
+    textColorOnPrimary: gray[90],
     sharpOutlineColor: gray[20],
     cardBackground: neutral[30],
     tagColor: blue[100],
@@ -53,7 +60,8 @@ export const light = {
 
 const dark = {
   primaryFont,
-  headerFont,
+  titleFont,
+  secondaryFont,
   code,
   h1: typeScale.header1,
   h2: typeScale.header2,

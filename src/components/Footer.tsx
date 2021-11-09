@@ -11,7 +11,7 @@ const StyledFooter = styled('footer')`
   a {
     text-decoration: none;
     color: var(--textColorOnPrimary);
-    background: linear-gradient(transparent 60%, var(--primaryActiveColor) 0);
+    background: linear-gradient(transparent 70%, var(--primaryActiveColor) 0);
   }
 `
 const Footer = (): React.ReactElement => (

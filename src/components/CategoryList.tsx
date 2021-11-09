@@ -35,7 +35,7 @@ export const CategoryList = () => {
 
   return (
     <StyleTagListWrapper>
-      <h4>Notes By Topics</h4>
+      <h5>Notes By Topics</h5>
       <StyledTagList>
         {categories.map((category) => (
           <StyledTagItem key={category.fieldValue}>

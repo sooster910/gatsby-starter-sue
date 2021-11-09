@@ -3,8 +3,12 @@ import { useStaticQuery, graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import { Avatar } from './Avatar'
 import { useAvatar } from '../hooks/useAvatar'
-import { Github, LinkedIn, Facebook } from './socialMediaIsvgs'
-import { SocialMediaIcon } from './SocialMediaIcon'
+import {
+  GitHubButton,
+  FacebookButton,
+  LinkedInButton,
+  EmailButton,
+} from './SocialButtons'
 import { Emoji } from './Emoji'
 import { css, keyframes } from '@emotion/react'
 
@@ -52,13 +56,15 @@ const Greeting = styled.h1<BioProps>`
 const Summary = styled.p`
   padding-left: ${(props) => props.theme.spacings.medium};
   color: var(--textColorOnSecondary);
+  font-family: ${({ theme }) => theme.primaryFont};
   line-height: 1.8rem;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: ${({ theme }) => theme.helperText};
 `
 const Icons = styled.div`
   display: flex;
-  justify-content: flex-start;
-  align-self: flex-start;
+  flex-wrap: wrap;
+  margin: 2rem 0;
   padding-left: 2rem;
 `
 const Bio = ({ isProfile }: BioProps): React.ReactElement => {
@@ -128,25 +134,29 @@ const Bio = ({ isProfile }: BioProps): React.ReactElement => {
 
           <Icons>
             {social.github.showIcon && (
-              <SocialMediaIcon
+              <GitHubButton
                 accountName={social.github.accountName}
                 preHref={'https://github.com/'}
-              >
-                <Github />
-              </SocialMediaIcon>
+              />
             )}
-            <SocialMediaIcon
-              accountName={social.facebook.accountName}
-              preHref={'https://facebook.com/'}
-            >
-              <Facebook />
-            </SocialMediaIcon>
-            <SocialMediaIcon
-              accountName={social.linkedIn.accountName}
-              preHref={'https://linkedin.com/'}
-            >
-              <LinkedIn />
-            </SocialMediaIcon>
+            {social.facebook.showIcon && (
+              <FacebookButton
+                accountName={social.facebook.accountName}
+                preHref={'https://facebook.com/'}
+              />
+            )}
+            {social.linkedIn.showIcon && (
+              <LinkedInButton
+                accountName={social.linkedIn.accountName}
+                preHref={'https://linkedin.com/'}
+              />
+            )}
+            {social.email.showIcon && (
+              <EmailButton
+                accountName={social.email.accountName}
+                preHref={social.email.emailAddress}
+              />
+            )}
           </Icons>
         </SummaryWrapper>
       </StyledBio>

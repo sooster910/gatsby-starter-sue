@@ -6,6 +6,7 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
+    // `gatsby-plugin-preload-fonts`,
     {
       resolve: `gatsby-plugin-emotion`,
       options: {
@@ -43,14 +44,14 @@ module.exports = {
       options: {
         extensions: ['.mdx', '.md'],
         gatsbyRemarkPlugins: [
-           {
+          {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
-              offsetY: `200`,
-              className: `anchor-header`, //classname you want. 
+              offsetY: `300`,
+              className: `anchor-header`, //classname you want.
               maintainCase: false, // prefer "false"
               removeAccents: true,
-              elements: [`h2`, 'h3', `h4`], // headers attached with link 
+              elements: ['h2', 'h3', 'h4'], // headers attached with link
             },
           },
           {
@@ -78,20 +79,60 @@ module.exports = {
         icon: `src/images/favicon.png`, // This path is relative to the root of the site.
       },
     },
-    {
-      resolve: `gatsby-plugin-google-fonts`,
-      options: {
-        fonts: [
-          `limelight`,
-          `source sans pro\:300,400,400i,700`, // you can also specify font weights and styles
-          `'Zen Antique', serif\:400`,
-          `'Nanum Gothic', sans-serif\:400,700,800`,
-          `'Jost', sans-serif\:400,700,800,700i,800i;`,
-          `Poppins, serif\:300,400`
 
-        ],
-        display: 'swap'
-      }
-    }
+    // {
+    //   resolve: `gatsby-plugin-webfonts`,
+    //   options: {
+    //     fonts: {
+    //       google: [
+    //         // {
+    //         //   family: 'limelight',
+    //         //   variants: ['400'],
+    //         // },
+    //         {
+    //           family: 'Nanum Gothic',
+    //           variants: ['500', '700', '800'],
+    //         },
+    //         {
+    //           family: 'Poppins',
+    //           variants: ['300', '400'],
+    //         },
+    //         {
+    //           family: 'Jost',
+    //           variants: ['400', '700', '800', '700', '800'],
+    //         },
+    //       ],
+    //     },
+    //   },
+    // },
+    // {
+    //   resolve: `gatsby-plugin-webfonts`,
+    //   options: {
+    //     fonts: {
+    //       google: [
+    //         {
+    //           family: 'limelight',
+    //           variants: ['300', '400', '700'],
+    //         },
+    //         {
+    //           family: 'Zen Antique',
+    //           variants: ['400'],
+    //         },
+    //         {
+    //           family: 'Nanum Gothic',
+    //           variants: ['400', '700', '800'],
+    //         },
+    //         {
+    //           family: 'Jost',
+    //           variants: ['400', '700', '800', '700i', '800i'],
+    //         },
+    //         {
+    //           family: 'Poppins',
+    //           variants: ['300', '400'],
+    //         },
+    //       ],
+    //     },
+    //   },
+    // },
   ],
 }

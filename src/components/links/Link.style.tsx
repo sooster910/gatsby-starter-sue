@@ -54,7 +54,7 @@ export const PageLink = styled(DefaultLink)`
   min-width: 100px;
   background-color: var(--primaryActiveColor);
   padding: 8px 12px;
-  color: var(--textColorOnPrimary);
+  color: var(--pageLink);
   font-weight: 500;
   border-radius: 12px;
   text-decoration: none;

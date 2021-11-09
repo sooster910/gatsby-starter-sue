@@ -28,7 +28,6 @@ const StyledSpan = styled.span`
   font-size: 70%;
   text-transform: uppercase;
   line-height: 2.5;
-  opacity: 0.7;
   padding: 0 2rem;
 `
 

@@ -26,6 +26,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     "react/react-in-jsx-scope": "off", //es-next won't need react on top of that
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-var-requires":"off",
     'react/no-unescaped-entities': [
       'error',
       {

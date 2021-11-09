@@ -2,6 +2,8 @@ import '@emotion/react'
 declare module '@emotion/react' {
   export interface Theme {
     primaryFont: string
+    secondaryFont: string
+    titleFont: string
     code: string
     h1: string
     h2: string

@@ -15,13 +15,13 @@ const Header = ({ siteTitle }: HeaderProps): React.ReactElement => {
   return (
     <header
       css={css`
-        border-bottom: 1px solid rgba(214, 210, 196, 0.3);
+        /* border-bottom: 1px solid rgba(214, 210, 196, 0.3); */
         display: flex;
         justify-content: space-between;
         padding: 1rem 2rem;
         width: 100%;
-        background: rgba(255, 255, 255, 0.25) none repeat scroll 0% 0%;
-        backdrop-filter: blur(10 px);
+        /* background: rgba(255, 255, 255, 0.25) none repeat scroll 0% 0%;
+        backdrop-filter: blur(10 px); */
         z-index: 1;
       `}
     >

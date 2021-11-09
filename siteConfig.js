@@ -1,8 +1,10 @@
 /* All customizable site config goes here*/
 
 module.exports = {
-  title: `Gatsby starter Sue`,
-  description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+  title: `FrontEnd Developer`,
+  description: `Hi I'm sue, passionate to front-end develpment, sharing knowledge about web `,
+  keywords: `FrontEnd Developer, React.js, JavaScript, technical-writing, web  `,
+  image: `src/images/profilePic.png`,
   author: {
     name: `Sue.J`,
     greeting: `Hi, I'm Hyunsu`,
@@ -14,10 +16,10 @@ module.exports = {
   social: {
     email: { emailAddress: 'hs9880@gmail.com', showIcon: true },
     github: { accountName: 'sooster910', showIcon: true },
-    facebook: { accountName: '', showIcon: true },
-    instagram: { accountName: '', showIcon: true },
-    twitter: { accountName: '', showIcon: true },
-    linkedIn: { accountName: '', showIcon: true },
+    facebook: { accountName: '', showIcon: false },
+    instagram: { accountName: '', showIcon: false },
+    twitter: { accountName: '', showIcon: false },
+    linkedIn: { accountName: '', showIcon: false },
   },
   titleTemplate: '%s · The Real Hero',
   shareButtons: {

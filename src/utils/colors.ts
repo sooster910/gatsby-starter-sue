@@ -1,5 +1,6 @@
 export const gray = {
   100: '#2d2d2d',
+  90: '#17202c',
   80: '#525252',
   60: '#282c35', //primary dark bg
   40: '#495061',
@@ -8,6 +9,7 @@ export const gray = {
   20: '#CCD6DD',
   10: '#727D86',
 }
+
 export const darkblue = {
   100: '#21252c',
   80: '#333743',
@@ -17,6 +19,7 @@ export const neutral = {
   100: '#fff',
   80: '#f6f8fa',
   60: 'rgb(247, 247, 247)',
+  50: '#BABABA',
   40: 'rgb(240, 231, 219, 0.2)',
   30: 'rgb(240, 231, 219, 0.3)',
 }

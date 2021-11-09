@@ -47,7 +47,7 @@ export const TableOfContents: React.FunctionComponent<TableOfContentsProps> = ({
   return (
     <StyledTableOfContents>
       <InnerScroll>
-        <h3>Table of Contents</h3>
+        <h5>Table of Contents</h5>
 
         {headings
           .filter((heading) => heading.depth !== 1)

@@ -8,18 +8,19 @@
 import * as React from 'react'
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
-// import {
-//   NotoKR500WOFF2,
-//   Inter500WOFF2,
-//   Inter600WOFF2,
-//   SpoqaSans500WOFF2,
-// } from '../../assets/fonts/index'
+import {
+  SpoqaSans600WOFF2,
+  SpoqaSans700WOFF2,
+  Jost600WOFF2,
+  Jost800WOFF2,
+} from '../../assets/fonts/index'
 export interface SeoProps {
   title?: string
   description: string
   lang?: string
   meta?: Array<{ name: string; content: string }>
   titleTemplate?: string
+  image?: string
 }
 /**
  *
@@ -39,6 +40,8 @@ function Seo({
           siteMetadata {
             title
             description
+            keywords
+            image
             author {
               name
               summary
@@ -51,6 +54,8 @@ function Seo({
 
   const metaDescription: string = description || site.siteMetadata.description
   const defaultTitle: string = site.siteMetadata?.title
+  const keywords = site.siteMetadata.keywords
+  const image = site.siteMetadata.image
 
   return (
     <Helmet
@@ -65,6 +70,10 @@ function Seo({
           content: metaDescription,
         },
         {
+          name: `keywords`,
+          content: keywords,
+        },
+        {
           property: `og:title`,
           content: title,
         },
@@ -77,8 +86,16 @@ function Seo({
           content: `website`,
         },
         {
+          property: `og:image`,
+          content: image,
+        },
+        {
           name: `twitter:card`,
           content: `summary`,
+        },
+        {
+          name: `twitter:image`,
+          content: image,
         },
         {
           name: `twitter:creator`,
@@ -88,40 +105,41 @@ function Seo({
           name: `twitter:title`,
           content: title,
         },
+
         {
           name: `twitter:description`,
           content: metaDescription,
         },
       ].concat(meta)}
     >
-      {/* <link
+      <link
         rel="preload"
         as="font"
-        href={NotoKR500WOFF2}
+        href={SpoqaSans700WOFF2}
         type="font/woff2"
         crossOrigin="anonymous"
       />
       <link
         rel="preload"
         as="font"
-        href={Inter500WOFF2}
+        href={SpoqaSans600WOFF2}
         type="font/woff2"
         crossOrigin="anonymous"
       />
       <link
         rel="preload"
         as="font"
-        href={Inter600WOFF2}
+        href={Jost600WOFF2}
         type="font/woff2"
         crossOrigin="anonymous"
       />
       <link
         rel="preload"
         as="font"
-        href={SpoqaSans500WOFF2}
+        href={Jost800WOFF2}
         type="font/woff2"
         crossOrigin="anonymous"
-      /> */}
+      />
     </Helmet>
   )
 }

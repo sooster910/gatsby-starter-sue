@@ -72,11 +72,10 @@ const StyledPostHeader = styled.div`
   margin-bottom: 3em;
 `
 const StyledPostTitle = styled.h1`
-  font-size: 3rem;
   line-height: 3.5rem;
   font-family: var(--primaryFont);
-  font-weight: 600;
-  letter-spacing: 2px;
+  font-weight: 800;
+  /* letter-spacing: 2px; */
   text-align: center;
   padding-top: 2rem;
   &::after {
@@ -100,7 +99,7 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
     (post: { id: string }) => post.id === curPostId,
   )
   const prev =
-    curIdx !== -1 && nodes[curIdx - 1] !== undefined ? nodes[curIdx - 1] : -1
+    curIdx !== -1 && (nodes[curIdx - 1] !== undefined ? nodes[curIdx - 1] : -1)
   const next =
     curIdx !== -1 && nodes[curIdx + 1] !== undefined ? nodes[curIdx + 1] : -1
   const { utterances } = config?.comments
@@ -145,14 +144,14 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
           {utterances?.enabled && <Comments repo={utterances.repo} />}
           <Pagination>
             <li>
-              {prev !== -1 && (
+              {prev && (
                 <PageLink to={`/${prev.slug}`} direction={'prev'}>
                   {prev?.frontmatter?.title}
                 </PageLink>
               )}
             </li>
             <li>
-              {next !== -1 && (
+              {next && (
                 <PageLink to={`/${next.slug}`} direction={'next'}>
                   {next?.frontmatter.title}
                 </PageLink>
