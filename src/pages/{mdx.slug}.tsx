@@ -98,10 +98,13 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
   const curIdx = nodes?.findIndex(
     (post: { id: string }) => post.id === curPostId,
   )
+  console.log('cureindx', curIdx)
+  console.log('nodes', nodes)
   const prev =
-    curIdx !== -1 && (nodes[curIdx - 1] !== undefined ? nodes[curIdx - 1] : -1)
+    curIdx > 1 && nodes[curIdx - 1] !== undefined ? nodes[curIdx - 1] : -1
   const next =
     curIdx !== -1 && nodes[curIdx + 1] !== undefined ? nodes[curIdx + 1] : -1
+  console.log('prev', prev)
   const { utterances } = config?.comments
   const url = typeof window !== 'undefined' ? window.location.href : ''
   const description = frontmatter.excerpt || ''
@@ -144,7 +147,7 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
           {utterances?.enabled && <Comments repo={utterances.repo} />}
           <Pagination>
             <li>
-              {prev && (
+              {prev !== -1 && (
                 <PageLink to={`/${prev.slug}`} direction={'prev'}>
                   {prev?.frontmatter?.title}
                 </PageLink>
