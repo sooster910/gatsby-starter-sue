@@ -8,7 +8,7 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-robots-txt`,
-
+    `gatsby-plugin-remove-trailing-slashes`,
     // `gatsby-plugin-preload-fonts`,
     {
       resolve: `gatsby-plugin-emotion`,
@@ -87,15 +87,7 @@ module.exports = {
       options: {
         host: 'https://www.hyunsujoo.com',
         sitemap: 'https://www.hyunsujoo.com/sitemap.xml',
-        resolveEnv: () => process.env.GATSBY_ENV,
-        env: {
-          development: {
-            policy: [{ userAgent: '*', disallow: ['/'] }],
-          },
-          production: {
-            policy: [{ userAgent: '*', allow: '/' }],
-          },
-        },
+        policy: [{ userAgent: '*', allow: '/' }],
       },
     },
     `gatsby-plugin-offline`,
