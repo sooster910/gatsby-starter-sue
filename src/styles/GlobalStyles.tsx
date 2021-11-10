@@ -94,7 +94,7 @@ const GlobalStyles = () => {
         h5 {
           font-size: ${theme.h5};
           text-transform: uppercase;
-          font-weight: 500;
+          font-weight: 600;
           font-family: ${theme.titleFont};
         }
         ol {
@@ -109,6 +109,12 @@ const GlobalStyles = () => {
         }
         li {
           margin-top: 0.25rem;
+        }
+
+        ul {
+          li {
+            list-style: none;
+          }
         }
         /* edit code block style */
         deckgo-highlight-code {

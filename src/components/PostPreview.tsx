@@ -53,7 +53,7 @@ const PostPreview = ({ post }: PostPreviewProps): React.ReactElement => {
     <StyledArticle id={post.slug}>
       <StyledPostPreview to={`/${post.slug}/`}>
         <StyledArticleHeader>
-          <h4 css={{ textTransform: 'uppercase' }}>{post.title}</h4>
+          <h5 css={{ textTransform: 'uppercase' }}>{post.title}</h5>
           <object>
             <ul>
               {post?.tags.map((tag) => (

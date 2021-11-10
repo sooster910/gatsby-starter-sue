@@ -4,7 +4,7 @@ module.exports = {
   title: `Hyunsu Blog`,
   description: `Hyunsu blog where stories are written on Software Engineering, FrontEnd Development, JavaScript, TypeScript, React, ux/ui and more. `,
   keywords: `FrontEnd Development, FrontEnd architecture, Design System, React.js, JavaScript, TypeScript`,
-  image: `src/images/profilePic.png`,
+  image: `./src/images/profilePic.png`,
   author: {
     name: `Hyunsu.J`,
     greeting: `Hi, I'm Hyunsu`,

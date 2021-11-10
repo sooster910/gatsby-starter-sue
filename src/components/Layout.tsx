@@ -35,7 +35,7 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 const Main = styled.main`
-  width: 640px;
+  max-width: 680px;
 `
 
 const Layout = ({ children, headings }: LayoutProps): React.ReactElement => {
