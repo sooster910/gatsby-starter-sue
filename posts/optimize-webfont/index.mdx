@@ -100,19 +100,19 @@ woff2 가 가장 경량화되어있으며 30% 정도 파일 크기가 작으며 
 
 구글 웹 폰트는 woff와 woff2를 지원한다. IE11 까지는 woff로 대응할 수 있지만 IE11 이전 버전을 지원하려면, EOT 또는 TTF 폰트 형식만이 가능한데 구글 웹폰트는 이 형식들을 지원하지 않는다.
 
-#### woff2
+##### woff2
 
 <img src="../images/woff2.png" alt="woff2" width="500px" />
 
-#### woff
+##### woff
 
 <img src="../images/woff.png" alt="woff" width="500px" />
 
-#### EOT
+##### EOT
 
 <img src="../images/eot.png" alt="eot" width="500px" />
 
-#### TTF
+##### TTF
 
 <img src="../images/eot.png" alt="ttf" width="500px" />
 
@@ -142,7 +142,7 @@ IE 8 이하의 버전을 지원하고자 한다면 self hosting을 고려해야 
 
 크롬( Chrome: v86 이후(2020년 10월), 파이어폭스(2021년 1월 v85 이후), 사파리(2013년부터)는 새로운 [캐시 파티셔닝](https://developers.google.com/web/updates/2020/10/http-cache-partitioning)을 즉 "캐시 분할" 또는 "이중 키 캐싱"이라는 것을 구현했다.
 
-#### 기존의 캐시 시스템
+##### 기존의 캐시 시스템
 
 A 사용자: https://b.example 방문, https://x.example/doge.png 리소스 요청
 
@@ -151,7 +151,7 @@ A 사용자: https://c.example 방문, https://x.example/doge.png 리소스 요�
 브라우저는 c.example 웹 페이지에서 캐시 된 리소스 버전을 사용한다. Cache key가 동일하기 때문에 브라우저는 캐시에서 리소스를 로드할 수 있다.
 이런 캐시 시스템은 빠른 리소스를 로드하는 장점을 가져다 주지만 웹 사이트가 HTTP 요청에 응답하는 데 걸리는 시간은 브라우저가 과거에 동일한 리소스에 액세스 했음을 알 수 있기 때문에 (사용자의 검색 기록이 노출되는 위험성) 보안 및 개인 정보 공격에 노출 리스크가 있으므로, Chrome 86부터 HTTP 캐시를 분할하였다.
 
-#### 캐시 파티셔닝
+##### 캐시 파티셔닝
 
 기존의 시스템에서 cache키는 하나 였으나, 새로운 시스템에서는 3개의 키로 구성되어진 튜플이다.
 
@@ -229,7 +229,7 @@ https://a.example에 방문하여 https://x.example/doge.png 이미지를 요청
 로컬에 이미 설치 된 폰트의 경로를 적는 속성이다.
 만약 google font api를 이용한다면, google api가 로컬에 지정된 폰트가 없으면 새로운 폰트를 호출하여 다운로드 한다.
 
-#### url() 속성
+##### url() 속성
 
 다운로드 할 웹폰트의 주소를 적는 속성이다.
 
@@ -243,7 +243,7 @@ https://a.example에 방문하여 https://x.example/doge.png 이미지를 요청
 
 - 가장 용량이 작은 woff2형식을 기본으로 먼저 다운을 받고 만약 지원하지 않는 브라우저일 경우는 두번째인 woff형식을 다운 받는다.
 
-##### UNICODE-RANGE
+###### UNICODE-RANGE
 
 unicode-range를 이용해서 유니코드마다 다른 폰트를 지정할 수 있다.
 
@@ -391,7 +391,7 @@ FIOT를 해결 할 방법으로 `@font-face` 에서 `font-display: swap` 속성�
 
 ---
 
-#### 참고자료
+##### 참고자료
 
 - [김원준 님의 웹폰트 사용하기](https://wit.nts-corp.com/2017/02/13/4258)
 
