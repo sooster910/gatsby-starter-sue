@@ -8,7 +8,6 @@ export const Comments = ({ repo }: CommentsProps) => {
   const anchor = React.useRef<HTMLInputElement | null>(null)
 
   useLayoutEffect(() => {
-    console.log('useLayoutEffect')
     const theme = 'github-light'
     const script = document.createElement('script')
 

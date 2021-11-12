@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 const getInitialTheme = () => {
-  console.log('getInitialTheme')
   const prefersColorScheme =
     typeof window !== 'undefined' &&
     window?.matchMedia('prefers-color-scheme: dark').matches
@@ -16,12 +15,10 @@ const useTheme = () => {
   const [theme, setTheme] = useState(getInitialTheme)
 
   const toggleTheme = () => {
-    console.log('toggle theme')
     setTheme((prevTheme) => {
       return prevTheme === 'light' ? 'dark' : 'light'
     })
     useEffect(() => {
-      console.log('useEffect')
       if (typeof window !== 'undefined') {
         window.localStorage.setItem('theme', theme)
       }

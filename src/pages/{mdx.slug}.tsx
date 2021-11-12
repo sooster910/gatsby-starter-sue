@@ -68,8 +68,6 @@ type DataProps = {
 const StyledPostHeader = styled.div`
   position: relative;
   padding-bottom: 2.4em;
-  border-bottom: 1px solid var(--sharpOutlineColor);
-  margin-bottom: 3em;
 `
 const StyledPostTitle = styled.h1`
   line-height: 3.5rem;
@@ -78,13 +76,6 @@ const StyledPostTitle = styled.h1`
   /* letter-spacing: 2px; */
   text-align: center;
   padding-top: 2rem;
-  &::after {
-    content: '';
-    position: absolute;
-    max-width: 30%;
-    top: 10px;
-    border-bottom: 1px solid var(--sharpOutlineColor);
-  }
 `
 const StyledPostDate = styled.div``
 
@@ -98,13 +89,10 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
   const curIdx = nodes?.findIndex(
     (post: { id: string }) => post.id === curPostId,
   )
-  console.log('cureindx', curIdx)
-  console.log('nodes', nodes)
   const prev =
     curIdx > 1 && nodes[curIdx - 1] !== undefined ? nodes[curIdx - 1] : -1
   const next =
     curIdx !== -1 && nodes[curIdx + 1] !== undefined ? nodes[curIdx + 1] : -1
-  console.log('prev', prev)
   const { utterances } = config?.comments
   const url = typeof window !== 'undefined' ? window.location.href : ''
   const description = frontmatter.excerpt || ''

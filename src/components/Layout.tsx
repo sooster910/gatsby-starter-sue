@@ -49,7 +49,11 @@ const Layout = ({ children, headings }: LayoutProps): React.ReactElement => {
         <Aside>
           {typeof headings !== 'undefined' &&
             Array.isArray(headings) &&
-            headings.length && <TableOfContents headings={headings} />}
+            headings.length && (
+              <TableOfContents
+                headings={headings.filter((v) => v.depth !== (5 || 6))}
+              />
+            )}
           <CategoryList />
         </Aside>
       </Wrapper>

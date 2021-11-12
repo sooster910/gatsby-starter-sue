@@ -24,12 +24,12 @@ export interface PostPreviewProps {
 const StyledArticle = styled.article`
   position: relative;
   background-color: var(--secondaryColor);
-  box-shadow: ${({ theme }) => theme.shadows.shadow1};
+  border: 5px solid #000;
   padding: 1.5rem 2rem;
   border-radius: 12px;
   margin-top: 1rem;
   cursor: pointer;
-  transition: background-color 0.1s ease-out;
+  transition: background-color 0.1s ease;
 
   &:hover {
     background-color: var(--secondaryHoverColor);
@@ -45,7 +45,10 @@ const StyledArticleBody = styled.div`
   width: 100%;
   margin-top: 1rem;
 `
-
+const StyledArticleHeaderTitle = styled.h5`
+  font-family: ${({ theme }) => theme.primaryFont};
+  text-transform: 'uppercase';
+`
 const PostPreview = ({ post }: PostPreviewProps): React.ReactElement => {
   const thumbnail = getImage(post.image)
 
@@ -53,7 +56,7 @@ const PostPreview = ({ post }: PostPreviewProps): React.ReactElement => {
     <StyledArticle id={post.slug}>
       <StyledPostPreview to={`/${post.slug}/`}>
         <StyledArticleHeader>
-          <h5 css={{ textTransform: 'uppercase' }}>{post.title}</h5>
+          <StyledArticleHeaderTitle>{post.title}</StyledArticleHeaderTitle>
           <object>
             <ul>
               {post?.tags.map((tag) => (

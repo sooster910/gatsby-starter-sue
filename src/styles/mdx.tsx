@@ -16,8 +16,13 @@ export const MDX = styled('article')`
       background: none;
     }
   }
+  h1,
   h2 {
-    font-size: 2rem;
+    border-bottom: 1px solid #3f3f3f;
+    padding-bottom: ${({ theme }) => theme.spacings.small};
+  }
+  h2 {
+    font-size: 1.8rem;
     line-height: 2.4rem;
     margin-bottom: 3rem;
     margin-top: 3.75rem;
@@ -25,24 +30,6 @@ export const MDX = styled('article')`
     &:hover {
       visibility: visible;
     }
-    /* a {
-      ::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        transform: translateX(-100%);
-        padding-right: 4px;
-      }
-
-      svg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        transform: translateX(-100%);
-        padding-right: 4px;
-        visibility: hidden;
-      }
-    } */
   }
 
   h3 {
@@ -65,10 +52,11 @@ export const MDX = styled('article')`
 
   p {
     font-size: 1.14rem;
-    line-height: 1.875rem;
     font-weight: 500;
     color: var(--textColorOnPrimary);
-    margin-bottom: 3rem;
+    line-height: 2;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
   }
   blockquote {
     font-size: 1.5rem;
@@ -93,7 +81,7 @@ export const MDX = styled('article')`
   a {
     text-decoration: none;
     color: var(--textColorOnSecondary);
-    background: linear-gradient(transparent 78%, var(--primaryActiveColor) 0);
+    background: linear-gradient(transparent 90%, var(--primaryActiveColor) 0);
   }
   a.anchor-header {
     fill: var(--textColorOnPrimary);
@@ -132,7 +120,6 @@ export const MDX = styled('article')`
   ul > li {
     padding-left: 1.75em;
     position: relative;
-
     ::before {
       background-color: var(--textColorOnPrimary);
       border-radius: 50%;
@@ -144,6 +131,11 @@ export const MDX = styled('article')`
       width: 0.375em;
     }
   }
+  /* ul,
+  ol {
+    margin-left: ${({ theme }) => theme.spacings.xSmall};
+  } */
+
   code {
     padding: 2px 5px;
     background: #f5f5f5;

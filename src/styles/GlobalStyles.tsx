@@ -69,6 +69,12 @@ const GlobalStyles = () => {
         h4,
         h5,
         h6 {
+          /**
+ * Headings
+ */
+
+          margin-top: 1em;
+
           color: var(--textColorOnSecondary);
           + * {
             margin-top: 0.5rem; //anything comes afte heading
@@ -144,8 +150,6 @@ const GlobalStyles = () => {
               format('woff'),
             /* Modern Browsers */ url(${Fonts.SpoqaSans700TTF})
               format('truetype');
-          unicode-range: U+AC00-D7A3, U+0030-0039, U+0020-002F, U+003A-0040,
-            U+005B-0060, U+007B-007E;
         }
         @font-face {
           font-family: 'Spoqa Han Sans Neo', 'sans-serif';
@@ -157,8 +161,6 @@ const GlobalStyles = () => {
             /* IE6-IE8 */ url(${Fonts.Jost800WOFF2}) format('woff2'),
             /* Super Modern Browsers */ url(${Fonts.Jost800WOFF}) format('woff'),
             /* Modern Browsers */ url(${Fonts.Jost800TTF}) format('truetype');
-          unicode-range: U+AC00-D7A3, U+0030-0039, U+0020-002F, U+003A-0040,
-            U+005B-0060, U+007B-007E;
         }
         /* jost-600 - latin */
         @font-face {
@@ -201,7 +203,8 @@ const GlobalStyles = () => {
             /* IE6-IE8 */ url(${Fonts.Sora600WOFF2}) format('woff2'),
             /* Super Modern Browsers */ url(${Fonts.Sora600WOFF}) format('woff'),
             /* Modern Browsers */ url(${Fonts.Sora600TTF}) format('truetype');
-          unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
+          unicode-range: U+AC00-D7A3, U+0030-0039, U+0020-002F, U+003A-0040,
+            U+005B-0060, U+007B-007E, U+0041-005A, U+0061-007A, U+0030-0039;
         }
 
         @font-face {
@@ -215,7 +218,8 @@ const GlobalStyles = () => {
             /* IE6-IE8 */ url(${Fonts.Sora800WOFF2}) format('woff2'),
             /* Super Modern Browsers */ url(${Fonts.Sora800WOFF}) format('woff'),
             /* Modern Browsers */ url(${Fonts.Sora800TTF}) format('truetype');
-          unicode-range: U+0041-005A, U+0061-007A, U+0030-0039;
+          unicode-range: U+AC00-D7A3, U+0030-0039, U+0020-002F, U+003A-0040,
+            U+005B-0060, U+007B-007E, U+0041-005A, U+0061-007A, U+0030-0039;
         }
       `}
     />

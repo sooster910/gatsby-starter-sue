@@ -14,7 +14,7 @@ tags: ['Web Developement', 'web performance']
 
 - 잘못된 부분이나 더 괜찮은 방법 또는 의견을 나누고 싶다면 바로 알려주세요!
 
-## 문제점과 측정
+## 1.문제점과 측정
 
 페이지 전환시 font가 깜빡이는 현상이 있었다. 문제점을 측정하기 위해 chrome performance, google light-house, 그리고 [webpagetest.org](https://webpagetest.org/) 이용하였다.
 측정 환경은 slow 3g, disable cache, aws s3, cloudfront로 배포 후 버전을 대상으로 실행하였다.
@@ -40,7 +40,7 @@ tags: ['Web Developement', 'web performance']
 2. “Avoid chaining critical request” error - Lighthouse
 3. 페이지 전환시 font가 깜빡 이는 현상
 
-## 렌더링 차단과 Google web fonts 동작원리의 관계
+## 2. 렌더링 차단과 Google web fonts 동작원리의 관계
 
 Google 웹폰트 사용시 사용되는 일반적인 태그이다.
 
@@ -76,7 +76,7 @@ Maximum critical path latency 는 중요한 요청의 리소스를 다운로드 
 
 즉 브라우저가 리소스를 다운받는데 우선순위를 조정하거나 외부 도메인과의 연결에서 설정을 미리 하여 리소스를 받을 준비상태를 미리 만들어 놓아 효율적으로 다운로드 할 수 있도록 최적화하는 것이다.
 
-### Gatsby에서 구글 폰트 preloading 적용 그리고 결과
+### 2.1 Gatsby에서 구글 폰트 preloading 적용 그리고 결과
 
 사용했던 gatsby-plugin-google-fonts 에서의 [Eliminate render-blocking resources #15
 ](https://github.com/didierfranc/gatsby-plugin-google-fonts/issues/15) 이슈는 아직 해결되지 않았으므로, [gatsby-plugin-webfonts](https://www.gatsbyjs.com/plugins/gatsby-plugin-webfonts/?=gatsby-plugin-web) 라는 플러그인을 사용하였다.
@@ -84,7 +84,7 @@ Maximum critical path latency 는 중요한 요청의 리소스를 다운로드 
 gatsby에서 빌드시 이 plugin은 @font-face css 파일을 생성 후 배포 시에는 폰트 파일를 가져오는 것이다.
 
 <img
-  src="../images/after_optimize_google_font.png "
+  src="../images/after_optimize_google_font.png"
   alt="optimizing_googlefont"
   width="500px"
 />
@@ -93,7 +93,7 @@ gatsby에서 빌드시 이 plugin은 @font-face css 파일을 생성 후 배포 
 
 브라우저별 호환성을 보자면,
 
-### 폰트형식
+### 2.2 브라우저 호환성
 
 폰트 형식은 woff, woff2, EOT, TTF 종류가 있다.
 woff2 가 가장 경량화되어있으며 30% 정도 파일 크기가 작으며 IE를 제외한 최신 브라우저들은 woff2를 지원한다, html 파일에서 preload 시 파일 형식으로도 적합하다.
@@ -116,29 +116,26 @@ woff2 가 가장 경량화되어있으며 30% 정도 파일 크기가 작으며 
 
 <img src="../images/eot.png" alt="ttf" width="500px" />
 
-### Resource Hints
-
-`preload`와 `preconnect`는 IE에서 지원하지 않는다.
-
+Resource Hints 인 `preload`와 `preconnect`는 IE에서 지원하지 않는다.
 즉 preload가 지원되는 브라우저 라면 woff2도 같이 지원이 가능하며 IE 브라우저는 예외이다. IE를 대응하고자 한다면 셀프 호스팅을 고려해야 한다.
 
-#### preload
+##### preload
 
 <img src="../images/preload.png" alt="preload" width="500px" />
 
-#### preconnect
+##### preconnect
 
 <img src="../images/preload.png" alt="preconnect" width="500px" />
 
-## 웹폰트 최적화엔 self hosting 폰트 사용?
+## 3. 웹폰트 최적화엔 self hosting 폰트 사용?
 
 IE 8 이하의 버전을 지원하고자 한다면 self hosting을 고려해야 한다는 언급 했었다. 이 외에도 더 이상 google font를 사용할 이유가 없다는 몇 가지 팩트들이 있었다.
 
-### 구글 폰트의 오해와 새로운 사실
+### 3.1. 구글 폰트의 캐시 기간
 
 일반적으로 "fonts.gstatic.com"에서 다운로드한 글꼴 파일만 캐시 기간이 1년이라고 알려져 있다. 재방문하는 사용자에겐 빠른 속도로 폰트를 제공할 수 있다고 하지만 사실 캐시 된 글꼴을 제공하려면 브라우저가 24시간마다 CSS 파일을 다운로드해야 한다. 그 이유는 기본 CSS 파일의 캐시 수명이 24시간 이기 때문이다. 또한 CSS파일을 다운로드하는 것은 렌더링을 차단하는 일에 다다른다.
 
-#### 개인 정보 보호를 위한 브라우저의 새로운 "캐시 파티셔닝"
+### 3.2 개인 정보 보호를 위한 브라우저의 새로운 "캐시 파티셔닝"
 
 크롬( Chrome: v86 이후(2020년 10월), 파이어폭스(2021년 1월 v85 이후), 사파리(2013년부터)는 새로운 [캐시 파티셔닝](https://developers.google.com/web/updates/2020/10/http-cache-partitioning)을 즉 "캐시 분할" 또는 "이중 키 캐싱"이라는 것을 구현했다.
 
@@ -173,7 +170,7 @@ https://a.example에 방문하여 https://x.example/doge.png 이미지를 요청
 
 이런 방식 아래에서, Google 웹폰트는 예전처럼 항상 캐시 된 폰트를 제공할 수가 없다.
 
-### GDPR
+### 3.3 GDPR
 
 예를 들어 fonts.com의 방문자가 페이지를 올바르게 표시하는 데 필요한 글꼴을 아직 캐시 하지 않은 경우, Google API로 글꼴을 요청하는 과정에서 Google은 사용자의 IP주소를 얻게 되는데 GDPR에 따른 고유한 개인 식별자에 해당된다.
 그래서 유럽을 대상으로 한 사업체가 있다거나, 유럽에 거주하는 사람들이 이용하는 웹사이트라면 구글 폰트를 이용하기 위해선 Google Fonts에서 Google Fonts API로의 URL 호출이 발생하기 전에 사용자에게 동의를 요청하는 메시지를 표시해야 한다.
@@ -182,7 +179,7 @@ https://a.example에 방문하여 https://x.example/doge.png 이미지를 요청
 
 사실 제일 빠른 로딩이 가능하며, 이 모든 고민의 해결을 어느 정도 한 번에 풀 수 있는 방법은 system fonts를 사용하는 것이다. 하지만, 한정된 system fonts만을 사용하여 사용자들에게 즐거운 경험을 주기에는 개인적으로 안타까운 접근이라고 생각하기에 셀프 호스팅 폰트를 적용해 보았다.
 
-## 셀프호스팅 폰트 최적화 적용
+## 4. 셀프호스팅 폰트 최적화 적용
 
 셀프 호스팅의 최적화는 Google 웹 폰트에서 알아서 작업해줬던 일련의 과정들을 수동으로 설정해주는 것이다.
 
@@ -191,7 +188,7 @@ https://a.example에 방문하여 https://x.example/doge.png 이미지를 요청
 3. preload 설정
 4. FOUT, FOIT 대응
 
-### 1. 최적화된 font format 로컬파일
+### 4.1. 최적화된 font format 로컬파일
 
 셀프 호스팅의 경우 [google-webfonts-helper](https://google-webfonts-helperhttps://google-webfonts-helper)를 이용하면 구글 폰트에서 지원하는 폰트를 다운로드할 수 있게 지원하며 무엇보다도 구글 폰트에서 다운로드할 때 받을 수 없었던 woff, woff2까지 모두 지원한다. 즉, IE11 이하 버전까지도 지원할 수 있는 폰트 형식이다.
 하지만 한글로 된 폰트들은 라틴문자에 비해 조합이 많으므로 파일이 10배까지도 크다.
@@ -204,7 +201,7 @@ https://a.example에 방문하여 https://x.example/doge.png 이미지를 요청
 
 [스포카](https://spoqa.github.io/spoqa-han-sans/)에서 EOF, TTF 파일을 제공하여 spoqa를 사용하기로 했다. 나머지 WOFF, WOFF2는 converter를 이용해 바꾸었다.
 
-### 2. @font-face 지정
+### 4.2. @font-face 지정
 
 ```css
 @font-face {
@@ -243,7 +240,7 @@ https://a.example에 방문하여 https://x.example/doge.png 이미지를 요청
 
 - 가장 용량이 작은 woff2형식을 기본으로 먼저 다운을 받고 만약 지원하지 않는 브라우저일 경우는 두번째인 woff형식을 다운 받는다.
 
-###### UNICODE-RANGE
+##### UNICODE-RANGE
 
 unicode-range를 이용해서 유니코드마다 다른 폰트를 지정할 수 있다.
 
@@ -253,7 +250,7 @@ unicode-range를 이용해서 유니코드마다 다른 폰트를 지정할 수 
 - 숫자 범위 : U+0030-0039
 - 특수 문자: U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E
 
-### 3. preload 설정
+### 4.3. preload 설정
 
 나는 react-helemt을 이용하였다. gatsby 에선 검색 엔진 최적화를 할 수 있도록 도와주는 라이브러리인 react-helmet의 확장한 플러그인을 사용할 수 있다.
 
@@ -301,7 +298,7 @@ const SEO = () => (
 
 ['gatsby -How to preload self-hosted fonts? #13074'](https://github.com/gatsbyjs/gatsby/issues/13074) 참고
 
-## 4. FOUT(Flash of Unstyled Text), FIOT(Flash of Invisible Text)
+### 4.4. FOUT(Flash of Unstyled Text), FIOT(Flash of Invisible Text)
 
 preload로 인해서 렌더링이 된 후에도 폰트를 다운로드되는 과정이 이어지기 때문에 그때까지는 아무것도 보이지 않는 FIOT 현상이 일어날 수 있다.
 처음 Lighthouse에서 받은 에러로 `“ensure text remains visible during web font load”`가 FIOT 현상을 이야기한다.
@@ -330,7 +327,7 @@ FIOT를 해결 할 방법으로 `@font-face` 에서 `font-display: swap` 속성�
 
 ```
 
-#### font-display를 지정하기 전
+##### font-display를 지정하기 전
 
 <img
   src="../images/display_swap_before.png"
@@ -339,7 +336,7 @@ FIOT를 해결 할 방법으로 `@font-face` 에서 `font-display: swap` 속성�
   alt="display_swap_before"
 />
 
-#### font-display:swap 지정 후
+##### font-display:swap 지정 후
 
 <img
   src="../images/display_swap_after.png"
@@ -348,11 +345,11 @@ FIOT를 해결 할 방법으로 `@font-face` 에서 `font-display: swap` 속성�
   height="300px"
 />
 
-## 최적화 전,후 light house
+### 4.5 최적화 전,후 light house
 
 - 5번 시도에서의 평균
 
-### 최적화 전
+##### 최적화 전
 
 <img
   src="../images/lighthouse_optimize_before.png"
@@ -360,13 +357,13 @@ FIOT를 해결 할 방법으로 `@font-face` 에서 `font-display: swap` 속성�
   width="300px"
 />
 
-### 최적화 후
+##### 최적화 후
 
 <img src="../images/lighthouse.png" alt="display_swap_after" width="300px" />
 
-## 셀프호스팅 폰트 vs 구글 웹폰트
+## 5. 셀프호스팅 폰트 vs 구글 웹폰트
 
-### 셀프 호스팅 폰트
+### 5.1. 셀프 호스팅 폰트
 
 <img
   src="../images/after_local_font.png"
@@ -374,7 +371,7 @@ FIOT를 해결 할 방법으로 `@font-face` 에서 `font-display: swap` 속성�
   width="400px"
 />
 
-### 구글 웹 폰트
+### 5.2. 구글 웹 폰트
 
 <img
   src="../images/after_optimize_google_font.png"
@@ -394,11 +391,7 @@ FIOT를 해결 할 방법으로 `@font-face` 에서 `font-display: swap` 속성�
 ##### 참고자료
 
 - [김원준 님의 웹폰트 사용하기](https://wit.nts-corp.com/2017/02/13/4258)
-
-- [naver d2 -웹 폰트 사용과 최적화의 최근 동향
-  ](https://d2.naver.com/helloworld/4969726)
-
+- [naver d2 -웹 폰트 사용과 최적화의 최근 동향](https://d2.naver.com/helloworld/4969726)
 - [simonhearne - How to avoid layout shifts caused by web fonts](https://simonhearne.com/2021/layout-shifts-webfonts/)
 - [web.dev - optimize webfont loading](https://web.dev/optimize-webfont-loading/)
-
 - [Gijo Varghese - Why you should Self-Host Google Fonts in 2021](https://wpspeedmatters.com/self-host-google-fonts/)

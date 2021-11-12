@@ -6,7 +6,6 @@ const StyledFooter = styled('footer')`
   margin-top: 4rem;
   padding: 2rem 0;
   text-align: center;
-  border-top: 1px solid var(--sharpOutlineColor);
 
   a {
     text-decoration: none;

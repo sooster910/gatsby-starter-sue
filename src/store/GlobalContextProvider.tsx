@@ -52,7 +52,6 @@ const GlobalContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState, initializeState)
 
   if (state) {
-    console.log('render??')
     return (
       <GlobalStateContext.Provider value={state}>
         <GlobalDispatchContext.Provider value={dispatch}>
