@@ -24,7 +24,7 @@ const StyledTagList = styled.ul`
   margin-top: 1rem;
 `
 const StyledTagItem = styled.li`
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.7rem;
 `
 
 interface CategoryProps {

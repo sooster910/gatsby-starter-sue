@@ -8,7 +8,7 @@ module.exports = {
   author: {
     name: `Hyunsu.J`,
     greeting: `Hi, I'm Hyunsu`,
-    summary: `Front End Developer focucsed on deliver a better user experience. like to discover, learn, and share everything related to Web Developement. 
+    summary: `Front End Developer focucsed a better user experience. Like to discover, learn, and share everything related to Web Developement. 
      ☕️ 👩‍💻 ⛷ `,
   },
   siteUrl: `https://www.hyunsujoo.com`,

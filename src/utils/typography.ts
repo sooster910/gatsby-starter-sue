@@ -7,10 +7,9 @@ export const primaryFont =
 export const titleFont = 'Jost, sans-serif'
 export const secondaryFont = 'Sora, sans-serif'
 
-export const code =
-  'JetBrains Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace'
+export const code = 'Karla,Helvetica,Arial,sans-serif'
 export const typeScale = {
-  header1: '2.2rem',
+  header1: '3.4rem',
   header2: '1.8rem',
   header3: '1.6rem',
   header4: '1.4rem',

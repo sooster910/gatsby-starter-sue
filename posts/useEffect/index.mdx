@@ -1,0 +1,95 @@
+---
+title: OOP Encapsulation in JavaScript
+slug: encapsulation
+author: Hyunsu Joo
+published: 2021-11-20
+lastUpdated: 2021-11-20
+draft: true
+image: ./encapsulation.png
+imageAlt: encapsulation
+tags: ['OOP', JavaScript]
+---
+
+- useEffect가 함수를 반환하면 컴포넌트에서 제거될 때 이 함수가 호출 된다.
+
+```jsx
+useEffect(() => {
+  welcomeChime.play() //함수호출
+
+  return () => goodbyeChime.play()
+}, [])
+```
+
+### useEffect 내에서 외부 api 호출
+
+```jsx
+useEffect(() => {
+  async function getData() {}
+
+  getData()
+}, [])
+```
+
+getData 함수 선언부를 외부로 내는게 낫지 않을까?
+
+```jsx
+import React, { useState, useEffect, useMemo } from 'react'
+
+// 단어나 글자가 변경되는걸 감지하는 컴포넌트
+const WordCount = ({ children }) => {
+  const [text, setText] = useState(children) //매번 rerendering 이 된다.
+  useAnyKeyToRender()
+
+  const words = children.split(' ')
+  useEffect(() => {
+    console.log('fresh render dfssdf adsfa')
+  }, [words]) // 매번 리렌더링이 된다.
+
+  return (
+    <div>
+      <p>{text}</p>
+      <p>
+        {children} /{words.length}
+      </p>
+    </div>
+  )
+}
+
+const useAnyKeyToRender = () => {
+  const [, forceRender] = useState()
+
+  useEffect(() => {
+    console.log('useAnykeyrender useEffect')
+    window.addEventListener('keydown', forceRender)
+    return () => window.removeEventListener('keydown', forceRender)
+  }) //text 가 의존성이 변경될 때마다,
+}
+
+const word = ['a', 'b', 'c'] //전역으로 두어 word 인스턴스를 참조
+export default function App() {
+  return <WordCount>Open dfsthe console log hi df dd</WordCount>
+}
+```
+
+WordCount 컴포넌트로 전달된 children은 문장또는 단어가 됩니다. 한글자라도 바뀌는 것을 감지하고 새로운 문장.단어로 바꿔주는 WordCount 컴포넌트는
+문제가 있습니다.
+useEffect 를 보시면 의존 관계 배열엔 words가 있고 의도로는 words와의 의존관계를 가져, 즉 words의 변동이 있을 때에만
+WordCount 컴포넌트를 리렌더링 하게 합니다. 하지만 화면에 타이핑을 하게 되면, `useAnyKeyToRender()` 가 호출되면서
+WordCount 컴포넌트도 리렌더링이 되고, `useEffect ()` 함수도 같이 호출됩니다.
+
+이 두가지의 이벤트는 서로 영향을 받지 않고 독립적으로 행해져야 하며, 추가적인 렌더링은 피해야 합니다.
+리액트 팀에선 useMemo 훅을 제공하여 추가적인 렌더링을 막을 수 있게 합니다.
+
+## useMemo
+
+메모화된 값을 계산하는 함수를 호출합니다. 메모화된 함수는 함수 호출 결과를 저장하고 캐시 합니다.
+useMemo를 사용하여 캐시된 값과 계산한 값을 비교하여 실제값이 변경되었는지 검사해줍니다.
+
+useMemo에 children.split(" ") 함수를 전달하여 반환값을 가지고 리렌더링 할지 정합니다.
+
+그러면 useMemo는 컴포넌트가 최초로 렌더링 될 때와, chilldren프로퍼티가 바뀔 때에만 words를 다시 계산합니다.
+
+## useCallback
+
+useMemo와 비슷하게 사용할 수 있는 것이 useCallback 입니다.
+차이점은 useCallback은 값이 아닌 함수를 메모화 합니다.

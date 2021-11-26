@@ -78,6 +78,18 @@ const StyledPostTitle = styled.h1`
   padding-top: 2rem;
 `
 const StyledPostDate = styled.div``
+const StyledPaginationList = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primaryActiveColor);
+  width: 48%;
+  border: 4px solid #000;
+  border-radius: 12px;
+  padding: 12px;
+  background: var(--primaryActiveColor);
+  border-radius: 12px;
+`
 
 const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
   const shortcodes = { Twemoji }
@@ -135,20 +147,20 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
           <Bio isProfile={false} />
           {utterances?.enabled && <Comments repo={utterances.repo} />}
           <Pagination>
-            <li>
+            <StyledPaginationList>
               {prev !== -1 && (
                 <PageLink to={`/${prev.slug}`} direction={'prev'}>
                   {prev?.frontmatter?.title}
                 </PageLink>
               )}
-            </li>
-            <li>
+            </StyledPaginationList>
+            <StyledPaginationList>
               {next !== -1 && (
                 <PageLink to={`/${next.slug}`} direction={'next'}>
                   {next?.frontmatter.title}
                 </PageLink>
               )}
-            </li>
+            </StyledPaginationList>
           </Pagination>
         </MDXProvider>
       </Layout>

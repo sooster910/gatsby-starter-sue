@@ -52,11 +52,9 @@ export const StyledPostPreview = styled(DefaultLink)`
 
 export const PageLink = styled(DefaultLink)`
   min-width: 100px;
-  background-color: var(--primaryActiveColor);
   padding: 8px 12px;
   color: var(--pageLink);
   font-weight: 500;
-  border-radius: 12px;
   text-decoration: none;
   text-transform: uppercase;
   ${psuedo}
@@ -93,6 +91,7 @@ export const TagLink = styled(DefaultLink)`
   font-weight: 700;
   text-decoration: none;
   margin-right: 4px;
+  border: 3px solid #000;
 `
 
 export const PaginationLink = styled(DefaultLink)``
