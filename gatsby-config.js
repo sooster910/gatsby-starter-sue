@@ -92,8 +92,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
-        host: 'https://www.hyunsujoo.com',
-        sitemap: 'https://www.hyunsujoo.com/sitemap.xml',
+        host: 'https://hyunsujoo.com',
+        sitemap: 'https://hyunsujoo.com/sitemap.xml',
         policy: [{ userAgent: '*', allow: '/' }],
       },
     },
