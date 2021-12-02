@@ -1,0 +1,253 @@
+---
+title: [Gatsby darkmode] 개츠비 다크모드 적용이 되지 않는 이슈
+slug: darkmode
+author: Hyunsu Joo
+published: 2021-12-02
+lastUpdated: 2021-12-02
+draft: false
+image: ./darkmode.png
+imageAlt: darkmode
+tags: ['gatsby']
+---
+
+<img width="664" alt="General 2021-12-02 16-18-43" src="https://user-images.githubusercontent.com/26635607/144375957-e7c98c74-754f-4b4f-b265-ec3e462641cb.png">
+
+위의 사진은 맥 기준의 시스템 설정입니다. 사용자는 이렇게 보여질 뷰를 light 또는 dark모드로 선택을 할 수 있습니다. 제 블로그를 방문하는 사람들에게 미리 사용자가 적용한 설정에 맞추어 뷰를 제공한다면 더 나은 사용자 경험을 전달 할 수 있을 것입니다.
+
+## 다크 모드 기본 로직
+
+- 이미 블로그 페이지에 방문한 적이 있다면 → localstorage 의 theme 값 적용.
+- 처음 방문하였고, 사용자의 **운영 체제 기본 설정으로 다크모드가 되어 있는 경우** → 사용자의 운영 체제 기본 값으로 적용.
+
+## 이슈
+
+하지만 다크모드가 적용이 되질 않는 현상이 발생합니다.이는
+빌드 후 정적파일이 생성되었을때 production환경 에서는 localStorage에 접근하지 못하여 사용자의 인터렉션에 따라 테마가 바뀌지 않는 이슈입니다.
+
+## 이슈의 원인
+
+gatsby에서는 hydrate 과정을 거치는데 즉 빌드 후 서버측에서 정적파일을 제공하고 클라이언트측에선 정적파일을 렌더링 후 리액트와 상태를 그려내 다시 동적인 앱을 렌더링 합니다.  
+dark mode 를 지원하기 위해선 최초 렌더링이 되기 전에 local storage에 접근하거나 또는 사용자의 환경에 접근하여 theme 값을 가져와야 하는데 먼저 렌더링이 일어나고 rehydrate이 일어나기 때문에, 깜빡임이 생기거나 원하는 값을 미리 가져오지 못하는 이슈가 생깁니다.
+
+## 해결 접근
+
+**HTML 페이지가** 브라우저에 의해 **구문 분석되고 렌더링되기 전에 실행할** 테마를 선택하는 코드가 필요 합니다.
+
+gatsby에선 직접적으로 html 에 접근할 수 없으므로, **Customizing html.js 파일을 이용합니다.**
+
+`/src/html.js`
+
+<img width="846" alt="html js — gatsby-starter-blog-sue 2021-11-27 18-47-17" src="https://user-images.githubusercontent.com/26635607/144374332-60adfcfe-a432-4136-8632-12c5ea3da646.png">
+
+HTML페이지가 렌더링 될 때 이 코드베이스도 같이 파싱이 되면서 로컬 스토리지로 접근을 하고,
+
+window 전역 객체에 theme을 세팅 합니다. 최초 렌더링시 theme 을 알 수 있게 `<body>` 태그에 class로 theme을 지정합니다. `window.matchMedia('(prefers-color-scheme)')` 을 이용하여 사용자 운영체제 기본설정의 theme에 접근 후 window객체에 theme을 세팅합니다.
+
+리액트 기반코드에서는 `context API`와 `UseReducer` 훅을 이용하여 theme을 전역적으로 관리할 수 있게 하였습니다.
+
+useReducer의 매개변수로 최초값을 가져올시 위에서 저장한 `window.__theme` 객체 값을 가져올 수 있습니다.
+
+<img width="422" alt="GlobalContextProvider tsx — gatsby-starter-blog-sue 2021-11-27 19-10-25" src="https://user-images.githubusercontent.com/26635607/144374951-67702475-e3e6-4f20-b1b8-6b55ad64b9f1.png">
+
+리듀서를 활용하여 액션 타입에 따라 theme스위치 버튼 토글시 window 객체 함수를 실행하여 theme을 저장합니다.
+
+<img width="652" alt="GlobalContextProvider tsx — gatsby-starter-blog-sue 2021-11-27 19-13-50" src="https://user-images.githubusercontent.com/26635607/144374957-222cdd5d-389d-4942-a5ea-c55227b0ff8e.png">
+
+html.js에서 지정한 body태그의 class name을 기준으로 css variable을 이용하여 theme을 지정합니다. css variable을 이용하면 어플리케이션 실행 중에도 변수값의 변경에 동적으로 스타일을 바로 변경을 할 수 있는 이점이 있습니다.
+
+<img width="409" alt="GlobalStyles tsx — gatsby-starter-blog-sue 2021-11-27 19-16-56" src="https://user-images.githubusercontent.com/26635607/144374959-fa672f83-892f-4474-aedc-9097538cd211.png">
+
+전체 코드 입니다.
+
+context API 정의 합니다.
+
+```tsx
+import { useReducer, createContext, Dispatch, useContext } from 'react'
+import { ThemeProvider } from '@emotion/react'
+import GlobalStyles from '../styles/GlobalStyles'
+import theme from '../styles/theme'
+
+type State = {
+  isDark?: string
+  theme: string
+}
+type Action = { type: 'TOGGLE_DARK_MODE'; theme: string }
+type SampleDispatch = Dispatch<Action>
+
+export const GlobalStateContext = createContext<State | null>(null)
+export const GlobalDispatchContext = createContext<SampleDispatch | null>(null)
+declare global {
+  interface Window {
+    __theme: string
+    __setPreferredTheme: (toggleTheme: string) => void
+  }
+}
+
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case 'TOGGLE_DARK_MODE': {
+      const toggledTheme = window.__theme === 'dark' ? 'light' : 'dark'
+      window.__setPreferredTheme(toggledTheme)
+      return {
+        theme: toggledTheme,
+      }
+    }
+
+    default:
+      return state
+  }
+}
+
+const initializeState = () => {
+  if (typeof window !== 'undefined') {
+    return {
+      theme: window.__theme,
+    }
+  } else {
+    return { theme: 'light' }
+  }
+}
+
+const initialState: State = {
+  theme: 'light',
+}
+
+const GlobalContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const [state, dispatch] = useReducer(reducer, initialState, initializeState)
+
+  if (state) {
+    return (
+      <GlobalStateContext.Provider value={state}>
+        <GlobalDispatchContext.Provider value={dispatch}>
+          <ThemeProvider
+            theme={state.theme === 'light' ? theme.light : theme.dark}
+          >
+            <GlobalStyles />
+            {children}
+          </ThemeProvider>
+        </GlobalDispatchContext.Provider>
+      </GlobalStateContext.Provider>
+    )
+  }
+}
+
+export default GlobalContextProvider
+
+export function useThemeState() {
+  const state = useContext(GlobalStateContext)
+  if (!state) throw new Error('Cannot find GlobalStateProvider')
+  return state
+}
+
+export function useThemeDispatch() {
+  const dispatch = useContext(GlobalDispatchContext)
+  if (!dispatch) throw new Error('Cannot find GlobalStateProvider') // 유효하지 않을땐 에러를 발생
+  return dispatch
+}
+```
+
+`src/html.js`
+
+```javascript
+import React from 'react'
+import PropTypes from 'prop-types'
+
+export default function HTML(props) {
+  return (
+    <html {...props.htmlAttributes}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        {props.headComponents}
+      </head>
+      <body {...props.bodyAttributes} className="light">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (() => {
+                let preferredTheme;
+                try {
+                  preferredTheme = localStorage.getItem('theme');
+                } catch (err) {}
+                const setTheme = (newTheme) => {
+                  window.__theme = newTheme;
+                  preferredTheme = newTheme;
+                  document.body.className = newTheme;
+                }
+                window.__setPreferredTheme = (newTheme) => {
+                  setTheme(newTheme);
+                  try {
+                    localStorage.setItem('theme', newTheme);
+                  } catch (err) {}
+                }
+                let darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                darkQuery.addListener(e => {
+                  window.__setPreferredTheme(e.matches ? 'light' : 'dark');
+                })
+                setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
+              })();
+            `,
+          }}
+        />
+        {props.preBodyComponents}
+        <div
+          key={`body`}
+          id="___gatsby"
+          dangerouslySetInnerHTML={{ __html: props.body }}
+        />
+        {props.postBodyComponents}
+      </body>
+    </html>
+  )
+}
+
+HTML.propTypes = {
+  htmlAttributes: PropTypes.object,
+  headComponents: PropTypes.array,
+  bodyAttributes: PropTypes.object,
+  preBodyComponents: PropTypes.array,
+  body: PropTypes.string,
+  postBodyComponents: PropTypes.array,
+}
+```
+
+`src/header.tsx` - 다크모드 스위치 버튼이 있는 component
+
+button의 onClick 이벤트는 `setToggleTheme` 의 함수의 일인  
+`TOGGLE_DARK_MODE` 액션을 디스패치 합니다. 즉 리듀서에 약속되어진
+`TOGGLE_DARK_MODE` 액션을 실행시켜 theme을 전환합니다.
+
+`useThemeState()` 를 이용하여 전역 상태인 theme 상태를 받아와서 상태 값에 따라 아이콘을 변경합니다.
+
+```tsx
+const Header = ({ siteTitle }: HeaderProps): React.ReactElement => {
+  const dispatch = useThemeDispatch()
+  const state = useThemeState()
+  const setToggleTheme = () => dispatch({ type: 'TOGGLE_DARK_MODE', theme: '' })
+  return (
+    <header>
+      <button onClick={setToggleTheme}>
+        <Twemoji
+          emoji={state?.theme === 'dark' ? '☀️' : '🌓'}
+          css={css`
+            width: 24px;
+          `}
+        />
+      </button>
+    </header>
+  )
+}
+
+export default Header
+```
+
+---
+
+참고자료
+
+- [The Quest For the Perfect Dark Mode](https://www.joshwcomeau.com/react/dark-mode/)
+- [Gatsby 공식문서 customizing html.js](https://www.gatsbyjs.com/docs/custom-html/)
