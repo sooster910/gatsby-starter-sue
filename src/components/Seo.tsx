@@ -16,11 +16,11 @@ import {
 } from '../../assets/fonts/index'
 export interface SeoProps {
   title?: string
-  description: string
+  description?: string
   lang?: string
   meta?: Array<{ name: string; content: string }>
   titleTemplate?: string
-  image?: string
+  blogImage?: string
 }
 /**
  *
@@ -32,6 +32,7 @@ function Seo({
   description = '',
   lang = 'en',
   meta = [],
+  blogImage,
 }: SeoProps) {
   const { site } = useStaticQuery(
     graphql`
@@ -145,8 +146,9 @@ function Seo({
         type="font/woff2"
         crossOrigin="anonymous"
       />
-
       <link rel="canonical" href="https://www.hyunsujoo.com" />
+      <meta name="description" content={metaDescription} />
+      <meta name="image" content={blogImage}></meta>
     </Helmet>
   )
 }

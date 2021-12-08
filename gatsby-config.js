@@ -97,6 +97,12 @@ module.exports = {
         policy: [{ userAgent: '*', allow: '/' }],
       },
     },
+    // {
+    //   resolve: `gatsby-plugin-s3`,
+    //   options: {
+    //     bucketName: $AWS_BUCKET_NAME,
+    //   },
+    // },
     `gatsby-plugin-offline`,
   ],
 }

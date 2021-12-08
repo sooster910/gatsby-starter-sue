@@ -1,16 +1,20 @@
 ---
-title: [Gatsby darkmode] 개츠비 다크모드 적용이 되지 않는 이슈
-slug: dark-theme
+title: 개츠비에서 다크 모드 적용이 안되는 이슈
+slug: gatsby-dark-theme
 author: Hyunsu Joo
 published: 2021-12-02
 lastUpdated: 2021-12-02
 draft: false
 image: ./darkmode.png
 imageAlt: darkmode
-tags: ['gatsby']
+tags: ['Gatsby']
 ---
 
-<img width="664" alt="General 2021-12-02 16-18-43" src="https://user-images.githubusercontent.com/26635607/144375957-e7c98c74-754f-4b4f-b265-ec3e462641cb.png">
+<img
+  width="360"
+  alt="General 2021-12-02 16-18-43"
+  src="https://user-images.githubusercontent.com/26635607/144375957-e7c98c74-754f-4b4f-b265-ec3e462641cb.png"
+/>
 
 위의 사진은 맥 기준의 시스템 설정입니다. 사용자는 이렇게 보여질 뷰를 light 또는 dark모드로 선택을 할 수 있습니다. 제 블로그를 방문하는 사람들에게 미리 사용자가 적용한 설정에 맞추어 뷰를 제공한다면 더 나은 사용자 경험을 전달 할 수 있을 것입니다.
 
@@ -37,7 +41,11 @@ gatsby에선 직접적으로 html 에 접근할 수 없으므로, **Customizing 
 
 `/src/html.js`
 
-<img width="846" alt="html js — gatsby-starter-blog-sue 2021-11-27 18-47-17" src="https://user-images.githubusercontent.com/26635607/144374332-60adfcfe-a432-4136-8632-12c5ea3da646.png">
+<img
+  width="600"
+  alt="html js — gatsby-starter-blog-sue 2021-11-27 18-47-17"
+  src="https://user-images.githubusercontent.com/26635607/144374332-60adfcfe-a432-4136-8632-12c5ea3da646.png"
+/>
 
 HTML페이지가 렌더링 될 때 이 코드베이스도 같이 파싱이 되면서 로컬 스토리지로 접근을 하고,
 
@@ -47,21 +55,33 @@ window 전역 객체에 theme을 세팅 합니다. 최초 렌더링시 theme 을
 
 useReducer의 매개변수로 최초값을 가져올시 위에서 저장한 `window.__theme` 객체 값을 가져올 수 있습니다.
 
-<img width="422" alt="GlobalContextProvider tsx — gatsby-starter-blog-sue 2021-11-27 19-10-25" src="https://user-images.githubusercontent.com/26635607/144374951-67702475-e3e6-4f20-b1b8-6b55ad64b9f1.png">
+<img
+  width="422"
+  alt="GlobalContextProvider tsx— gatsby-starter-blog-sue 2021-11-27 19-10-25"
+  src="https://user-images.githubusercontent.com/26635607/144374951-67702475-e3e6-4f20-b1b8-6b55ad64b9f1.png"
+/>
 
 리듀서를 활용하여 액션 타입에 따라 theme스위치 버튼 토글시 window 객체 함수를 실행하여 theme을 저장합니다.
 
-<img width="652" alt="GlobalContextProvider tsx — gatsby-starter-blog-sue 2021-11-27 19-13-50" src="https://user-images.githubusercontent.com/26635607/144374957-222cdd5d-389d-4942-a5ea-c55227b0ff8e.png">
+<img
+  width="480"
+  alt="GlobalContextProvider tsx — gatsby-starter-blog-sue 2021-11-27 19-13-50"
+  src="https://user-images.githubusercontent.com/26635607/144374957-222cdd5d-389d-4942-a5ea-c55227b0ff8e.png"
+/>
 
 html.js에서 지정한 body태그의 class name을 기준으로 css variable을 이용하여 theme을 지정합니다. css variable을 이용하면 어플리케이션 실행 중에도 변수값의 변경에 동적으로 스타일을 바로 변경을 할 수 있는 이점이 있습니다.
 
-<img width="409" alt="GlobalStyles tsx — gatsby-starter-blog-sue 2021-11-27 19-16-56" src="https://user-images.githubusercontent.com/26635607/144374959-fa672f83-892f-4474-aedc-9097538cd211.png">
+<img
+  width="480"
+  alt="GlobalStyles tsx — gatsby-starter-blog-sue 2021-11-27 19-16-56"
+  src="https://user-images.githubusercontent.com/26635607/144374959-fa672f83-892f-4474-aedc-9097538cd211.png"
+/>
 
 전체 코드 입니다.
 
 context API 정의 합니다.
 
-```tsx
+```javascript
 import { useReducer, createContext, Dispatch, useContext } from 'react'
 import { ThemeProvider } from '@emotion/react'
 import GlobalStyles from '../styles/GlobalStyles'
@@ -223,7 +243,7 @@ button의 onClick 이벤트는 `setToggleTheme` 의 함수의 일인
 
 `useThemeState()` 를 이용하여 전역 상태인 theme 상태를 받아와서 상태 값에 따라 아이콘을 변경합니다.
 
-```tsx
+```javascript
 const Header = ({ siteTitle }: HeaderProps): React.ReactElement => {
   const dispatch = useThemeDispatch()
   const state = useThemeState()

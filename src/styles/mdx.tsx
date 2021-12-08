@@ -18,6 +18,7 @@ export const MDX = styled('article')`
   }
   h1,
   h2 {
+    letter-spacing: 0.3px;
     border-bottom: 1px solid #3f3f3f;
     padding-bottom: ${({ theme }) => theme.spacings.small};
   }
@@ -35,7 +36,7 @@ export const MDX = styled('article')`
   h3 {
     font-size: 1.375rem;
     line-height: 1.625rem;
-    margin-bottom: 2rem;
+    margin: 2.5rem 0 1.5rem 0;
   }
 
   h4 {
@@ -56,7 +57,6 @@ export const MDX = styled('article')`
     color: var(--textColorOnPrimary);
     line-height: 2;
     margin-top: 1rem;
-    margin-bottom: 2rem;
   }
   blockquote {
     font-size: 1.5rem;
@@ -112,7 +112,8 @@ export const MDX = styled('article')`
   }
 
   img {
-    margin: 2rem 0;
+    display: flex;
+    margin: 2rem auto;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
       rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
       rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
@@ -120,6 +121,7 @@ export const MDX = styled('article')`
   ul > li {
     padding-left: 1.75em;
     position: relative;
+    margin: 0;
     ::before {
       background-color: var(--textColorOnPrimary);
       border-radius: 50%;

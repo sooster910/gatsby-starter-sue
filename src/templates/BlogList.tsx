@@ -60,7 +60,7 @@ const BlogList: React.FunctionComponent<BlogListData> = ({
 
   return (
     <Layout>
-      <Seo title="Home" description="" />
+      <Seo title="주현수 개발 블로그" description="주현수 개발 블로그" />
       <Bio isProfile={true} />
       {posts.map((post) => {
         return <PostPreview post={post} key={post.slug} />

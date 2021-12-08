@@ -74,7 +74,7 @@ const GlobalStyles = () => {
  */
 
           margin-top: 1em;
-
+          word-break: keep-all;
           color: var(--textColorOnSecondary);
           + * {
             margin-top: 0.5rem; //anything comes afte heading

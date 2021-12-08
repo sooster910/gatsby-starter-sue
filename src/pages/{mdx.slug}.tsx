@@ -147,20 +147,20 @@ const BlogPost: React.FunctionComponent<PageProps<DataProps>> = ({ data }) => {
           <Bio isProfile={false} />
           {utterances?.enabled && <Comments repo={utterances.repo} />}
           <Pagination>
-            <StyledPaginationList>
-              {prev !== -1 && (
+            {prev !== -1 && (
+              <StyledPaginationList>
                 <PageLink to={`/${prev.slug}`} direction={'prev'}>
                   {prev?.frontmatter?.title}
                 </PageLink>
-              )}
-            </StyledPaginationList>
-            <StyledPaginationList>
-              {next !== -1 && (
+              </StyledPaginationList>
+            )}
+            {next !== -1 && (
+              <StyledPaginationList>
                 <PageLink to={`/${next.slug}`} direction={'next'}>
                   {next?.frontmatter.title}
                 </PageLink>
-              )}
-            </StyledPaginationList>
+              </StyledPaginationList>
+            )}
           </Pagination>
         </MDXProvider>
       </Layout>
