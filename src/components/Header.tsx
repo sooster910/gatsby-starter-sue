@@ -42,6 +42,7 @@ const Header = ({ siteTitle }: HeaderProps): React.ReactElement => {
             width: 43px;
             border-radius: 50%;
             margin-right: 1rem;
+            z-index: 2;
           `}
         />
         <span> {siteTitle}</span>

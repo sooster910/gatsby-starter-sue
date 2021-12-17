@@ -94,6 +94,7 @@ const PostPreview = ({ post }: PostPreviewProps): React.ReactElement => {
             css={css`
               border-radius: 12px;
               width: 150px;
+              -webkit-mask-image: -webkit-radial-gradient(white, black);
             `}
           />
           <p

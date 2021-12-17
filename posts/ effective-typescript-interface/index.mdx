@@ -1,6 +1,6 @@
 ---
-title:[Effective Typescript] 함수 표현식, 타입과 인터페이스 
-slug: effectiveTypescript-item12
+title: 함수 표현식, 타입과 인터페이스
+slug: effective-typescript-interface
 author: Hyunsu Joo
 published: 2021-12-09
 lastUpdated: 2021-12-09
@@ -9,9 +9,6 @@ image: ./typescript_book.png
 imageAlt: typescript_book
 tags: ['TypeScript']
 ---
-
-
-# 이펙티브 타입스크립트
 
 - 댄 밴더캄의 이펙티브 타입스크립트 도서의 아이템11,12 읽고 정리한 내용입니다.
 
@@ -104,7 +101,7 @@ async function getQuote() {
   return quote;
 }
 ```
-<img width="665" alt="Screen Shot 2021-12-10 at 1 42 49 AM" src="https://user-images.githubusercontent.com/26635607/145438970-9277a378-f994-4a5c-95d5-0f8e7f51a109.png">
+<img width="665" alt="Screen Shot 2021-12-10 at 1 42 49 AM" src="https://user-images.githubusercontent.com/26635607/145438970-9277a378-f994-4a5c-95d5-0f8e7f51a109.png"/>
 
 
 
@@ -143,12 +140,12 @@ const stateB: StateWithPopType = {};
 
 - 인터페이스 타입을 가진 `stateA`에선 `name`,`capital`,`population` 모두 선언되어있지 않다고 에러를 내주고 있습니다.  
 
-<img width="524" alt="Screen Shot 2021-12-09 at 11 39 03 PM" src="https://user-images.githubusercontent.com/26635607/145416672-86366ea8-55b4-4782-92e8-d97201f4096d.png">  
+<img width="524" alt="Screen Shot 2021-12-09 at 11 39 03 PM" src="https://user-images.githubusercontent.com/26635607/145416672-86366ea8-55b4-4782-92e8-d97201f4096d.png"/>  
 
 
 - type 키워드를 가진 `stateB`에선 `name`,`capital`,`population`,`latitude`까지 에러를 내야한다고 예상을 하지만, 실지 `name`,`capital`,`population` 만 에러를 내주고 있습니다.  
 
-<img width="497" alt="Screen Shot 2021-12-09 at 11 39 15 PM" src="https://user-images.githubusercontent.com/26635607/145416707-46984f92-6bb4-47f0-8ea8-66061a40b0b5.png">
+<img width="497" alt="Screen Shot 2021-12-09 at 11 39 15 PM" src="https://user-images.githubusercontent.com/26635607/145416707-46984f92-6bb4-47f0-8ea8-66061a40b0b5.png"/>
 
 즉, 인터페이스는 유니온 타입 같은 복잡한 타입을 확장하지는 못합니다. 복잡한 타입의 확장을 원할 시, 타입과 `&`를 사용해야 합니다.
 
@@ -198,7 +195,7 @@ const wyoming: State = {
 ```
 - 만약 `State` 를 type 별칭을 사용하였다면 에러를 냅니다.  
 
-<img width="480" alt="Screen Shot 2021-12-10 at 12 18 57 AM" src="https://user-images.githubusercontent.com/26635607/145423801-56d0a4b8-c23c-4819-9df3-2b81e35c75c2.png">
+<img width="480" alt="Screen Shot 2021-12-10 at 12 18 57 AM" src="https://user-images.githubusercontent.com/26635607/145423801-56d0a4b8-c23c-4819-9df3-2b81e35c75c2.png"/>
 
 - 같은 이름의 인터페이스를 사용하여 속성을 확장하는 것을 **선언 병합(declaration merging)** 이라고 합니다. 
 
@@ -207,16 +204,16 @@ const wyoming: State = {
 - 예) Array 인터페이스 
     tsconfig의   `"target": "ES5"` 일 경우,   
     - array 의 인터페이스는 lib.es5.ts 에 선언된 인터페이스가 사용됩니다.
-   <img width="600" alt="Screen Shot 2021-12-10 at 12 27 52 AM" src="https://user-images.githubusercontent.com/26635607/145425401-640e9e4a-82fa-4764-9562-282bbbab114a.png"> 
+   <img width="600" alt="Screen Shot 2021-12-10 at 12 27 52 AM" src="https://user-images.githubusercontent.com/26635607/145425401-640e9e4a-82fa-4764-9562-282bbbab114a.png"/> 
 
-    <img width="600" alt="Screen Shot 2021-12-10 at 1 09 11 AM" src="https://user-images.githubusercontent.com/26635607/145432782-2d97578a-32c3-4378-a2fd-1ccd281511c1.png">  
+    <img width="600" alt="Screen Shot 2021-12-10 at 1 09 11 AM" src="https://user-images.githubusercontent.com/26635607/145432782-2d97578a-32c3-4378-a2fd-1ccd281511c1.png"/>  
 
 
    tsconfig 파일내 `lib:["esnext"]` 추가시 lib.es.2015.d.ts 에 선언된 인터페이스가 병합됩니다.  
     
-   <img width="600" alt="Screen Shot 2021-12-10 at 1 01 36 AM" src="https://user-images.githubusercontent.com/26635607/145431521-5267beea-6a37-47ae-9824-e6dc35ebc003.png">
+   <img width="600" alt="Screen Shot 2021-12-10 at 1 01 36 AM" src="https://user-images.githubusercontent.com/26635607/145431521-5267beea-6a37-47ae-9824-e6dc35ebc003.png"/>
 
-   <img width="600" alt="Screen Shot 2021-12-10 at 1 05 49 AM" src="https://user-images.githubusercontent.com/26635607/145432217-66dbee31-7c6e-42bb-8779-d2257b608cd5.png">
+   <img width="600" alt="Screen Shot 2021-12-10 at 1 05 49 AM" src="https://user-images.githubusercontent.com/26635607/145432217-66dbee31-7c6e-42bb-8779-d2257b608cd5.png"/>
 
    결과적으로 각 선언이 병합되어 전체 메서드를 가지는 Array를 갖게 됩니다.    
 
@@ -247,6 +244,6 @@ const wyoming: State = {
 
 
 ---
-#### 참고자료
+**참고자료**
 
 * [도서 - 댄 밴더캄, 이펙티브 타입스크립트, O'REILLY /프로그래밍 인사이트](https://blog.insightbook.co.kr/2021/06/10/%e3%80%8a%ec%9d%b4%ed%8e%99%ed%8b%b0%eb%b8%8c-%ed%83%80%ec%9e%85%ec%8a%a4%ed%81%ac%eb%a6%bd%ed%8a%b8-%eb%8f%99%ec%9e%91-%ec%9b%90%eb%a6%ac%ec%9d%98-%ec%9d%b4%ed%95%b4%ec%99%80-%ea%b5%ac%ec%b2%b4/)

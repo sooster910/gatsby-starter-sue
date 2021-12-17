@@ -1,0 +1,126 @@
+---
+title: border-radius 크로스 브라우징 이슈
+slug: crossbrowsing-issue
+author: Hyunsu Joo
+published: 2021-12-16
+lastUpdated: 2021-12-16
+draft: false
+image: ./cross_browsing.png
+imageAlt: cross_browsing
+tags: ['web development']
+---
+
+## 1. 이슈 
+
+
+현재 블로그는 gatsby.js를 이용한 프로젝트입니다.각 포스팅의 프리뷰 섹션에서 이미지를 감싸는 wrapper 요소에 `border-radius` css 속성을 적용하였을때  webkit엔진을 사용하는 safari 브라우저에선 적용이 안되는 것을 볼 수 있습니다.
+
+```jsx
+  <GatsbyImage
+            image={thumbnail}
+            alt={post.imageAlt}
+            css={css`
+              border-radius: 12px;
+              width: 150px;
+            `}
+          />
+
+```
+
+<img width="593" alt="crossBrowsing" src="https://user-images.githubusercontent.com/26635607/146375924-837063ad-d7af-4f5c-b85d-0dbfa327804a.png"/>
+
+## 2. 이슈 원인 분석
+처음엔 vendor prefix 적용을 의심했습니다. css-in-js의 하나인 emotion을 사용하고 있었는데, emotion은 내부적으로 auto vendor prefix를 지원합니다.
+
+![Screen Shot 2021-12-16 at 10 59 26 PM](https://user-images.githubusercontent.com/26635607/146386025-71da98af-c573-455c-92bb-d50c16f44f9c.png)
+
+
+border radius가 적용이 안될 때는 사파리에서 잘 알려진 오래된 버그이기도 한 이슈로  `overflow:hidden`일 때 border-radius가 정상 적용이 되지 않는걸로 알고 있습니다. 그런데 이번 상황에선 `overflow:hidden` 을 적용하지 않았습니다. 하지만 
+inspector를 다시 들여다 보면 
+`GatsbyImage` API 를 사용시 `data-gatsby-image-wrapper`라는 엘리먼트가 생성이 되고 이 엘리먼트는 `overflow: hidden;
+` 의 속성을 가지고 있습니다.
+![Screen Shot 2021-12-16 at 10 01 07 PM](https://user-images.githubusercontent.com/26635607/146377754-c801c178-2180-4a4c-abd6-74dd6bb0d6c6.png)
+
+
+## 3. 여러가지 해결법.. 왜? 진짜 문제의 원인을 찾자. 
+
+이 문제에 대한 해결은 여러가지 방법들이 존재합니다.
+
+방법 1.
+
+`will-change: transform` 적용
+
+방법2.  
+
+`  -webkit-mask-image: -webkit-radial-gradient(white, black);`
+
+
+방법 3.  
+`
+position: relative; 
+z-index: 1;
+`  
+
+간단하게 한줄로 문제를 해결 할 수 있지만, 여러가지의 방법 중 어떤 접근이 최적일까? 그리고 왜 이렇게 여러가지의 방법들이 있는 것일까? 
+
+이런 이슈의 원인을 좀 더 알아보기로 했습니다. 이슈의 원인들을 찾으러 여러 article들과 답변들을 보면 stacking context 용어가 언급된 걸 간혹 볼 수 있습니다. 
+
+진짜 문제는  vendor prefix 가 아닌 stacking context 를 처리하는 방법이 브라우저 렌더링엔진에 따라 다르다는 겁니다.
+Mozilla 공식 문서에 따르면, 
+>stacking context  
+a three-dimensional conceptualization of HTML elements along an imaginary z-axis relative to the user, who is assumed to be facing the viewport or the webpage.
+
+해석을 해도 잘 와닿지가 않습니다. 조금 더 쉽게 이해하자면, stacking context를 이해하면 z-index를 이해하기가 쉬워집니다.  우리가 사용하는 요소(element)는 stacking context를 형성하게 되는데 자식 요소들이 stacking context 에서 특정 범위를 벗어나지 못하도록 한계를 정하게 됩니다. 그래서 자식요소들이 z-index를 아무리 많은 숫자로 지정하더라도 상위 요소보다 더 앞에 나올 수 없습니다.  
+ 
+스택 컨텍스트는 문서의 어느 위치에서나 다음 시나리오의 요소에 의해 형성됩니다.
+
+- opacity 값이  1이하 일 때,
+- mix-blend-mode 값이 normal이 아닌 다른값 일 때,
+- transform,filter, perspective, 
+clip-path,mask / mask-image / mask-border 의 값이 non이 아닌 다른 값들일 때
+-  isolation 속성의 값이 isolate 일 때
+- -webkit-overflow-scrolling의 값이 touch 일 때.
+-  will-change 속성의 값중 initial value가 아닌 값 일 때.
+- contain 값이 layout or paint 일 때. 또는 둘 중 하나를 포함하는 복합 값(즉 contain: strict, contain: content)입니다.
+
+[참고자료 MDN: Stacking context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context)  
+
+결국 Safari 엔진의 stacking context 처리 문제는 z-index를 유지하지 않는다는 것이고 새로운 stacking context를 overflow가 적용된 요소에 만들어줍니다.
+
+## 5. 해결 방법
+
+위에서 언급한 stacking context를 형성하는 방법들 중 한가지를 적용해 봅니다. z-index를 적용해 보았습니다.
+
+```jsx
+  <GatsbyImage
+            image={thumbnail}
+            alt={post.imageAlt}
+            css={css`
+              border-radius: 12px;
+              z-index:1
+            `}
+          />
+```
+
+![Screen Shot 2021-12-17 at 12 54 52 PM](https://user-images.githubusercontent.com/26635607/146486464-7d734595-df97-43c0-bf31-cb5d30c508da.png)
+
+다른 속성을 추가해도 새로운 stacking이 만들어집니다. 다른 분들은 어떨지 모르겠지만 저의 경우는 스택 컨텍스트를 적용함으로써 레이어가 추가되었습니다. 위의 부분은 각 포스팅 마다 적용된 이미지로 포스팅의 개수만큼 한 페이지의 포스팅 개수만큼 추가 된 걸 볼 수 있습니다.
+
+<img width="600" alt="Screen Shot 2021-12-17 at 11 46 31 AM" src="https://user-images.githubusercontent.com/26635607/146489016-46c43a4d-6dcf-4fe5-81e8-a7eb172cedd5.png"/>
+
+![Screen Shot 2021-12-17 at 1 10 51 PM](https://user-images.githubusercontent.com/26635607/146488987-c3422108-7bca-4908-b099-205da5b1fa78.png)
+
+>❗️ 주의할점 
+ 너무 많은 요소에 `will-change`를 사용하면 컴퓨터의 추가 리소스 소비가 발생하여 페이지로드 속도가 느려집니다. 
+
+
+
+---
+
+** 참고자료 **
+
+- https://stackoverflow.com/questions/14383632/webkit-border-radius-and-overflow-bug-when-using-any-animation-transition/16681137#16681137
+
+- [MDN 문서: Stacking Context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context)
+
+- [StackOverflow : Webkit border-radius and overflow bug when using any animation/transition](https://stackoverflow.com/questions/14383632/webkit-border-radius-and-overflow-bug-when-using-any-animation-transition/16681137#16681137)

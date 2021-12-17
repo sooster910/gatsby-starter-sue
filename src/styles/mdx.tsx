@@ -61,7 +61,7 @@ export const MDX = styled('article')`
   blockquote {
     font-size: 1.5rem;
     line-height: 2.125rem;
-    text-align: center;
+    text-align: left;
     max-width: 36rem;
     margin: 3rem auto;
     border-left: 3px solid var(--primaryActiveColor);
