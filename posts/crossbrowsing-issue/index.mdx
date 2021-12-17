@@ -7,7 +7,7 @@ lastUpdated: 2021-12-16
 draft: false
 image: ./cross_browsing.png
 imageAlt: cross_browsing
-tags: ['web development']
+tags: ['Web Development']
 ---
 
 ## 1. 이슈 
@@ -32,7 +32,8 @@ tags: ['web development']
 ## 2. 이슈 원인 분석
 처음엔 vendor prefix 적용을 의심했습니다. css-in-js의 하나인 emotion을 사용하고 있었는데, emotion은 내부적으로 auto vendor prefix를 지원합니다.
 
-![Screen Shot 2021-12-16 at 10 59 26 PM](https://user-images.githubusercontent.com/26635607/146386025-71da98af-c573-455c-92bb-d50c16f44f9c.png)
+<img width="593" alt="emotion_vendor_prefix" src="https://user-images.githubusercontent.com/26635607/146386025-71da98af-c573-455c-92bb-d50c16f44f9c.png"/>
+
 
 
 border radius가 적용이 안될 때는 사파리에서 잘 알려진 오래된 버그이기도 한 이슈로  `overflow:hidden`일 때 border-radius가 정상 적용이 되지 않는걸로 알고 있습니다. 그런데 이번 상황에선 `overflow:hidden` 을 적용하지 않았습니다. 하지만 
