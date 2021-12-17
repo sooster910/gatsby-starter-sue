@@ -1,4 +1,5 @@
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
+[![DeployToS3](https://github.com/sooster910/gatsby-starter-sue/actions/workflows/manual.yml/badge.svg)](https://github.com/sooster910/gatsby-starter-sue/actions/workflows/manual.yml)
 <p align="center">
   <a href="https://www.gatsbyjs.com">
     <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
