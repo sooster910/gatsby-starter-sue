@@ -126,12 +126,9 @@ const Bio = ({ isProfile }: BioProps): React.ReactElement => {
       <StyledBio isProfile={isProfile}>
         <Avatar image={avatar} />
         <SummaryWrapper>
-          <Summary>
-            {``}
-            {author?.summary || null}
-            {` `}
-          </Summary>
-
+          {author?.summary?.split('\n').map((item: string, i: string) => (
+            <Summary key={i}>{item}</Summary>
+          ))}
           <Icons>
             {social.github.showIcon && (
               <GitHubButton
