@@ -1,0 +1,270 @@
+---
+title: 자바스크립트에서의 this 
+slug: js-this.mdx
+author: Hyunsu Joo
+published: 2023-11-04
+lastUpdated: 2021-11-04
+draft: false
+image: ./this.png
+imageAlt: this
+tags: [JavaScript]
+---
+### 들어가면서
+
+대부분의 참고 서적에서 this를 다룰 때 함수의 호출 방식에 대한 이야기와 함께 this를 설명하죠. this를 알고싶은데 자꾸만 함수의 호출 방식을 이야기 합니다. 함수 혹은 함수 호출이 왜 중요할까요?  
+>자바스크립트에서 함수와 함수형 언어특징이 중요한 이유 중 하나는 함수가 실행의 기본 모듈 단위이기 때문이다. 마크업이 평가되는동안 실행되는 인라인 스크립트를 제외하면,(웹) 페이지에서 작동하도록 만들어진 모든 스크립트는 함수안에서 실행 될 것이다.
+Secrets of the JavaScript Ninja 책 인용
+
+우리가 작성한 코드는 함수호출 결과에 따라 실행됩니다. 함수가 호출 되는 방식은 코드 작동 방식에 영향을 미친다고도 볼 수 있어요. 여기서 this가 어떻게 설정되는지 또한 결정되는데요. 이런 까닭에 this와 함수 호출 방식을 이해하는 것은 JavaScript에서 매우 중요합니다. 이를 제대로 파악하지 못하면 예상치 못한 버그로 이어질 수 있으며, 특히 이벤트 핸들러나 비동기 콜백에서 자주 발생합니다. 따라서, this 바인딩의 규칙을 이해하고, 화살표 함수와 같이 this가 렉시컬 스코프를 따르는 함수를 적절히 활용하는 것이 중요해요.
+
+
+### 본격적으로 this에 대해
+
+
+위에서 언급한 것처럼 함수의 호출 방식은
+
+1. 전역공간에서의 호출 
+2. 함수로 호출 
+3. 메서드로 호출 
+4. 생성자로 호출
+5. 함수의 apply()나 call()메서드를 통해 호출 👈 3. 메서드로 호출에서 같이 다뤄요.
+6. callback호출 👈 현재포스팅에선 다루지 않고, 다음 블로그 포스팅으로 자세하게 소개할게요.
+
+  
+이렇게 이루어져 있는데요. 앞으로 예제와 함께 하나씩 살펴볼게요. 
+
+#### 1. 전역 공간 에서의 호출
+이는 런타임 환경에 따라 this가 달라지는 것을 말해요 node의 경우 `global`, browser의 경우 `window` 가 this가 되요. 
+
+#### 2. 함수로 호출
+함수로 호출이라는 의미가 처음엔 전 잘 와닿지 않았어요. 함수로라는 호출이 함수는 함수로 호출하는데 뭔가 이상했죠.
+책에서 알게된 사실인데, 만약 메서드나 생성자 또는 apply(), call()을 통해 함수를 호출하는 것과 구별하기 위해 함수로 호출이라고 한대요.  여튼 함수로의 호출은 `()` 를 이용하여 호출 해요. 
+일반적으로 함수를 호출 하였고 함수 내에서 this 가 누군지 물어보면 this는 전역 객체를 가리킵니다. 
+
+```js
+
+const getThis = ()=>{
+    return this
+}
+console.log(getThis())  //브라우저에서 실행시 - window, node환경에서 실행시 - global
+
+```
+
+이 함수로서의 호출은 종종 다음에 설명될 메서드로서 호출과 비교가 많이 되니, 계속 이어갈게요. 
+
+#### 3. 메서드로서 호출
+
+this는 기본적으로 함수를 어떻게 정의했냐는 관심보다는 함수를 어떻게 호출 했느냐에 관심이 더 있으며, 이는 함수로서의 호출에서 비교하여 호출방식이 어떻게 다르고 이에 따라 this는 어떻게 다른지 설명할 수 있을 것 같아요. 
+
+
+```js
+function getThis(){
+    return this;
+}
+
+assert(getThis() === global); // true, 함수로서의 호출 
+
+const definitionOfThis = getThis;
+
+assert(definitionOfTHIS() === global) // true, 함수로서의 호출
+
+const me={
+    learning :  getThis;
+}
+
+assert(me.learning() === me) //true,메서드로서의 호출
+
+```
+
+위의 예제를 통해 메서드로서의 호출과 함수로서의 호출을 쉽게 구별할 수 있어요. 객체 내의 프로퍼티 `.` 을 이용해 호출한 함수는 메서드로서의 호출로 this는 그 객체를 가리킨다고 볼 수 있죠. 
+
+**이 예제에서 진짜 말하고자 하는건** `getThis`  함수가 어떻게 정의 되었는지가 관심이 아니라 어떻게 호출 하고 있느냐에 따라 this가 달라진다는 점이에요.  
+
+그런데 함수로서의 this는 전역객체만 보고 있다는게 한계점인데요. 그럼 다음과 같은 예제에서 innerMethod2를 호출 했을 때 `exampleObj`를 가리키게 할 순 없을까요?
+
+```js
+var exampleObj = {
+    outerFunc: function() {
+        console.log(this); // 1. this -> exampleObj
+        var innerMethod1 = function() {
+            console.log(this); //2. this->window 
+        };
+        innerMethod1();
+    
+
+        var innerMethod2=  function() {
+            console.log(this); //3. this->window
+        }
+        innerMethod2();
+
+    }
+};
+
+exampleObj.outerFunc();
+```
+
+다음과 같은 세가지 정도의 방법을 이용할 수 있을 것 같아요.
+
+1. 변수에 this를 할당하여 그 변수를 불러오는 방법 
+2. es6 의 arrow function 활용 방법.
+3. 명시적으로 call, apply 활용하여 this지정 하는 방법
+
+
+**1. 변수에 this를 할당하여 그 변수를 불러오는 방법**
+
+`exampleObj.outerFunc()` 함수 호출에 의해 outerFunc함수 내에서는 this는 exampleObj를 가리키고 있는 점을 활용하여 변수에 할당한 후, 그 변수에 접근합니다.
+```js
+var exampleObj = {
+    outerFunc: function() {
+        console.log(this); // 1. this -> exampleObj {outerFunc: ƒ}
+        var innerMethod1 = function() {
+            console.log(this); //2. this->window 
+        };
+        innerMethod1();
+    
+        var exampleObjThis = this; ✅ 참조
+        var innerMethod2=  function() {
+            console.log(exampleObjThis); // exampleObj {outerFunc: ƒ} ✅ 우회적으로 변경
+        }
+        innerMethod2();
+
+    }
+};
+
+exampleObj.outerFunc();
+```
+
+
+**2. es6 의 arrow function 활용 방법.**
+es6 부터 도입된 arrow function은 함수가 호출될 때(=실행컨텍스트가 생성, 활성화) this binding을 하지 않기 때문에 상위스코프의 this를 상속처럼 사용할 수 있습니다. 
+
+```js
+var exampleObj = {
+    outerFunc: function() {
+        console.log(this); // 1. this -> exampleObj
+        var innerMethod1 = function() {
+            console.log(this); //2. this->window 
+        };
+        innerMethod1();
+    
+
+        var innerMethod2=()=> { ✅ 화살표 함수 사용
+            console.log(this); //3. this->window
+        }
+        innerMethod2();
+
+    }
+};
+
+exampleObj.outerFunc();
+```
+
+
+
+**3. 명시적으로 call, apply 활용하여 this지정 하는 방법**
+
+사실 call, apply는 함수로서의 호출 일 때 뿐 아니라, 그냥 명시적으로 this를 지정하고 싶을 때 상황에 구애 받지 않고 사용합니다. 
+
+call과 apply는 매개변수의 형식이 다르므로 이 부분을 유의하여 사용합니다. 
+
+
+**call**
+
+> call(thisArg, arg1, arg2, /* …, */ argN)
+
+- thisArg 에 this로 사용할 값을 넣어줍니다. 함수가 엄격 모드가 아닌 경우 null 및 undefined는 전역 개체로 대체되고 기본 값은 개체로 변환됩니다.
+
+```js
+var exampleObj = {
+    outerFunc: function() {
+        console.log(this); // 1. this -> exampleObj
+        var innerMethod1 = function() {
+            console.log(this); //2. this->window 
+        };
+        innerMethod1();
+    
+
+        var innerMethod2=function(){
+            console.log(this); //3.  this -> exampleObj
+        }
+        innerMethod2.call(this);  //✅ call method사용 
+
+    }
+};
+
+exampleObj.outerFunc();
+```
+
+**apply**
+
+위에서 잠깐 언급했지만, call과 apply의 매개변수 형식이 조금 다른데요. `thisArg` 는 call과 동일해요. `argsArray` 는 함수 인자들을 array에 담아야 함을 의미해요.
+현재 포스팅에선 this를 명시적으로 쓰기 위한 방법을 다루고 있으니, call과 apply의 용법에 대한 부분은 [MDN call](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call) 활용법, [MDN apply](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply) 활용법으로 남겨둘게요. 
+
+> apply(thisArg)
+apply(thisArg, argsArray)
+
+
+```js
+var exampleObj = {
+    outerFunc: function() {
+        console.log(this); // 1. this -> exampleObj
+        var innerMethod1 = function() {
+            console.log(this); //2. this->window 
+        };
+        innerMethod1();
+    
+
+        var innerMethod2=function(){
+            console.log(this); //3.  this -> exampleObj
+        }
+        innerMethod2.apply(this);  //✅ apply method사용 
+
+    }
+};
+
+exampleObj.outerFunc();
+
+```
+
+#### 4. 생성자로 호출
+
+여기서 일단 생성자 함수가 무엇인지 알면 좋은데요. 예를 들어볼게요. 생성자 함수는 마치 장난감 공장의 기계처럼 새로운 객체를 만드는 역할을 해요. 이 공장의 기계가 작동할 때마다 this는 바로 그 순간 만들어지는 장난감을 가리키며, 그래서 각각의 객체는 this를 통해 자기 자신을 식별할 수 있어요. 이렇게 this는 생성자 함수가 만드는 각각의 객체를 구별하는 데 사용되요. 
+
+```js
+
+function Toy(name, color) {
+    this.name = name;
+    this.color = color;
+    this.describe = function() {
+        console.log("This is a " + this.color + " toy named " + this.name + ".");
+    };
+}
+
+var teddyBear = new Toy('Teddy Bear', 'brown');
+teddyBear.describe(); // "This is a brown toy named Teddy Bear."
+
+var raceCar = new Toy('Race Car', 'red');
+raceCar.describe(); // "This is a red toy named Race Car."
+
+```
+
+위의 예시에서 Toy 함수는 생성자 함수입니다. new 키워드를 사용하여 Toy의 인스턴스를 만들 때, JavaScript 엔진은 this를 새로 만들어진 객체, 즉 teddyBear와 raceCar에 바인딩합니다. this.name과 this.color는 각각의 인스턴스에 대한 고유한 속성 값을 설정합니다.
+
+teddyBear.describe()나 raceCar.describe()를 호출하면, 각각의 this는 호출된 메서드가 속한 객체를 가리키므로, describe 메서드는 각 객체의 name과 color 속성을 올바르게 참조하여 메시지를 출력합니다.
+
+정리하자면 생성자 함수에서 this는 생성자 함수 호출로 인해 생성될 인스턴스를 참조합니다. 
+
+
+
+### 정리하며
+
+이전 실행컨텍스트 포스팅에서  lexical scope 를 다룰 땐, 함수가 어디에 정의 되는지가 관심사였다면 this의 경우는 함수가 어떻게 호출되는지가 관심사인 부분이 다르다고 볼 수 있어요.
+명시적인 방법으로 사용하는 call/apply 도 좋지만 개인적으로 es6 화살표 함수를 사용하는 것이 모든 엔지니어 레벨에서 통용적으로 사용하기도 편하고, 코드도 더 깔끔하지 않을까 해요.
+다음 포스팅에선 callback에서 this를 좀 더 다뤄볼까 해요.
+
+---
+참고도서 
+- 존 레식, 베어 바이볼트. (2014). *자바스크립트 닌자 비급 Secrets of the JavaScript Ninja*.인사이트
+- 정재남. (2019). *코어 자바스크립트*.위키북스
+
+

@@ -1,0 +1,158 @@
+---
+title: 자바스크립트에서의 this 
+slug: executionContext
+author: Hyunsu Joo
+published: 2023-10-30
+lastUpdated: 2023-10-30
+draft: true
+image: ./peep.png
+imageAlt: peep
+tags: [JavaScript, memo]
+---
+### 자바스크립트 execution context 
+
+
+- execution context는 global과 functional execution context 로 나뉜다. 
+- global execution context는 default execution context 로서 프로그램을 실행하면  바로 global execution context가 생성된다.  
+코드 중 함수 블록 내에 있지 않은 코드는 모두 global 이다.
+- 그래서 global execution은 프로그램당 1개 의 global execution만 존재한다. 
+- functional execution context는 global과는 반대되는 개념으로, global은 프로그램당 오직 1개의 execution context가 존재 했다면, functional execution context는 function이 호출 될 때마다, 그 함수를 실행할 수 있는 환경인 새로운 execution context가 생성된다.  
+즉 각 function마다 그 함수의 execution context를 갖는다. 
+
+### execution stack 
+
+- functional execution context 는 함수가 실행될 때마다 그 함수실행을 위한 execution context가 새로 생성이 된다고 했는데, 함수가 여러개 실행되면 execution context는 여러개 생긴다고 추측이 될 것 이고 그럼 어떻게 context가 관리가 될까? 
+- stack 으로 관리가 된다. 이를 call stack이라 한다. 
+- 비단 functional만 stack 으로 관리 되는것이 아닌, global execution context또한 stack으로 관리된다. 
+- 그러니깐, 정리를 하자면 
+- 자바스크립트 엔진이 코드를 보자마다 callstack에  global execution context를 생성한다.
+- 엔진이 코드를 한줄 씩 읽어 내려가면서 함수가 보이면 새로운 execution context를 생성한다.
+- 이 때 새로운 execution context는 call stack에 이미 존재하는 global execution context 위에 execution context를 만든다. ( push 개념) 
+- 그리고 자바스크립트 엔진은 함수를 실행시키는데, 대상은 callstack의 가장 맨 위에 있는 execution context 가 된다.
+
+
+### execution context
+
+- execution context가 활성화 될 때, 자바스크립트 엔진은 코드를 실행시키기 위해 필요한 정보를 수집해서 실행 컨텍스트 객체에 저장한다. 
+- 저장되는 객체로는 
+- 1. VariableEnvironment -  현재 컨텍스트 내의 식별자들에 대한 정보 + 외부환경 정보, 선언시점의 LexicalEnvironment의 스냅샷으로 변경사항은 반영되지 않음. 
+- 2. LexicalEnvironment - VariableEnvironment 와 같지만 변경사항이 실시간으로 반영됨. 
+- 3. ThisBinding
+이 있다. 
+
+그리고 이 객체들이 저장/수집 하는 정보로 두가지가 있는데 1. environment record   2. outerEnvironmentReference 가 있다. 
+ 
+1. environmentRecord
+
+해당되는 함수의 매개변수의 이름, 함수선언, 변수명등을 수집한다. 즉 식별자가 저장 되는 곳이다. 
+그런데 식별자를 수집하는 과정이 조금은 다른데,  호이스팅이라는 개념을 모르면 코드의 기대값과는 다른 값을 마주하게 되는 현상이 일어나기도 한다.
+책에서도 이렇게 설명한다. "변수 정보를 수집하는 과정을 모두 마쳤더라도 아직 실행컨텍스트가 관여할 코드들은 실행되기 이전의 상태이다. 코드가 실행되기 전임에도 불구하고 자바스크립트 엔진은 이미 해당환경에 속한 코드의 변수명들을 모두 알고 있게 되는 셈이죠. 자바스크립트 엔진은 식별자들은 최상단으로 끌어 올려 놓은 다음 실제 코드를 실행한다 고 생각하더라도 문제될 것이 전혀 없을 것이다."     
+즉 엔진이 실질적으로 변수명들을 코드의 최상단으로 정말 끌어 올리는 상황이 있지 않더라도 결과적으로 실행 코드의 결과는 같기 때문에 편의상 끌어올린것이라고 간주해도 된다는 점이다. 그리고 이를 호이스팅 이라고 한다. 
+
+```js
+
+function a(x){
+    console.log(x) // 예상하는 값 : 1 , 실제 결과 값 : ✅ 1 
+    var x;
+    console.log(x) // 예상하는 값 : undefined , 실제 결과 값 :✅ 1
+    var x = 2;
+    console.log(x) // 예상하는 값 : 2 , 실제 결과 값 : ✅ 2
+}
+
+a(1);
+```
+왜 이런 다른 결과가 나오는 걸까? 
+
+위에서 언급한 envornmentRecord 를 다시 생각해 보면, 식별자를 모두 수집한다고 했다. 
+여기에서 호이스팅 개념을 빌려 다시 코드를 최상단으로 끌어올리는 상황을 연출 해보면 매개변수가 호이스팅 됨으로써, 
+첫번 째, 두번째 x가 매개변수로 들어온 x를 가리킨다. 
+
+```js
+
+function a(){
+    var x;
+    var x;
+    var x;
+
+    x = 1;
+    console.log(x);
+    console.log(x);
+
+    x = 2;
+    console.log(x);
+}
+```
+
+여기서 궁금증이 생긴다. 
+현재(es6를 표준으로 사용하는 환경)는 잘 사용하지 않는 var를 이 예제에서는 사용했는데, let과 const에서는 envornmentRecord가 변수를 수집해서 var과 같은 동일한 결과가 나올까? 
+
+
+
+위의 예제는 var를 이용하였다. 자바스크립가 다른 언어와의 차이점이 있다면, var를 사용하던 es5 에서의 자바스크립트 유효범위는 블록이 아닌 함수에 의해 정의 된다는 것인데
+그래서 var로 인한 몇몇 문제점들이 있었고, es6가 되었을 때 `let` 과 `const`가 소개되면서 함수스코프에서 블록 스코프가 가능해졌다. 
+아직도 여전히 var를 사용할 수 있지만, var로 인한 문제점을 수월하게 해결하고 싶다면 let과 const를 지향 하는것이 좋다고 생각한다. 
+
+
+
+2. outerEnvironmentReference
+
+- outerEnvironmentReference 는 LexicalEnvironment의 두번째 수집자료이다. 첫번째 수집자료인 environmentRecord와 다른 점은 식별자를 접근할 수 있는 범위(공간)  즉, 유효범위를 저장한다. 
+- 여기서 말하는 유효범위는 중첩된 함수에서 outer함수에 선언된 변수는 outer함수 내 뿐 아니라, inner함수에서도 접근이 가능하다. 하지만 inner함수에 선언된 변수는 outer함수에서 접근하려고 하면 접근할 수 없다. 
+- 이렇게 접근할 수 있는 범위를 유효범위라 한다. 유효범위에서 중요한건 변수가 어디에 선언되어 있는가 이다. (할당이 아님)
+- 코드에서 어떤 변수에 접근 하려고 할 때 현재  컨텍스트의 lexicalEnvironment를 탐색하여 변수가 발견되면 그 값을 반환하고, 발견하지 못했을 경우 이 때 outerEnvironmentReference 에 담긴 LexicalEnvironment를 탐색한다. 이런 식으로 전역 컨텍스트의 LexicalEnvironment까지 탐색을 하고 만약 찾지 못했다면 undefined를 리턴한다. 
+
+
+
+```js
+
+var x = 10;
+var outer = function(){
+    var inner = function(){
+        console.log(x);  //현재 스코프 : inner, x변수 유무: ✅, x값: undefined ❗️why? : envrionmentRecord에 수집된 x는 호이스팅이란 매커니즘 하에 undefined 값을 가지고 있음 
+        var x =20 ;
+
+    };
+    inner();
+    console.log(x); //현재 스코프 : outer, x변수 유무: ❌, outerEnvironmentReference 스코프 참조: global, global에서 x유무: ✅, x값 : 10
+};
+outer();
+console.log(x); // 현재 스코프 : global, x 변수 유무: ✅, x값 : 10 
+
+```
+
+위의 함수에 대한 스코프이다.
+
+<Image src="/execution.png" width="718" height="404" alt="Image" />
+
+
+콜스택에 따른 순서를 다시 한번 짚어보자면, 
+
+- 실행컨텍스트에서 가장 위에 있는 즉 가장 먼저 실행 될 함수는 누구인가? 
+- inner 함수가 먼저 실행되고, 이로 인해 inner context execution 이 활성화 될 때, x변수를 environmentRecord에서 찾는다. inner함수내의 x는 호이스팅 매커니즘으로 인해 undefined값을 먼저 가지고 있다. 
+- 그래서 x는 undefined를 출력한다. 
+- 그 후 x값에 20할당된다. 
+- inner함수 스코프에서 더 이상 진행될 코드가 없으니 콜스택에서 pop 이 되고, 이어 outer함수가 실행된다. 
+- outer execution 실행 컨텍스트가 활성화 되고, console.log(x) 값을 위해 x 변수를 environmentRecord에서 찾는다. x변수가 없으므로, outerEnvironmentReference에서 참조된 galobalContext의 environmentRecord에 가서 다시 탐색을 한다. 
+- global 스코프에 선언된 x값이 수집되어 있으므로, 그 값을 가져온다. 10을 출력한다.
+- outer 함수에 더 이상 진행될 코드가 없으니 콜스택에서 pop이 된다. 마지막 남은 globalContext가 활성화된다.
+- console.log(x) 의 x값을 environmentRecord에서 찾는다. x가 global 스코프에 선언 되어 있고 존재하고, 값은 수집했던 10을 가져온다.
+- global 스코프에서도 더 이상 진행될 코드가 없으니 콜스택에서 pop이 된다. 
+- 더 이상 남아있는 execution context가 없으니 프로그램이 종료된다. 
+
+
+---
+### 정리하며 
+
+- 아직까지 VariableEnvironment 와 LexicalEnvironment 의 차이에 대해 다소 모호한 점이 있어 해소를 위해 좀 더 리서치가 필요할 것 같다. 
+- 하지만, 코드를 실행하는 엔진의 관점에서 바라보니 엔진이 값보다는 식별자 선언 자체에 좀 더 관심을 가지고 있고, 그로인해 호이스팅 개념과 
+스코프의 원리를 알게 되었다. 또한 개발자로서 실제 코드에선 전역변수를 지양 하고, 변수의 접근성에 대한 전파를 생각하고 변수를 선언할 수 있을 것 같다.  
+
+
+
+
+
+---
+
+##### 참고도서 
+- 코어자바스크립트 정재남/위키북스
+
