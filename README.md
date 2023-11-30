@@ -86,10 +86,10 @@ gatsby develop
 - 디자인 시스템 직접 적용
 - MDX 지원, 다크모드, 목차, 카테고리, social sharing 기능.
 - 웹폰트 최적화로 화면 깜빡임 이슈 해결과 동시에 웹 퍼포먼스 (Web Vital) 최적화로 사용자 경험 개선.
-  웹 퍼포먼스 최적화 경험기 블로그 <https://www.hyunsujoo.com/optimize-webfont/ >
+  웹 퍼포먼스 최적화 경험기 블로그 <https://www.hyunsujoo.wiki/optimize-webfont/ >
 
 - 다크모드 구현시 rehydration으로 인한 적용이 안되는 이슈 해결
-  이슈 해결 블로그 : <https://www.hyunsujoo.com/gatsby-dark-theme/>
+  이슈 해결 블로그 : <https://www.hyunsujoo.wiki/gatsby-dark-theme/>
 
 <!-- AUTO-GENERATED-CONTENT:END -->
 

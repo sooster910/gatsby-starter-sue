@@ -146,7 +146,7 @@ function Seo({
         type="font/woff2"
         crossOrigin="anonymous"
       />
-      <link rel="canonical" href="https://www.hyunsujoo.com" />
+      <link rel="canonical" href="https://www.hyunsujoo.wiki" />
       <meta name="description" content={metaDescription} />
       <meta name="image" content={blogImage}></meta>
     </Helmet>
