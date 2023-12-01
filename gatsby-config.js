@@ -68,7 +68,7 @@ module.exports = {
             resolve: `gatsby-remark-highlight-code`,
             options: {
               terminal: 'carbon',
-              theme: 'monokai',
+              theme: 'vscode',
               lineNumbers: true,
             },
           },

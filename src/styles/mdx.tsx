@@ -140,15 +140,15 @@ export const MDX = styled('article')`
 
   code {
     padding: 2px 5px;
-    background: #f5f5f5;
+    background: rgba(227, 227, 227, 0.8);
     color: var(--code);
     border: 1px solid var(--code);
     border-radius: 10px;
     font-family: ${({ theme }) => theme.code};
-    font-weight: 600;
+    font-weight: 500;
     border-radius: 5px;
     font-size: ${({ theme }) => theme.helperText};
-    margin: 0 3px;
+    margin: 0 1px;
   }
 
   span {
