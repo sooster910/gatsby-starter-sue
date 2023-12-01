@@ -15,7 +15,6 @@ import styled from '@emotion/styled'
 import { Pagination } from '../components/Pagination'
 import { PageLink } from '../components/links/Link.style'
 import { PostType } from '../pages/index'
-import BaseTemplate from './BaseTemplate'
 export type singlePostData = {
   id: string
   timeToRead: number
@@ -139,64 +138,56 @@ const BlogPost: React.FunctionComponent<BlogPostProps> = ({ data }) => {
 
   return (
     <>
-      <BaseTemplate
-        description={singlePost?.excerpt}
-        title={singlePost?.frontmatter?.title}
-        image={singlePost?.frontmatter?.image?.publicURL as string}
-      >
-        <Layout headings={singlePost?.headings}>
-          <MDXProvider components={shortcodes}>
-            <GatsbyImage
-              image={Gimage}
-              alt={singlePost?.frontmatter?.imageAlt}
-              css={css`
-                border-radius: 12px;
-                /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
-                box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-                  rgba(0, 0, 0, 0.22) 0px 15px 12px;
-              `}
-              style={{
-                display: 'table',
-                margin: '0 auto',
-              }}
-            />
-            <StyledPostHeader>
-              <StyledPostDate>
-                <Dates
-                  published={singlePost?.frontmatter?.published}
-                  updated={singlePost?.frontmatter?.lastUpdated}
-                  timeToRead={singlePost.timeToRead}
-                  isPreview={false}
-                />
-              </StyledPostDate>
-              <StyledPostTitle>
-                {singlePost?.frontmatter?.title}
-              </StyledPostTitle>
-            </StyledPostHeader>
-            <MDX>
-              <MDXRenderer>{singlePost?.body}</MDXRenderer>
-            </MDX>
-            <Bio isProfile={false} />
-            {utterances?.enabled && <Comment />}
-            <Pagination>
-              {previous && (
-                <StyledPaginationList>
-                  <PageLink to={previous.fields.slug} direction={'prev'}>
-                    {previous?.frontmatter?.title}
-                  </PageLink>
-                </StyledPaginationList>
-              )}
-              {next && (
-                <StyledPaginationList>
-                  <PageLink to={next.fields.slug} direction={'next'}>
-                    {next?.frontmatter.title}
-                  </PageLink>
-                </StyledPaginationList>
-              )}
-            </Pagination>
-          </MDXProvider>
-        </Layout>
-      </BaseTemplate>
+      <Layout headings={singlePost?.headings}>
+        <MDXProvider components={shortcodes}>
+          <GatsbyImage
+            image={Gimage}
+            alt={singlePost?.frontmatter?.imageAlt}
+            css={css`
+              border-radius: 12px;
+              /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+              box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+                rgba(0, 0, 0, 0.22) 0px 15px 12px;
+            `}
+            style={{
+              display: 'table',
+              margin: '0 auto',
+            }}
+          />
+          <StyledPostHeader>
+            <StyledPostDate>
+              <Dates
+                published={singlePost?.frontmatter?.published}
+                updated={singlePost?.frontmatter?.lastUpdated}
+                timeToRead={singlePost.timeToRead}
+                isPreview={false}
+              />
+            </StyledPostDate>
+            <StyledPostTitle>{singlePost?.frontmatter?.title}</StyledPostTitle>
+          </StyledPostHeader>
+          <MDX>
+            <MDXRenderer>{singlePost?.body}</MDXRenderer>
+          </MDX>
+          <Bio isProfile={false} />
+          {utterances?.enabled && <Comment />}
+          <Pagination>
+            {previous && (
+              <StyledPaginationList>
+                <PageLink to={previous.fields.slug} direction={'prev'}>
+                  {previous?.frontmatter?.title}
+                </PageLink>
+              </StyledPaginationList>
+            )}
+            {next && (
+              <StyledPaginationList>
+                <PageLink to={next.fields.slug} direction={'next'}>
+                  {next?.frontmatter.title}
+                </PageLink>
+              </StyledPaginationList>
+            )}
+          </Pagination>
+        </MDXProvider>
+      </Layout>
     </>
   )
 }
