@@ -34,6 +34,7 @@ export type PostType = {
         childImageSharp: {
           gatsbyImageData: IGatsbyImageData
         }
+        publicURL?: string
       }
     }
     timeToRead: number

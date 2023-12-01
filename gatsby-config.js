@@ -97,6 +97,13 @@ module.exports = {
         policy: [{ userAgent: '*', allow: '/' }],
       },
     },
+    {
+      resolve: 'gatsby-plugin-canonical-urls',
+      options: {
+        siteUrl: 'https://hyunsujoo.wiki',
+        stripQueryString: true,
+      },
+    },
     // {
     //   resolve: `gatsby-plugin-s3`,
     //   options: {
