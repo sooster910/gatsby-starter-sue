@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@deckdeckgo/highlight-code": "^3.3.0",
+    "@emotion/css": "^11.11.2",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mdx-js/mdx": "^1.6.22",

@@ -1,46 +1,81 @@
-import React, { useEffect } from 'react'
+// import React, { useEffect } from 'react'
 
-type CommentsProps = {
-  repo?: string
+// const Comment = ({ issueTerm }: { issueTerm: string }) => {
+
+//   const commentsUUID = `comments_${issueTerm}`
+//   useEffect(() => {
+
+//     const theme = 'github-light' // you could choose other themes too
+//     const script = document.createElement('script')
+//     const anchor = document.getElementById(commentsUUID)
+//     script.setAttribute('src', 'https://utteranc.es/client.js')
+//     script.setAttribute('crossorigin', 'anonymous')
+//     script.setAttribute('async', 'true')
+//     script.setAttribute('repo', 'sooster910/gatsby-starter-sue')
+//     script.setAttribute('issue-term', issueTerm)
+//     script.setAttribute('theme', theme)
+//     console.log("issueTerm", issueTerm)
+//     if (anchor) {
+//       anchor.appendChild(script)
+//     }
+//     return () => {
+//       if (anchor) {
+//         anchor.innerHTML = ''
+//       }
+//     }
+//   }, [commentsUUID, issueTerm])
+
+//   return (
+//     <>
+//       <div id={commentsUUID} className="post-comments relative">
+//         <div className="utterances-frame"></div>
+//       </div>
+//     </>
+//   )
+// }
+
+// export default Comment
+import React, { createRef, FunctionComponent, useEffect } from 'react'
+
+const src = 'https://utteranc.es/client.js'
+const repo = 'sooster910/gatsby-starter-sue' // 자신 계정의 레포지토리로 설정
+
+type UtterancesAttributesType = {
+  src: string
+  repo: string
+  'issue-term': string
+  label: string
+  theme: string
+  crossorigin: string
+  async: string
 }
 
-export const Comments = ({ repo }: CommentsProps) => {
-  const anchor = React.useRef<HTMLInputElement | null>(null)
-  // useLayoutEffect(() => {
-  //   const theme = 'github-light'
-  //   const script = document.createElement('script')
+const Comment: FunctionComponent = function () {
+  const element = createRef<HTMLDivElement>()
 
-  //   script.setAttribute('src', 'https://utteranc.es/client.js')
-  //   script.setAttribute('crossorigin', 'anonymous')
-  //   script.setAttribute('async', true.toString())
-  //   script.setAttribute('repo', repo || '')
-  //   script.setAttribute('issue-term', 'url')
-  // script.setAttribute('theme', theme) // you could choose other themes too
-  //   anchor?.current?.appendChild(script)
-  // }, [repo])
-  const commentNodeId = 'comments'
   useEffect(() => {
-    const script = document.createElement('script')
-    script.src = 'https://utteranc.es/client.js'
-    script.async = true
-    script.setAttribute('repo', repo || '')
-    script.setAttribute('issue-term', 'pathname')
-    script.setAttribute('label', 'comment :speech_balloon:')
-    script.setAttribute('crossorigin', 'anonymous')
-    const scriptParentNode = document.getElementById(commentNodeId)
-    scriptParentNode?.appendChild(script)
+    if (element.current === null) return
 
-    return () => {
-      // cleanup - remove the older script with previous theme
-      scriptParentNode?.removeChild(scriptParentNode.firstChild as Node)
+    const utterances: HTMLScriptElement = document.createElement('script')
+
+    const attributes: UtterancesAttributesType = {
+      src,
+      repo,
+      'issue-term': 'pathname',
+      label: 'Comment',
+      theme: `github-light`,
+      crossorigin: 'anonymous',
+      async: 'true',
     }
-  })
 
-  return (
-    <>
-      <div style={{ width: '100%' }}>
-        <div ref={anchor} id={commentNodeId} />
-      </div>
-    </>
-  )
+    Object.entries(attributes).forEach(([key, value]) => {
+      utterances.setAttribute(key, value)
+    })
+
+    element.current.appendChild(utterances)
+  }, [])
+
+  return <div ref={element} />
 }
+
+export default Comment

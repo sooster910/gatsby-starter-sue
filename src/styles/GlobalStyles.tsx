@@ -125,7 +125,7 @@ const GlobalStyles = () => {
         }
         /* edit code block style */
         deckgo-highlight-code {
-          --deckgo-highlight-code-font-size: 1.2rem;
+          --deckgo-highlight-code-font-size: 1rem;
         }
         p {
           font-family: 'Spoqa Han Sans Neo', sans-serif;

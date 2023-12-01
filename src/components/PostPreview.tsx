@@ -1,25 +1,13 @@
 import * as React from 'react'
-import { css } from '@emotion/react'
+// import { css } from '@emotion/react'
+import { css } from '@emotion/css'
 import styled from '@emotion/styled'
 import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image' // post page
 import { StyledPostPreview, TagLink } from './links/Link.style'
 import { Dates } from './Dates'
 import _ from 'lodash'
-
-export interface PostPreviewProps {
-  post: {
-    title: string
-    author: string
-    slug: string
-    excerpt: string
-    published: string
-    lastUpdated: string
-    timeToRead: number
-    imageAlt: string
-    image: IGatsbyImageData
-    tags: string[]
-  }
-}
+import { PostType } from '../pages'
+import { FileNode } from 'gatsby-plugin-image/dist/src/components/hooks'
 
 const StyledArticle = styled.article`
   position: relative;
@@ -49,23 +37,28 @@ const StyledArticleHeaderTitle = styled.h5`
   font-family: ${({ theme }) => theme.primaryFont};
   text-transform: 'uppercase';
 `
-const PostPreview = ({ post }: PostPreviewProps): React.ReactElement => {
-  const thumbnail = getImage(post.image)
+interface PostPreviewProps {
+  post: PostType['node']
+}
 
+const PostPreview = ({ post }: PostPreviewProps): React.ReactElement => {
+  const thumbnail = getImage(post?.frontmatter?.image as FileNode)
   return (
-    <StyledArticle id={post.slug}>
-      <StyledPostPreview to={`/${post.slug}/`}>
+    <StyledArticle id={post.id}>
+      <StyledPostPreview to={post?.fields?.slug}>
         <StyledArticleHeader>
-          <StyledArticleHeaderTitle>{post.title}</StyledArticleHeaderTitle>
+          <StyledArticleHeaderTitle>
+            {post?.frontmatter?.title}
+          </StyledArticleHeaderTitle>
           <object>
             <ul>
-              {post?.tags.map((tag) => (
+              {post?.frontmatter?.tags?.map((tag) => (
                 <li
                   key={tag}
-                  css={css`
-                    text-decoration: none;
-                    display: inline;
-                  `}
+                  className={css({
+                    textDecoration: 'none',
+                    display: 'inline',
+                  })}
                 >
                   <TagLink
                     to={`/categories/${_.kebabCase(tag)}/`}
@@ -82,27 +75,27 @@ const PostPreview = ({ post }: PostPreviewProps): React.ReactElement => {
           </object>
           <Dates
             isPreview={true}
-            published={post.published}
-            updated={post.lastUpdated || ''}
-            timeToRead={post.timeToRead}
+            published={post?.frontmatter?.published}
+            updated={post?.frontmatter?.lastUpdated || ''}
+            timeToRead={post?.timeToRead}
           />
         </StyledArticleHeader>
         <StyledArticleBody>
           <GatsbyImage
-            image={thumbnail}
-            alt={post.imageAlt}
-            css={css`
+            image={thumbnail as IGatsbyImageData}
+            alt={post?.frontmatter?.imageAlt}
+            className={css`
               border-radius: 12px;
               width: 150px;
               -webkit-mask-image: -webkit-radial-gradient(white, black);
             `}
           />
           <p
-            css={css`
+            className={css`
               width: 70%;
             `}
           >
-            {post.excerpt}
+            {post?.excerpt}
           </p>
         </StyledArticleBody>
       </StyledPostPreview>

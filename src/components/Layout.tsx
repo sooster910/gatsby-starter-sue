@@ -13,7 +13,6 @@ import Footer from './Footer'
 import useSiteMetadata from '../hooks/sitemetadata'
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader'
 import { Aside } from './Aside'
-import { CategoryList } from './CategoryList'
 import { TableOfContents } from './TableOfContents'
 
 /*load syntax highlighter*/
@@ -54,7 +53,8 @@ const Layout = ({ children, headings }: LayoutProps): React.ReactElement => {
                 headings={headings.filter((v) => v.depth !== (5 || 6))}
               />
             )}
-          <CategoryList />
+
+          {/* <CategoryList /> */}
         </Aside>
       </Wrapper>
       <Footer />

@@ -52,14 +52,14 @@ export const MDX = styled('article')`
   }
 
   p {
-    font-size: 1.14rem;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--textColorOnPrimary);
     line-height: 2;
     margin-top: 1rem;
   }
   blockquote {
-    font-size: 1.5rem;
+    font-size: 1rem;
     line-height: 2.125rem;
     text-align: left;
     max-width: 36rem;
@@ -100,10 +100,10 @@ export const MDX = styled('article')`
   } */
 
   deckgo-highlight-code {
-    --deckgo-highlight-code-font-size: ${({ theme }) => theme.primaryFont};
+    --deckgo-highlight-code-font-size: ${({ theme }) => theme.helperText};
     --deckgo-highlight-code-line-height: ${({ theme }) =>
       theme.spacings.medium};
-    margin: 2rem 0;
+    margin: 0.8rem 0;
   }
 
   hr {
@@ -143,7 +143,7 @@ export const MDX = styled('article')`
     background: #f5f5f5;
     color: var(--code);
     border: 1px solid var(--code);
-    border-radius: 3px;
+    border-radius: 10px;
     font-family: ${({ theme }) => theme.code};
     font-weight: 600;
     border-radius: 5px;
