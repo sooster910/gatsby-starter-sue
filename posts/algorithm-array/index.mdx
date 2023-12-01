@@ -180,9 +180,9 @@ function solution(arr1, arr2){
 - 중복 경로 처리 방법
 - 좌표의 경계가 -5 부터 5까지의 경계로 이루어져 있다.
 
-- 중복 경로는 두가지 경우가 있다.
-1.  a→b, b→a 의 경로인경우 중복으로 간주하고, 처음걸어 본 길이에 포함하지 않는다.
-2. a→b, a→b  똑같은 출발점과 똑같은 도착점을 두번이상 간다. 
+먼저 중복 경로 처리 방법을  보자면, 중복 경로는 두가지 경우가 있다.
+1. a→b, b→a 의 경로인경우 중복으로 간주하고, 처음 방문한 길이에 포함하지 않는다.
+2. a→b, a→b 똑같은 출발점과 도착점을 두번 이상 방문하는 경우에는 당연히 중복이므로 처음 방문한 길이에 포함하지 않는다. 
     
 <img src="../images/2d_array_3.png" width="400px" height="200px" />
 
@@ -210,7 +210,7 @@ function solution(arr1, arr2){
 >   
       
     
-    ```jsx
+    ```javascript
     function solution(dirs){
     let current = [5, 5];
     let count =0;
