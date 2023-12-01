@@ -72,6 +72,7 @@ const BaseTemplate: React.FunctionComponent<BaseTemplateProps> = ({
           type="font/woff2"
           crossOrigin="anonymous"
         />
+        <link rel="canonical" href="https://hyunsujoo.wiki" />
       </Helmet>
 
       {children}
