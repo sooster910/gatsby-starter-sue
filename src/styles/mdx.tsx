@@ -36,34 +36,31 @@ export const MDX = styled('article')`
   h3 {
     font-size: 1.375rem;
     line-height: 1.625rem;
-    margin: 2.5rem 0 1.5rem 0;
+    margin: 3.5rem 0 1.75rem 0;
   }
 
   h4 {
     font-size: 1.25rem;
     line-height: 1.5rem;
-    margin-bottom: 2rem;
+    margin: 3.5rem 0 1.75rem 0;
   }
 
   h5 {
     font-size: 1.125rem;
     line-height: 1.5rem;
-    margin-bottom: 2rem;
+    margin: 3.5rem 0 1.75rem 0;
   }
 
   p {
     font-size: 1rem;
     font-weight: 500;
     color: var(--textColorOnPrimary);
-    line-height: 2;
     margin-top: 1rem;
   }
   blockquote {
     font-size: 1rem;
     line-height: 2.125rem;
     text-align: left;
-    max-width: 36rem;
-    margin: 3rem auto;
     border-left: 3px solid var(--primaryActiveColor);
     padding: 1rem;
     border-radius: 3px;
@@ -104,6 +101,7 @@ export const MDX = styled('article')`
     --deckgo-highlight-code-line-height: ${({ theme }) =>
       theme.spacings.medium};
     margin: 0.8rem 0;
+    box-shadow: none;
   }
 
   hr {
@@ -114,9 +112,6 @@ export const MDX = styled('article')`
   img {
     display: flex;
     margin: 2rem auto;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-      rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   }
   ul > li {
     padding-left: 1.75em;
@@ -164,7 +159,6 @@ export const MDX = styled('article')`
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   }
 
   table thead tr {

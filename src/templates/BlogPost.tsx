@@ -89,7 +89,6 @@ type SingleBlogPostType = {
 // type BlogPostType = PostType & HeadingType
 const StyledPostHeader = styled.div`
   position: relative;
-  padding-bottom: 2.4em;
 `
 const StyledPostTitle = styled.h1`
   line-height: 3.5rem;
@@ -97,7 +96,6 @@ const StyledPostTitle = styled.h1`
   font-weight: 800;
   /* letter-spacing: 2px; */
   text-align: center;
-  padding-top: 2rem;
 `
 const StyledPostDate = styled.div``
 const StyledPaginationList = styled.li`
