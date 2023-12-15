@@ -3,7 +3,6 @@ import { useTheme } from '@emotion/react'
 import { Global, css } from '@emotion/react'
 import * as Fonts from '../../assets/fonts'
 import { gray, pink, neutral, blue, darkblue } from '../utils/colors'
-
 const GlobalStyles = () => {
   const theme = useTheme()
 
