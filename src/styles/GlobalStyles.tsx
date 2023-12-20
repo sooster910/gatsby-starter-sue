@@ -81,9 +81,8 @@ const GlobalStyles = () => {
         }
 
         h1 {
-          font-size: ${theme.h1};
           font-family: ${theme.secondaryFont};
-          letter-spacing: -2.7px;
+          letter-spacing: -1px;
         }
         h2 {
           font-size: ${theme.h2};
