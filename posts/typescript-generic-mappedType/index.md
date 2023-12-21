@@ -101,7 +101,7 @@ properties 인자 자리에서는 어떤 eventType을 선택했는지 알 수 �
 
 먼저 제네릭 `T`를 사용하여 `track()` 의 첫 번째 매개변수는 이벤트 네임들 중 하나만 정할 수 있게 타입 제약을 둡니다.
 
-```tsx
+```typescript
 track<T extends MixpanelEventName>(eventType:T, properties:  ){
     },
 ```
@@ -113,7 +113,7 @@ track<T extends MixpanelEventName>(eventType:T, properties:  ){
 
 이 속성들은  'MixpanelProperties' 인터페이스로 지정되어 있는데요. 사실 MixpanelProperties 는 50개가 넘습니다. 그래서 여기서 필요한 속성을 선택해야 했었는데요 이럴 때 사용하는 유틸리티 타입인 `Pick`을 사용합니다. 
 
-```tsx
+```typescript
 type PAGE_VIEWED_PROPERTIES = Pick<
   MixpanelProperties,
   "class_id" | "page_path" | "tab_viewed" | "scroll"
@@ -122,7 +122,7 @@ type PAGE_VIEWED_PROPERTIES = Pick<
 
 이젠 `PAGE_VIEWED_PROPERTIES` 는 `page_viewed`라는 이벤트네임이 있을 때 사용 할 수 있도록 조건부 타입을 만듭니다.
 
-```tsx
+```typescript
 // 조건부 타입 예시
 type EventProperties<T extends UnionMixpanelEventName> = 
   T extends "page_viewed" ? PAGE_VIEWED_PROPERTIES :
@@ -149,6 +149,7 @@ type EventProperties<T extends UnionMixpanelEventName> =
 코드를 다시 한번 볼게요. 
 
 ```typescript
+
 type MixpanelEventProperties<
   T extends UnionMixpanelEventName
 > = T extends MixpanelEventNames["PAGE_VIEWED"]
@@ -208,11 +209,15 @@ type MixpanelPropertyMapper<T extends keyof MixpanelEventProperties> = MixpanelE
 
 ```
 
+
 이 구조를 통해 각 이벤트 이름에 대한 속성 타입이 MixpanelEventProperties 인터페이스 내에서 명확하게 매핑됩니다. 그리고 MixpanelPropertyMapper 타입은 이 매핑을 직접 활용하게 됩니다. 이로써 복잡한 삼항 연산자와 중첩 조건문을 벗어나 훨씬 명확하고 관리하기 쉬운 코드 구조를 갖추게 되었습니다.
+
 ```typescript
+
 type MixpanelPropertyMapper<T extends keyof MixpanelEventProperties> = MixpanelEventProperties[T];
 
 ```
+
 이 타입구조에 대해 조금 더 상세히 나열해 볼게요. 
 
 `MixpanelPropertyMapper는` 제네릭 타입 T를 받아, 해당하는 이벤트의 속성 타입을 추론합니다. 이는 코드의 유지보수를 용이하게 하며, 새로운 이벤트 타입이 추가될 때마다 쉽게 확장할 수 있는 구조를 제공합니다.
