@@ -215,6 +215,98 @@ function solution(enroll, referral, seller, amount) {
 
 #### 4. 양과늑대
 
+이 문제는 단순하게 bfs에서 양이 가장 멀리 떨어져 있는 양까지 구했을 때 max를 구하는 방법으로 너무 쉽게 생각한게 문제다. 문제에서 요구하는 것은 가능한 모든 경로의 길을 갔을 때 잡아 먹히지 않는 상태에서 최대 양의 개수를 구하는 것이다. 
+
+bfs로 풀었을 경우, 0번 양에서 인접한 1,8번 노드가 있는데 1번으로 가게되면 양이 2개 이므로 계속해서 더 나아가고, 8번 노드의 경우 양1, 늑대1로 양이 잡아먹히므로 내 풀이에서는 8을 다시는 가지않는다. 
+하지만 8을 꼭 0다음에 가야 하는건 아니다. 다른 곳을 들렸다가 최대한 양을 모아 다시 8로 갈 수 있다.
+이 부분을 구현하기 위해선 큐에 들어가는 매 노드마다 조건에 의해 방문 못한 8을 계속 으로 들고 있어야 한다. 
+
+❌ 잘못된 풀이 
+```javascript
+
+function solution(info, edges) {    
+    let queue = [];    
+    let adjacentList = {}
+    for(const [from, to] of edges){
+        adjacentList[from] = adjacentList[from] ||[]
+        adjacentList[from].push(to)
+        
+    }
+    let max = 0
+         queue= [{node:0 , curShip:1, curWolf:0 }]
+         
+         while(queue.length){
+            
+             let {node, curShip, curWolf }= queue.shift();
+             max = Math.max(max, curShip)
+                
+             let nextNodes = adjacentList[node];
+              // console.log(queue,node, curShip,curWolf,nextNodes)
+             if(!nextNodes) continue
+             for( const nextNode of nextNodes){
+                 
+                 let nextShip= info[nextNode] ===0? curShip+1 : curShip
+                 let nextWolf = info[nextNode]===1?curWolf+1: curWolf
+                 if(nextShip>nextWolf){
+                     queue.push({node:nextNode, curShip: nextShip, curWolf: nextWolf  })
+                 }
+             }
+         }
+       
+    return  max
+}
+
+```
+
+✅ 모든 가능한 경로를 매 큐에 넣어주는 코드 
+
+```javascript
+
+function solution(info, edges) {
+    
+    let queue = [];
+    let adjacentList = {}
+    for(const [from, to] of edges){
+        adjacentList[from] = adjacentList[from] ||[]
+        adjacentList[from].push(to)
+        
+    }
+  
+    let max = 0
+         queue= [{node:0 , curShip:1, curWolf:0, availableNodes:[] }]
+         
+         while(queue.length){
+            
+            let {node, curShip, curWolf,availableNodes }= queue.shift();
+            max = Math.max(max, curShip)
+            let nextNodes=adjacentList[node]
+            if(nextNodes) availableNodes=[...availableNodes, ...nextNodes]
+                         
+             for( const nextNode of availableNodes){          
+                 if(info[nextNode]){
+                     if(curShip !== curWolf+1){
+                         let n = [...availableNodes]
+                         let removeItem = n.indexOf(nextNode)
+                         n.splice(removeItem, 1);
+                         queue.push({node:nextNode, curShip, curWolf:curWolf+1,availableNodes:n })
+                     }
+                 }else{
+                         let n = [...availableNodes]
+                         let removeItem = n.indexOf(nextNode)
+                         n.splice(removeItem, 1);
+                         queue.push({node:nextNode, curShip:curShip+1, curWolf, availableNodes:n })
+                 }        
+             }
+         }
+     
+    
+    return  max
+}
+
+
+```
+
+
 #### 5.길 찾기 게임
 
 
