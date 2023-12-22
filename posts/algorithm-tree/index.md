@@ -192,13 +192,12 @@ function solution(enroll, referral, seller, amount) {
         adjacentList.set(seller, { referral: referral[i], profit: 0 });
     });
    for( const idx in seller){
-       let initialAmount = amount[idx] * 100; //10%
-       // adjacentList.get(seller[idx]).profit+=initialAmount
+       let initialAmount = amount[idx] * 100; 
        let referral = adjacentList.get(seller[idx]);
        let profit = 0;
        while( initialAmount>=1 && referral){
-           profit = Math.floor(initialAmount*0.1)
-            referral.profit+= initialAmount-profit
+           profit = Math.floor(initialAmount*0.1) //10%
+            referral.profit+= initialAmount-profit //10%
            initialAmount = profit
            referral = adjacentList.get(referral.referral);
        }
