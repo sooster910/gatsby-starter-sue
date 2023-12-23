@@ -6025,6 +6025,15 @@ fs-extra@^11.1.0:
     jsonfile "^6.0.1"
     universalify "^2.0.0"
 
+fs-extra@^11.1.1:
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-11.2.0.tgz#e70e17dfad64232287d01929399e0ea7c86b0e5b"
+  integrity sha512-PmDi3uwK5nFuXh7XDTlVnS17xJS7vW36is2+w3xcv8SVxiB4NyATf4ctkVY5bkSjX0Y4nbvZCq1/EjtEyr9ktw==
+  dependencies:
+    graceful-fs "^4.2.0"
+    jsonfile "^6.0.1"
+    universalify "^2.0.0"
+
 fs-extra@^4.0.2:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-4.0.3.tgz#0d852122e5bc5beb453fb028e9c0c9bf36340c94"
@@ -6563,6 +6572,28 @@ gatsby-remark-autolink-headers@^5.0.0:
     mdast-util-to-string "^2.0.0"
     unist-util-visit "^2.0.3"
 
+gatsby-remark-copy-linked-files@^6.13.0:
+  version "6.13.0"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-copy-linked-files/-/gatsby-remark-copy-linked-files-6.13.0.tgz#673ea3d3002ddba9f962cc0ee43051d0325c583c"
+  integrity sha512-hdWgIjCnvfixKIGRpWQwW8kxkMJg/7zD5bRjZH7Dsm2vHn/mv+g58pV3xGCA4CQGF4e+ZgSJk5mYkXciOFaxkA==
+  dependencies:
+    "@babel/runtime" "^7.20.13"
+    cheerio "^1.0.0-rc.10"
+    fs-extra "^11.1.1"
+    is-relative-url "^3.0.0"
+    lodash "^4.17.21"
+    path-is-inside "^1.0.2"
+    probe-image-size "^7.2.3"
+    unist-util-visit "^2.0.3"
+
+gatsby-remark-gifs@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-gifs/-/gatsby-remark-gifs-1.2.0.tgz#213c73597f986cee735cea42afe3ba7c23715948"
+  integrity sha512-i6V1RjhP+5E9wAUgJ7kWB/kVBj46VE8yVNo1+iBb1THhlZfDnSRsXf3DfrWrUYPAk1uQt5QBIRJl6ipZrZjFKA==
+  dependencies:
+    is-relative-url "^3.0.0"
+    unist-util-visit "^2.0.3"
+
 gatsby-remark-highlight-code@^3.0.1:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/gatsby-remark-highlight-code/-/gatsby-remark-highlight-code-3.3.0.tgz#7f01802f0046043db0342a8f2b66e22583781ffc"
@@ -6588,6 +6619,15 @@ gatsby-remark-images@^6.1.2:
     query-string "^6.14.1"
     unist-util-select "^3.0.4"
     unist-util-visit-parents "^3.1.1"
+
+gatsby-remark-static-images@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-static-images/-/gatsby-remark-static-images-1.2.1.tgz#3bdbf6ac0e5c9fee0cdb24d6109f941448fc5e3b"
+  integrity sha512-v8zXFRmVFXm0w6c3NWkXT0CISvFMBteVtPzzbH4C/k+fJiWdewAyhl/VZuZkqGz9YRoq2mAiUIJmStMp+cgZHQ==
+  dependencies:
+    himalaya "^1.1.0"
+    is-relative-url "^2.0.0"
+    slash "^2.0.0"
 
 gatsby-source-filesystem@^3.13.0:
   version "3.15.0"
@@ -7457,6 +7497,11 @@ highlight.js@^10.4.1:
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.7.3.tgz#697272e3991356e40c3cac566a74eef681756531"
   integrity sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==
 
+himalaya@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/himalaya/-/himalaya-1.1.0.tgz#31724ae9d35714cd7c6f4be94888953f3604606a"
+  integrity sha512-LLase1dHCRMel68/HZTFft0N0wti0epHr3nNY7ynpLbyZpmrKMQ8YIpiOV77TM97cNpC8Wb2n6f66IRggwdWPw==
+
 hoist-non-react-statics@^3.3.1:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
@@ -7799,6 +7844,11 @@ ipaddr.js@1.9.1:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.9.1.tgz#bff38543eeb8984825079ff3a2a8e6cbd46781b3"
   integrity sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==
+
+is-absolute-url@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/is-absolute-url/-/is-absolute-url-2.1.0.tgz#50530dfb84fcc9aa7dbe7852e83a37b93b9f2aa6"
+  integrity sha512-vOx7VprsKyllwjSkLV79NIhpyLfr3jAp7VaTCMXOJHu4m0Ew1CZ2fcjASwmV1jI3BWuWHB013M48eyeldk9gYg==
 
 is-absolute-url@^3.0.0, is-absolute-url@^3.0.3:
   version "3.0.3"
@@ -8188,6 +8238,13 @@ is-regexp@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-regexp/-/is-regexp-1.0.0.tgz#fd2d883545c46bac5a633e7b9a09e87fa2cb5069"
   integrity sha512-7zjFAPO4/gwyQAAgRRmqeEeyIICSdmCqa3tsVHMdBzaXXRiqopZL4Cyghg/XulGWrtABTpbnYYzzIRffLkP4oA==
+
+is-relative-url@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/is-relative-url/-/is-relative-url-2.0.0.tgz#72902d7fe04b3d4792e7db15f9db84b7204c9cef"
+  integrity sha512-UMyEi3F+Rvjpc29IAQQ5OuMoKylt8npO0eQdXPQ2M3A5iFvh1qG+MtiLQR2tyHcVVsqwWrQiztjPAe9hnSHYeQ==
+  dependencies:
+    is-absolute-url "^2.0.0"
 
 is-relative-url@^3.0.0:
   version "3.0.0"
@@ -10862,6 +10919,11 @@ path-is-absolute@^1.0.0:
   resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
   integrity sha512-AVbw3UJ2e9bq64vSaS9Am0fje1Pa8pbGqTTsmXfaIiMpnr5DlDhfJOuLj9Sf95ZPVDAUerDfEk88MPmPe7UCQg==
 
+path-is-inside@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/path-is-inside/-/path-is-inside-1.0.2.tgz#365417dede44430d1c11af61027facf074bdfc53"
+  integrity sha512-DUWJr3+ULp4zXmol/SZkFf3JGsS9/SIv+Y3Rt93/UjPpDpklB5f1er4O3POIbUuUJ3FXgqte2Q7SrU6zAqwk8w==
+
 path-key@^2.0.0, path-key@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
@@ -11318,6 +11380,15 @@ probe-image-size@^6.0.0:
   integrity sha512-99PZ5+RU4gqiTfK5ZDMDkZtn6eL4WlKfFyVJV7lFQvH3iGmQ85DqMTOdxorERO26LHkevR2qsxnHp0x/2UDJPA==
   dependencies:
     deepmerge "^4.0.0"
+    needle "^2.5.2"
+    stream-parser "~0.3.1"
+
+probe-image-size@^7.2.3:
+  version "7.2.3"
+  resolved "https://registry.yarnpkg.com/probe-image-size/-/probe-image-size-7.2.3.tgz#d49c64be540ec8edea538f6f585f65a9b3ab4309"
+  integrity sha512-HubhG4Rb2UH8YtV4ba0Vp5bQ7L78RTONYu/ujmCu5nBI8wGv24s4E9xSKBi0N1MowRpxk76pFCpJtW0KPzOK0w==
+  dependencies:
+    lodash.merge "^4.6.2"
     needle "^2.5.2"
     stream-parser "~0.3.1"
 
@@ -12645,6 +12716,11 @@ sitemap@^7.0.0:
     "@types/sax" "^1.2.1"
     arg "^5.0.0"
     sax "^1.2.4"
+
+slash@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/slash/-/slash-2.0.0.tgz#de552851a1759df3a8f206535442f5ec4ddeab44"
+  integrity sha512-ZYKh3Wh2z1PpEXWr0MpSBZ0V6mZHAQfYevttO11c51CaWjGTaadiKZ+wVt1PbMlDV5qhMFslpZCemhwOK7C89A==
 
 slash@^3.0.0:
   version "3.0.0"

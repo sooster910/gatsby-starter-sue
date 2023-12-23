@@ -1,3 +1,4 @@
+const { resolve } = require('path')
 const siteConfig = require('./siteConfig')
 
 module.exports = {
@@ -24,8 +25,8 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
+        plugins: [`gatsby-remark-copy-linked-files`],
         excerpt_separator: `<!--end-->`,
-        plugins: [],
       },
     },
     {
@@ -47,6 +48,7 @@ module.exports = {
       options: {
         extensions: ['.mdx', '.md'],
         gatsbyRemarkPlugins: [
+          'gatsby-remark-gifs',
           {
             resolve: `gatsby-remark-images`,
             options: {
@@ -104,8 +106,7 @@ module.exports = {
         stripQueryString: true,
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-s3`,
+    //   resolve: `gatsby-plugin-s3`, // {
     //   options: {
     //     bucketName: $AWS_BUCKET_NAME,
     //   },
