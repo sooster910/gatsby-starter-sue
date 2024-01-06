@@ -168,4 +168,59 @@ function solution1(phone_book) {
 }
 ```
 
-### 4. <현재 풀이 진행 중인 문제>
+### 4. 섬 연결하기
+
+이 문제는 MST를 그대로 구현한 문제라고 볼 수 있다.
+
+이 알고리즘을 모른 상태로 생각한 접근법은
+
+- 연결되어 있는 노드간의 인접리스트를 만든다음,
+- min( find(0)+find(1), find(0)+find(2)) 을 통해 매 노드의 연결되어있는 가장 작은 값의 노드를 찾아 연결시키는 방법으로 접근했지만 계속 실패하며 쉽진 않았다.
+- 최소신장 트리를 확인해보니, 접근자체가 달랐다.
+
+- 내 접근의 문제점은
+- 1. 정렬을 하지 않아 모든 노드의 find를 찾기 위해 거치는 가중치의 합을 구하는 부분에서 사이클핸들링이 어려웠음. - 이 부분은 가중치가 작은 순서대로 정렬로 접근.
+- 2. 모든 엣지가 연결되어 있다는 점을 어느 시점에 알 수 있는지에 대한 의문을 해결하지 못했다. 이 부분은 양방향 인접리스트가 아닌 에지 리스트 형태로 유지해야 했었고 (사이클 핸들링이 쉬워짐), 모든 엣지가 연결되어 있다는 점은 트리와 그래프의 차이인 그래프 간선의 개수는 노드 개수보다 -1 개인점을 활용하여 해결.
+
+❌ 시도한 접근법
+
+```javascript
+
+```
+
+✅ 크루스칼 알고리즘 반영 한 소스코드
+
+```javascript
+function solution(n, costs) {
+  var answer = 0
+  const disjoint = Array.from({ length: n }, (_, i) => i)
+  let edgeNum = 0
+  //가중치 기준 내림차순 정렬 (pop()하기 위해 )
+  costs.sort((a, b) => b[2] - a[2])
+
+  while (edgeNum < n - 1) {
+    if (!costs.length) break
+    const [a, b, cost] = costs.pop()
+    // 집합의 대표노드를 찾아 사이클인지 확인
+    const rootA = find(a, disjoint)
+    const rootB = find(b, disjoint)
+    //사이클이 아니라면 union
+    if (rootA !== rootB) {
+      union(rootA, rootB, disjoint)
+      edgeNum += 1
+      answer += cost
+    }
+    // 사이클이라면 continue
+  }
+  return answer
+}
+
+function find(target, disjoint) {
+  if (disjoint[target] === target) return target
+  return (disjoint[target] = find(disjoint[target], disjoint))
+}
+function union(a, b, disjoint) {
+  disjoint[a] = b
+  return
+}
+```
