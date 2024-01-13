@@ -193,10 +193,11 @@ assert.deepEqual(
 
 오늘 스터디장님의 질문이 있었는데 DFS와 BFS는 interchangeable 한가 였다.
 원리를 제대로 이해하고 있지 못하니 답을 할 수 없었다. 공유해 주신 자료 [Stack-based graph traversal ≠ depth first search](https://11011110.github.io/blog/2013/12/17/stack-based-graph-traversal.html)을 다시 읽어 보았다.
+원문의 의도와 제 번역과 다를 수 있습니다. 이 부분에 대해 다른 생각이나 틀린 부분이 있다면 알려주시면 감사하겠습니다.
 
 처음 나의 생각은 BFS의 큐 방식을 스택으로 바꿔 구현하면 스택으로 부터 나온 노드의 인접 노드들 중 방문하지 않은 노드들을 스택에 넣고 다음 순회에서 최근 노드를 가져오기를 반복하면 DFS로 가능하지 않을까가 내 생각이었다.
 
-이 글에선 내 생각이 단순해서 틀렸음을 반증해준다.
+이 글에선 내 생각이 틀렸음을 반증해준다.
 이 코드는 bfs의 queue를 stack으로 변경한 코드 이다. stack으로 변경되었으니 얼핏 dfs가 되지 않을까 하지만 아래 이미지처럼 input이 주어졌을 때, 실제 dfs코드는 s-a-b-e-d-c-f-g-h-e-g 이런 방식으로 가야 하는데,
 _stack traversal 함수를 적용하면 dfs도 bfs도 아닌 방식으로 탐색이 된다._
 
