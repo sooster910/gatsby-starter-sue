@@ -189,6 +189,19 @@ assert.deepEqual(
 )
 ```
 
+### DFS와 BFS의 interchangeable 한가?
+
+오늘 스터디장님의 질문이 있었는데 DFS와 BFS는 interchangeable 한가 였다.
+원리를 제대로 이해하고 있지 못하니 답을 할 수 없었다. 공유해 주신 자료 [Stack-based graph traversal ≠ depth first search](https://11011110.github.io/blog/2013/12/17/stack-based-graph-traversal.html)을 다시 읽어 보았다.
+
+처음 나의 생각은 BFS의 큐 방식을 스택으로 바꿔 구현하면 스택으로 부터 나온 노드의 인접 노드들 중 방문하지 않은 노드들을 스택에 넣고 다음 순회에서 최근 노드를 가져오기를 반복하면 DFS로 가능하지 않을까가 내 생각이었다.
+
+이 글에선 내 생각이 단순해서 틀렸음을 반증해준다.
+이 코드는 bfs의 queue를 stack으로 변경한 코드 이다. stack으로 변경되었으니 얼핏 dfs가 되지 않을까 하지만 아래 이미지처럼 input이 주어졌을 때, 실제 dfs코드는 s-a-b-e-d-c-f-g-h-e-g 이런 방식으로 가야 하는데,
+_stack traversal 함수를 적용하면 dfs도 bfs도 아닌 방식으로 탐색이 된다._
+
+원글에서 트리나 AI research context에서 중복 검사를 하지 않는 경우는 실제 DFS 탐색을 한다고 한다. 하지만 일반적 방문 여부를 가진 그래프에서는 DFS 탐색이 아니라고 한다. 이렇게 되는 이유가 코드에서 처럼 인접 노드를 스택에 먼저 넣다 보니, _DFS에서 말하는 부모-자식의 관계로 끝까지 탐색하는 과정이 이루어 지지 않는다_.
+
 ```python
 def stack_traversal(G,s):
     visited = {s}
@@ -202,6 +215,41 @@ def stack_traversal(G,s):
 ```
 
 <img src="../images/stack-traversal.png"/>
+
+이에 대한 스택을 이용한 방법으로 DFS를 구현하기 위해선, 현재 노드에서 인접 노드를 스택에 넣는 것이 아닌, 인접 노드를 방문 하고 나서 넣는 방식으로 변경 하여 DFS 를 구현한다.
+Kleinberg and Tardos's Algorithm Design 을 적용한 방식이다.
+
+```python
+def dfs2(G,s):
+    visited = set()
+    stack = [s]
+    while stack:
+        v = stack.pop()
+        if v not in visited:
+            visited.add(v)
+            for w in G[v]:
+                stack.append(w)
+```
+
+iterator를 이용한 다른 방법도 제시한다.
+
+```python
+
+def dfs(G,s):
+    visited = {s}
+    stack = [iter(G[s])]
+    while stack:
+        try:
+            w = stack[-1].next()
+            if w not in visited:
+                visited.add(w)
+                stack.append(iter(G[w]))
+        except StopIteration:
+            stack.pop()
+
+```
+
+위의 두가지 방법은 서로 순회 순서는 다르지만 DFS 구현에 있어선 충분하며, 첫번째 방식이 중복으로 인해 더 많은 공간을 차지 하지만 dfs에선 둘다 유효한 탐색이다.
 
 ## 그래프 최단 경로 구하기
 
