@@ -1,19 +1,17 @@
 ---
-title: Tree
-slug: AWS Lambda, playwright, Slack을 활용한 배송정보 트래커 개발기
+title: AWS Lambda, playwright, Slack을 활용한 배송정보 트래커 개발기
+slug: aws-lambda-slackbot-tracker
 author: Hyunsu Joo
 published: 2023-08-01
 lastUpdated: 2023-08-01
 draft: false
-image: ./algorithm-tree.png
+image: ./slackbot.jpeg
 imageAlt: algorithm-tree
 tags: ['AWS Lambda', 'Playwright']
 ---
 
-# AWS Lambda, playwright을 활용한 슬랙 챗봇 개발기
-
 소미에는 배송정보 요청하기라는 기능이 있다. 아직까지 서비스에선 배송정보를 미리 알려주지 않고 배송정보요청을 원하는 유저에게만 기능을 제공하고 있다.
-![Alt text](image-1.png)
+![Alt text](../images/aws-lambda-slackbot-tracker-admin.png)
 기능이 고도화 되진 않아 어드민이 요청 처리를 하기 위해선 일련의 수동작업을 거치게 된다. 1.배송정보 요청 탭에 요청건에 대한 이름, 주문한 커머스 등의 정보를 확인하고,
 
 2.네이버로 로그인을 한다
