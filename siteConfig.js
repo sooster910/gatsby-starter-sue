@@ -8,7 +8,7 @@ module.exports = {
   author: {
     name: `Hyunsu.J`,
     greeting: `Hi, I'm Hyunsu`,
-    summary: `안녕하세요. 3년차 프론트엔드 개발자 주현수입니다.\n
+    summary: `안녕하세요. 프론트엔드 개발자 주현수입니다.\n
     개발을 통해 사용자들에게 풍부하고 가치 있는 경험을 제공하는 일에 뿌듯함을 느낍니다.\n
     옵시디언(Obsidian)에서 현재 블로그로 하나씩 글을 옮기는 과정에 있어요. ☕️ 👩‍💻 ⛷`,
   },
