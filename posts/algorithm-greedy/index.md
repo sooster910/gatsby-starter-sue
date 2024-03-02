@@ -5,7 +5,7 @@ author: Hyunsu Joo
 published: 2024-03-02
 lastUpdated: 2024-03-02
 draft: false
-image: ./algorithm-greedy.png
+image: ./algorithm_greedy.png
 imageAlt: algorithm-greedy
 tags: ['Algorithm Study', 'algorithm', 'data-structure']
 ---
@@ -209,4 +209,4 @@ console.log(solution(6, [1, 3, 2, 5, 4, 5, 2, 3])) //3
 ```
 
 #### 기지국 설치 
-(진행중)
+
