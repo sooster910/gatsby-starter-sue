@@ -5,7 +5,7 @@ author: Hyunsu Joo
 published: 2024-03-20
 lastUpdated: 2024-03-20
 draft: false
-image: ./js-closure.png
+image: ./js_closure.png
 imageAlt: js-closure
 tags: ['JavaScript']
 ---
@@ -46,9 +46,10 @@ func1() 내에서 str0을 가져 오는 방법은
 없으면 global scope로 올라가서 찾는다. 왜 local str1이 local scope에 저장되어 있는지 모른다면 let, var, const 의 유효범위에 대한 선행 지식이 필요하다.
 script scope에 str0이 있기 때문에 str0을 찾을 수 있다.
 
-
+하지만 func1()에서 str2값을 참조할 수 없다. 이유는 
 
 func2()를  func1()내로 옮겨 본다.
+
 
 
 func2()를 func1()에서 호출 했기 때문에 str1을 참조 할 수 있을 것 같지만, func2()라는 함수스코프를 가진 새로운 유효범위가 생성된 순간, func2()의
