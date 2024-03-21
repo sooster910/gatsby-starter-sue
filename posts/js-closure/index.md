@@ -107,7 +107,7 @@ func1()
 ```
 scope에 closure가 새로 생성이 되었다. 즉 참조할 수 없었던 str1을 func2함수를 정의한 위치를 func1() 내로 변경하니 참조할 수 있게 되었다. 
 
-![img.png](closure_debugger.png)
+![img.png](../images/closure_2.png)
 
 다음은 인텔리제이에서 클로저를 디버깅한 화면이다. `console.dir(function2)` 에서 `[[Scopes]]` 내 closure로 str1을 참조 하고 있다. 
 
