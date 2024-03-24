@@ -5,50 +5,31 @@ author: Hyunsu Joo
 published: 2024-03-24
 lastUpdated: 2024-03-24
 draft: false
-image: ./lootcode_846.png
+image: ./leetcode_846.png
 imageAlt: this
 tags: [algorithm, leetcode, python]
 ---
-
-# Leetcode 846. Hand of Straights
-(문제 출처 : 846. Hand of Straights)[https://leetcode.com/problems/hand-of-straights/]
-
-```text
-846. Hand of Straights
-Solved
-Medium
-Topics
-Companies
-Alice has some number of cards and she wants to rearrange the cards into groups so that each group is of size groupSize, and consists of groupSize consecutive cards.
-
-Given an integer array hand where hand[i] is the value written on the ith card and an integer groupSize, return true if she can rearrange the cards, or false otherwise.
-
- 
-
-Example 1:
-
-Input: hand = [1,2,3,6,2,3,4,7,8], groupSize = 3
-Output: true
-Explanation: Alice's hand can be rearranged as [1,2,3],[2,3,4],[6,7,8]
-Example 2:
-
-Input: hand = [1,2,3,4,5], groupSize = 4
-Output: false
-Explanation: Alice's hand can not be rearranged into groups of 4.
-
- 
-
-Constraints:
-
-1 <= hand.length <= 104
-0 <= hand[i] <= 109
-1 <= groupSize <= hand.length
- 
-
-Note: This question is the same as 1296: https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers/
+[문제 출처 : 846. Hand of Straights](https://leetcode.com/problems/hand-of-straights/)
 
 
-```
+## 문제
+
+>Alice has some number of cards and she wants to rearrange the cards into groups so that each group is of size groupSize, and consists of groupSize consecutive cards.  
+Given an integer array hand where hand[i] is the value written on the ith card and an integer groupSize, return true if she can rearrange the cards, or false otherwise.  
+**Example 1:**  
+>Input: hand = [1,2,3,6,2,3,4,7,8], groupSize = 3  
+Output: true  
+Explanation: Alice's hand can be rearranged as [1,2,3],[2,3,4],[6,7,8]  
+>**Example 2:**  
+>Input: hand = [1,2,3,4,5], groupSize = 4  
+Output: false  
+Explanation: Alice's hand can not be rearranged into groups of 4.  
+>**Constraints:**  
+1 <= hand.length <= 104  
+0 <= hand[i] <= 109  
+1 <= groupSize <= hand.length  
+
+## 문제 접근법
 
 이 문제에서 꼭 지켜야 할 두가지 가 있다. 
 1. 하나의 카드 그룹에 groupSize 만큼 카드가 있어야 하고, 
@@ -63,6 +44,8 @@ Note: This question is the same as 1296: https://leetcode.com/problems/divide-ar
 만약 없다면, False를 반환하고, 있다면 그 숫자를 빼주고, 다음 숫자를 확인한다. 이 과정을 반복하면서 모든 카드를 그룹핑 할 수 있는지 확인한다.
 
 시간복잡도는 O(nlogn)이다. (정렬 한 복잡도가 가장 크다.)
+
+## 소스 코드
 ```python
 
 # 문제의 조건에서 모든 원소들을 사용해야 한다.
@@ -102,3 +85,5 @@ Note: This question is the same as 1296: https://leetcode.com/problems/divide-ar
                     else:
                         return False
         return True
+
+```
