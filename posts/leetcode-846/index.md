@@ -3,7 +3,7 @@ title: leetcode 846. Hand of Straights
 slug: leetcode-846-hand-of-straights
 author: Hyunsu Joo
 published: 2024-03-24
-lastUpdated: 2023-03-24
+lastUpdated: 2024-03-24
 draft: false
 image: ./lootcode_846.png
 imageAlt: this
