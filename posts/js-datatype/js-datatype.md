@@ -2,7 +2,7 @@
 title: 기본형 데이터와 참조형 데이터를 알아야 하는 이유 
 slug: js-datatype
 author: Hyunsu Joo
-published: 2024-03-23
+published: true
 lastUpdated: 2024-03-23
 draft: false
 image: ./js-data-type.png
