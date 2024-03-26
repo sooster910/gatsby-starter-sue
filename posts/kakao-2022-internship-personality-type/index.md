@@ -92,6 +92,7 @@ survey	                        choices	        result
 ```
 ## 문제 접근법
 
+### 1. 최초 접근 방법 
 주어진 survey와 choice는 1:1 대응 관계이다 . "AN" 이라는 survey가 주어지면, choice는 5가 주어진다.
 5 는 choices에 따르면 약간 동의를 의미한다. 그런데 이 동의가 성격 유형 A 를 의미하는지 N을 의미하는지는 
 의미하는지는 survey가 "AN"인지 "NA"인지에 따라 달라진다. 
@@ -145,4 +146,42 @@ def solution(survey, choices):
 
 
 
+```
+
+### 2. 파이썬의 자료구료를 좀 더 활용한 접근법
+
+총 16개의 타입에 대한 점수를 저장하는 딕셔너리를 만드는건 쉬운데, 그 후 유형 별로 2개타입씩 묶어서 
+비교하는 방법에 대해 내가 최초 접근한 방법에서는 오히려 로직을 더 복잡하게 만든다
+
+`zip` 을 이용하여 4가지 씩 묶어 두 그룹으로 나누어 비교하는 방법으로 접근하면 더 간단하게 풀 수 있다. 
+
+![images/kakao-2022-internship-personality-type-1](../images/kakao-2022-internship-personality-type-1.png)
+
+`RFJA`와 `TFMN` 으로 나누어  `zip`을 이용하여 묶어 준후 순회하면, 
+순회할 때 R의 점수와 T의 점수를 비교하여 높은 점수를 가진 유형을 선택하면 된다.
+
+
+
+```python
+from collections import defaultdict
+def solution(survey, choices):
+    answer = ''
+    result_mapper = defaultdict(int)
+    for i in range(len(survey)):
+        if(choices[i] !=4 and choices[i] >4):
+            #동의  
+            result_mapper[survey[i][1]]+=choices[i] - 4
+        
+        if(choices[i] !=4 and choices[i]<4):
+            #비동의  
+            result_mapper[survey[i][0]]+= 4-choices[i]
+    
+    #높은 점수 별로 묶기 
+    RCJA, TFMN = ["R","C","J","A"],["T","F","M","N"] 
+    for type_a, type_b in zip(RCJA, TFMN):
+        if result_mapper[type_a]>=result_mapper[type_b]:
+            answer+=type_a
+        else: 
+            answer+=type_b
+    return answer
 ```
