@@ -42,7 +42,7 @@ const RelayQuery = graphql`
 export default Relay;
 ```
 
-에러 메시지에 명시된 ReactDom Server 많이 들어봤지만,  어떤 일을 할까요? 
+에러 메시지에 명시된 ReactDom Server 많이 들어봤지만, 어떤 일을 할까요? 
 
 [Server React DOM APIs – React](https://react.dev/reference/react-dom/server)
 
@@ -54,15 +54,15 @@ ReactDomServer는 공식문서에서 설명한대로 서버 측 렌더링을 수
 
 ReactDOMServer는 누가 호출 하는 걸까요?
 
-에러를 따라가 보았습니다.
+에러를 추적해 보았습니다.
 
-react-dom 모듈의 `ReactDOMServerRenderer`에서 호출 하고 있네요!
+react-dom 모듈의 `ReactDOMServerRenderer`에서 호출 하고 있습니다.
 
 ![Untitled](../images/nextjs-relay-suspense-2.png)
 
 ![Untitled](../images/nextjs-relay-suspense-3.png)
 
-그런데 알고보니 여러군데에서 트리거되고 있네요.  이 에러가 정확히 어느 부분에서 트리거를 하는지 예측 할 수 없어 이렇게 1111, 2222, 3333 으로 숫자를 넣어두고 다시 실행 했습니다.
+그런데 여러군데에서 트리거 되고 있습니다. 이 에러가 정확히 어느 부분에서 트리거를 하는지 예측 할 수 없어 이렇게 1111, 2222, 3333 으로 숫자를 넣어두고 다시 실행 했습니다.
 
 ![Untitled](../images/nextjs-relay-suspense-4.png)
 
@@ -74,9 +74,9 @@ react-dom 모듈의 `ReactDOMServerRenderer`에서 호출 하고 있네요!
 
 ![Untitled](../images/nextjs-relay-suspense-6.png)
 
-잘모르지만 그래도 해석을 해보자면 this.render()함수 호출시 try.catch 문에 의해 에러가 감지되었음을 알수있습니다. 제가 마주한 에러는 enableSuspenseServerRenderer가 false일 때  그리고 !false 즉 true일 때 이 에러를 냅니다. 
+제가 이해한 대로 해석을 해보자면 `this.render()`함수 호출시 try.catch 문에 의해 에러가 감지되었음을 알 수 있습니다. 제가 마주한 에러는 `enableSuspenseServerRenderer`가 `false`일 때  그리고 `!false` 즉 `true`일 때 이 에러를 냅니다. 
 
-그럼 단서는 enableSuspenseServerRenderer 이 false라서 생긴 거라고 추측할 수 있겠네요!
+**그럼 단서는 enableSuspenseServerRenderer 이 `false`라서 생긴 거라고 추측할 수 있겠네요!**
 
 `enableSuspenseServerRenderer` 이 친구는 어디서 어떻게 값이 변경될까요?
 
@@ -92,10 +92,10 @@ react-dom 모듈의 `ReactDOMServerRenderer`에서 호출 하고 있네요!
 
 문제를 다시 정의해보겠습니다.
 
-- 저는 코드는 현재 serverside rendering입니다. 왜냐하면 아무런 next api 없이 그냥 함수호출 방식으로 작성하게 되면 next.js는 default로 serverside rendering으로 동작합니다.
-- 그리고 제 코드엔 suspense를 사용하지 않았습니다.
+- 현재 serverside rendering입니다. 왜냐하면 아무런 next api 없이 그냥 함수호출 방식으로 작성하게 되면 next.js는 default로 serverside rendering으로 동작합니다.
+- 그리고 소스 코드엔 suspense를 사용하지 않았습니다.
 
-그런데 **제 코드엔 Relay로 데이터를 페칭해오는 useLazyLoadQuery 함수를 사용하고 있습니다. 그리고 Relay공식문서에서 찾은건 Relay는 내부적으로  suspense를 사용한다 입니다.**
+그런데 **소스 코드엔 Relay로 데이터를 페칭해오는 useLazyLoadQuery 함수를 사용하고 있습니다. 그리고 Relay공식문서에서 찾은건 Relay는 내부적으로  suspense를 사용한다 입니다.**
 
  ****
 
@@ -111,7 +111,7 @@ Suspense를 지원하지 않는다뇨? 이렇게 next/dynamic 으로 suspense사
 
 ![Untitled](../images/nextjs-relay-suspense-8.png)
 
-**그럼 Suspense를 사용하면 되겠다고 생각 할 수 있습니다.  그런데 Next.js의 Suspense 는 리액트 기반의 Suspense이므로,  버전 별로 어디까지 지원해주는지를 확인해야합니다.**
+**그럼 Suspense를 사용하면 되겠다고 생각 할 수 있습니다. 그런데 Next.js의 Suspense 는 리액트 기반의 Suspense이므로, 버전 별로 어디까지 지원해주는지를 확인해야합니다.**
 
 **React17에서는 Suspense가 공식적으로 지원되지 않지만 Next 12버전에서 React17의 suspense를 사용하기 위해서는 CSR 전략에서만 가능합니다.** 
 
