@@ -4,7 +4,7 @@ slug: js-datatype
 author: Hyunsu Joo
 published: 2024-01-25
 lastUpdated: 2024-01-25
-draft: true
+draft: false
 image: ./nextjs-relay-suspense-cover.png
 imageAlt: peep
 tags: ["JavaScript", "데이터 타입 메모리"]
