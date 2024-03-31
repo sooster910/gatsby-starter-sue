@@ -1,11 +1,11 @@
 ---
-title: 2022 KAKAO TECH INTERNSHIP 두 큐 합 같게 만들
-slug: kakao-2022-personality-type.png
+title: 2022 KAKAO TECH INTERNSHIP 두 큐 합 같게 만들기
+slug: kakao-2022-two-queue
 author: Hyunsu Joo
 published: 2024-03-30
 lastUpdated: 2024-03-30
 draft: false
-image: ./kakao-2022-personality-type.png
+image: ./kakao-2022-queue.png
 imageAlt: this
 tags: [algorithm, kakao, python]
 
