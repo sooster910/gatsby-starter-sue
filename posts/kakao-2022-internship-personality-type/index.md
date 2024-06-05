@@ -1,5 +1,5 @@
 ---
-title: 99클럽 코테 스터디 0일차 - 2022 KAKAO TECH INTERNSHIP 성격 유형 검사
+title: 2022 KAKAO TECH INTERNSHIP 성격 유형 검사
 slug: kakao-2022-personality-type.png
 author: Hyunsu Joo
 published: 2024-03-25

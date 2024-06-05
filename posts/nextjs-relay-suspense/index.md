@@ -13,7 +13,7 @@ tags: ["JavaScript", "데이터 타입 메모리"]
 
 ## 이슈 : ReactDOMServer does not yet support Suspense
 
-![alt text](../images/nextjs-relay-suspense-1.png)
+![issue1](../images/nextjs-relay-suspense-1.png)
 
 이렇게 Next.js에서 에러가 나오고 에러가 발생된 근원지를 알려준다면, **디버깅의 기법중 역추적에 의한 디버깅(Debugging by backtracking)** 으로  가는 것이 해결할 확률이 가장 높습니다.
 
