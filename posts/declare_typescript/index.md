@@ -59,7 +59,7 @@ test('renders learn react link', () => {
 
 
 먼저 자동완성으로 설정할 메서드들을 객체에 담아둡니다. 
-```typescript
+```tsx
 
 export const testUtils = {
     render,
@@ -73,7 +73,7 @@ export const testUtils = {
 
 
 
-```typescript
+```tsx
 //global.d.ts
 import { testUtils } from '@/types/test-utils'
 
@@ -95,7 +95,7 @@ jest.setup 파일에서 글로벌로 선언해둔  _t 변수를 런타임에 사
 > **왜 jest.setup 파일에서 _t 를 다시 할당하죠? ✅**   
 >`. declare global` 구문을 사용하여 TypeScript에 전역 변수의 존재와 타입을 알리는 것만으로는 실제 런타임 환경에서 전역 변수가 정의되지 않습니다. 따라서, setup.ts와 같은 초기화 파일에서 실제로 전역 변수를 설정해줘야 합니다.
 
-```typescript
+```tsx
 
 //jest.setup.ts
 

@@ -1,12 +1,12 @@
 ---
 title: 클로저를 제대로 알지 못해 문제 정의를 잘못한 적이 있다.
-slug: js_closure.png
+slug: js_closure
 author: Hyunsu Joo
 published: 2024-03-20
 lastUpdated: 2024-03-20
 draft: false
-image: ./js_closure.png
-imageAlt: js_closure.png
+image: ./js_closure.jpg
+imageAlt: js_closure
 tags: ['JavaScript']
 ---
 
